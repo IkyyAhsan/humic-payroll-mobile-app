@@ -1,0 +1,37 @@
+name: humic_payroll_mobile_app
+version: 1.0.0+1
+publish_to: none
+description: A HUMiC Payroll Mobile Application.
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  carousel_slider: ^5.0.0
+  cupertino_icons: ^1.0.8
+  fluentui_system_icons: ^1.1.259
+  flutter:
+    sdk: flutter
+  get: ^4.6.6
+  get_cli: ^1.8.1
+  google_fonts: ^6.2.1
+  iconify: ^0.0.1
+  rename: ^3.0.2
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/humic-engineering.png"
+
+flutter:
+  uses-material-design: true
+
+  #--------------- LOCAL ASSETS ------------------#
+  assets:
+    - assets/icons/
+    - assets/images/
