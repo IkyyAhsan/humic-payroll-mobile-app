@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/text_strings.dart';
 
 class HumicButton extends StatelessWidget {
   const HumicButton({
-    super.key,
+    super.key, 
+    required this.onPressed, 
+    required this.buttonTitle,
   });
+  final VoidCallback onPressed;
+  final String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,9 @@ class HumicButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: () => Get.offAll(() => const BottomNavigationBarView()), 
+        onPressed: onPressed, 
         child: Text(
-          HumicTexts.humicLoginButton,
+          buttonTitle,
           style: GoogleFonts.plusJakartaSans(
             textStyle: const TextStyle(
               fontSize: 16, 

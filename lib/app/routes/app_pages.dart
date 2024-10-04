@@ -14,13 +14,15 @@ import '../modules/more_screen/bindings/more_screen_binding.dart';
 import '../modules/more_screen/views/more_screen_view.dart';
 import '../modules/register_screen/bindings/register_screen_binding.dart';
 import '../modules/register_screen/views/register_screen_view.dart';
+import '../modules/splash_screen/bindings/splash_screen_binding.dart';
+import '../modules/splash_screen/views/splash_screen_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_SCREEN;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -30,7 +32,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOGIN_SCREEN,
-      page: () => LoginScreenView(),
+      page: () => const LoginScreenView(),
       binding: LoginScreenBinding(),
     ),
     GetPage(
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.MORE_SCREEN,
       page: () => const MoreScreenView(),
       binding: MoreScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_SCREEN,
+      page: () => const SplashScreenView(),
+      binding: SplashScreenBinding(),
     ),
   ];
 }

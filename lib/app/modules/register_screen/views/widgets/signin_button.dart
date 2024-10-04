@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/register_screen/views/register_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/login_screen/views/login_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/text_strings.dart';
 
-class HumicSignupButton extends StatelessWidget {
-  const HumicSignupButton({
-    super.key,
-  });
+class HumicSigninButton extends StatelessWidget {
+  const HumicSigninButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class HumicSignupButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          HumicTexts.humicRegisterQuestion,
+          HumicTexts.humicLoginQuestion,
           style: GoogleFonts.plusJakartaSans(
             textStyle: const TextStyle(
               fontSize: 14,
@@ -26,9 +24,9 @@ class HumicSignupButton extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () => Get.to(() => const RegisterScreenView()), 
+          onPressed: () => Get.to(() => const LoginScreenView()), 
           child: Text(
-            HumicTexts.humicRegisterTextButton,
+            HumicTexts.humicLoginTextButton,
             style: GoogleFonts.plusJakartaSans(
               textStyle: const TextStyle(
                 fontSize: 14,

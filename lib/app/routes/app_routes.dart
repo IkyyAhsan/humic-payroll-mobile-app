@@ -10,6 +10,7 @@ abstract class Routes {
   static const INCOME_SCREEN = _Paths.INCOME_SCREEN;
   static const EXPENSES_SCREEN = _Paths.EXPENSES_SCREEN;
   static const MORE_SCREEN = _Paths.MORE_SCREEN;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const INCOME_SCREEN = '/income-screen';
   static const EXPENSES_SCREEN = '/expenses-screen';
   static const MORE_SCREEN = '/more-screen';
+  static const SPLASH_SCREEN = '/splash-screen';
 }
