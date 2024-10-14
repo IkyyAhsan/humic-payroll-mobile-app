@@ -11,6 +11,13 @@ abstract class Routes {
   static const EXPENSES_SCREEN = _Paths.EXPENSES_SCREEN;
   static const MORE_SCREEN = _Paths.MORE_SCREEN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
+  static const EXPORT_SCREEN = _Paths.EXPORT_SCREEN;
+  static const APPROVAL_SCREEN = _Paths.APPROVAL_SCREEN;
+  static const TRANSACTION_DETAILS_SCREEN = _Paths.TRANSACTION_DETAILS_SCREEN;
+  static const PROFILE_SCREEN = _Paths.PROFILE_SCREEN;
+  static const FILTER_SCREEN = _Paths.FILTER_SCREEN;
+  static const ADD_INCOME_SCREEN = _Paths.ADD_INCOME_SCREEN;
+  static const ADD_EXPENSES_SCREEN = _Paths.ADD_EXPENSES_SCREEN;
 }
 
 abstract class _Paths {
@@ -23,4 +30,11 @@ abstract class _Paths {
   static const EXPENSES_SCREEN = '/expenses-screen';
   static const MORE_SCREEN = '/more-screen';
   static const SPLASH_SCREEN = '/splash-screen';
+  static const EXPORT_SCREEN = '/export-screen';
+  static const APPROVAL_SCREEN = '/approval-screen';
+  static const TRANSACTION_DETAILS_SCREEN = '/transaction-details-screen';
+  static const PROFILE_SCREEN = '/profile-screen';
+  static const FILTER_SCREEN = '/filter-screen';
+  static const ADD_INCOME_SCREEN = '/add-income-screen';
+  static const ADD_EXPENSES_SCREEN = '/add-expenses-screen';
 }

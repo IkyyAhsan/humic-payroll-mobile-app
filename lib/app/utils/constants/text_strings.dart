@@ -7,6 +7,7 @@ class HumicTexts{
   static const String humicRegisterTextButton = "Sign Up";
   static const String humicRegisterButton = "Register";
   static const String humicLoginButton = "Log In";
+  static const String humicNameTitle = "Name";
   static const String humicEmailTitle = "Email Address";
   static const String humicPasswordTitle = "Password";
   static const String humicConfirmPasswordTitle = "Re-type Password";

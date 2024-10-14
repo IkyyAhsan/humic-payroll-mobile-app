@@ -25,7 +25,7 @@ class HumicLoginForm extends StatelessWidget {
           TextFormField(
             controller: loginController.emailController,
             decoration: InputDecoration(
-              prefixIcon: const Icon(FluentIcons.person_20_regular),
+              prefixIcon: const Icon(FluentIcons.person_24_filled),
               hintText: HumicTexts.humicEmailTitle,
               hintStyle: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
@@ -52,7 +52,7 @@ class HumicLoginForm extends StatelessWidget {
               controller: loginController.passwordController,
               obscureText: loginController.hidePassword.value,
               decoration: InputDecoration(
-                prefixIcon: const Icon(FluentIcons.lock_closed_20_regular),
+                prefixIcon: const Icon(FluentIcons.lock_closed_24_filled),
                 hintText: HumicTexts.humicPasswordTitle,
                 hintStyle: GoogleFonts.plusJakartaSans(
                   textStyle: const TextStyle(
@@ -71,7 +71,7 @@ class HumicLoginForm extends StatelessWidget {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () => loginController.hidePassword.value = !loginController.hidePassword.value, 
-                  icon: Icon(loginController.hidePassword.value ? FluentIcons.eye_off_20_regular : FluentIcons.eye_20_regular)
+                  icon: Icon(loginController.hidePassword.value ? FluentIcons.eye_off_24_regular : FluentIcons.eye_24_regular)
                 )
               ),
             ),

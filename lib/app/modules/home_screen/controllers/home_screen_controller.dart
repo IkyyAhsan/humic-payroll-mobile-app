@@ -1,23 +1,19 @@
 import 'package:get/get.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/dashboard.dart';
+import 'package:humic_payroll_mobile_app/app/services/dashboard_services.dart';
 
 class HomeScreenController extends GetxController {
-  //TODO: Implement HomeScreenController
+  Dashboard? dashboardData;
+  bool isLoading = true;
+  void getDashboardData() async {
+    dashboardData = await DashboardServices().getDashboardData();
+    isLoading = false;
+    update();
+  }
 
-  final count = 0.obs;
   @override
   void onInit() {
+    getDashboardData();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

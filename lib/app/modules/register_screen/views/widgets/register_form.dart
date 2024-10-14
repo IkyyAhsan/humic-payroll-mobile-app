@@ -23,7 +23,7 @@ class HumicRegisterForm extends StatelessWidget {
           TextFormField(
             controller: registerController.emailController,
             decoration: InputDecoration(
-              prefixIcon: const Icon(FluentIcons.person_20_regular),
+              prefixIcon: const Icon(FluentIcons.person_24_filled),
               hintText: HumicTexts.humicEmailTitle,
               hintStyle: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
@@ -50,7 +50,7 @@ class HumicRegisterForm extends StatelessWidget {
               controller: registerController.passwordController,
               obscureText: registerController.hidePassword.value,
               decoration: InputDecoration(
-                prefixIcon: const Icon(FluentIcons.lock_closed_20_regular),
+                prefixIcon: const Icon(FluentIcons.lock_closed_24_filled),
                 hintText: HumicTexts.humicPasswordTitle,
                 hintStyle: GoogleFonts.plusJakartaSans(
                   textStyle: const TextStyle(
@@ -69,7 +69,7 @@ class HumicRegisterForm extends StatelessWidget {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () => registerController.hidePassword.value = !registerController.hidePassword.value, 
-                  icon: Icon(registerController.hidePassword.value ? FluentIcons.eye_off_20_regular : FluentIcons.eye_20_regular)
+                  icon: Icon(registerController.hidePassword.value ? FluentIcons.eye_off_24_regular : FluentIcons.eye_24_regular)
                 )
               ),
             ),
@@ -82,7 +82,7 @@ class HumicRegisterForm extends StatelessWidget {
               controller: registerController.confirmPasswordController,
               obscureText: registerController.hideConfirmPassword.value,
               decoration: InputDecoration(
-                prefixIcon: const Icon(FluentIcons.lock_closed_20_regular),
+                prefixIcon: const Icon(FluentIcons.lock_closed_24_filled),
                 hintText: HumicTexts.humicConfirmPasswordTitle,
                 hintStyle: GoogleFonts.plusJakartaSans(
                   textStyle: const TextStyle(
@@ -101,7 +101,7 @@ class HumicRegisterForm extends StatelessWidget {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () => registerController.hideConfirmPassword.value = !registerController.hideConfirmPassword.value, 
-                  icon: Icon(registerController.hideConfirmPassword.value ? FluentIcons.eye_off_20_regular : FluentIcons.eye_20_regular)
+                  icon: Icon(registerController.hideConfirmPassword.value ? FluentIcons.eye_off_24_regular : FluentIcons.eye_24_regular)
                 )
               ),
             ),
