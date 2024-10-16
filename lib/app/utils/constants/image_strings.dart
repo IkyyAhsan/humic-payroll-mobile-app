@@ -19,4 +19,10 @@ class HumicImages {
 
   // Animation
   static const String humicLogoutAnimation = "assets/animations/logout.json";
+  static const String humicApproveAnimation =
+      "assets/animations/approve-animation.json";
+  static const String humicDeclineAnimation =
+      "assets/animations/decline-animation.json";
+  static const String humicSuccessfullChangePassword =
+      "assets/animations/successfull-change-password.json";
 }

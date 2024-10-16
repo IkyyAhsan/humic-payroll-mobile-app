@@ -18,26 +18,24 @@ class HumicSignupButton extends StatelessWidget {
         Text(
           HumicTexts.humicRegisterQuestion,
           style: GoogleFonts.plusJakartaSans(
-            textStyle: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: HumiColors.humicTransparencyColor,
-            )
-          ),
+              textStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: HumiColors.humicTransparencyColor,
+          )),
         ),
         TextButton(
-          onPressed: () => Get.to(() => const RegisterScreenView()), 
+          onPressed: () => Get.offAll(() => const RegisterScreenView()),
           child: Text(
             HumicTexts.humicRegisterTextButton,
             style: GoogleFonts.plusJakartaSans(
               textStyle: const TextStyle(
-                fontSize: 14,
-                decoration: TextDecoration.underline,
-                decorationColor: HumiColors.humicPrimaryColor,
-                decorationThickness: 2,
-                fontWeight: FontWeight.w500, 
-                color: HumiColors.humicPrimaryColor
-              ),
+                  fontSize: 14,
+                  decoration: TextDecoration.underline,
+                  decorationColor: HumiColors.humicPrimaryColor,
+                  decorationThickness: 2,
+                  fontWeight: FontWeight.w500,
+                  color: HumiColors.humicPrimaryColor),
             ),
           ),
         ),

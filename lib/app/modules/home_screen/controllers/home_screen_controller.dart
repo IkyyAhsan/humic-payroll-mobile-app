@@ -7,6 +7,7 @@ class HomeScreenController extends GetxController {
   bool isLoading = true;
   void getDashboardData() async {
     dashboardData = await DashboardServices().getDashboardData();
+    print(dashboardData);
     isLoading = false;
     update();
   }
@@ -16,4 +17,6 @@ class HomeScreenController extends GetxController {
     getDashboardData();
     super.onInit();
   }
+
+  //Popup Filter
 }

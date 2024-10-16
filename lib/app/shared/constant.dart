@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-var uri = "https://payroll.humicprototyping.com/";
+var uri = "https://payroll.humicprototyping.com/api";
 BaseOptions options = BaseOptions(
     baseUrl: uri,
 // ignore: missing_return

@@ -36,7 +36,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.MORE_SCREEN;
+  static const INITIAL = Routes.LOGIN_SCREEN;
 
   static final routes = [
     GetPage(

@@ -2,293 +2,374 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/modules/login_screen/views/login_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/profile_screen/views/widgets/primary_header_container.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/text_strings.dart';
+import 'package:lottie/lottie.dart';
 import '../controllers/profile_screen_controller.dart';
 
 class ProfileScreenView extends GetView<ProfileScreenController> {
   const ProfileScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    final profileController = Get.put(ProfileScreenController());
-    final GlobalKey<FormState> profileFormKey = GlobalKey<FormState>();
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        children: [
-          HUMICPrimaryHeaderContainer(
-            child: Column(
-              children: [
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                  onPressed: () => Get.back(),
-                                  icon: const Icon(
-                                    FluentIcons.ios_arrow_ltr_24_regular,
-                                    color: HumiColors.humicWhiteColor,
-                                  )),
-                              horizontalSpace(16),
-                              Text(
-                                "Profile",
-                                style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: HumiColors.humicWhiteColor)),
-                              )
-                            ],
-                          ),
-                          verticalSpace(40),
-                          Center(
-                            child: CircleAvatar(
-                              radius: 100,
-                              backgroundImage: const AssetImage(
-                                  HumicImages.humicProfileImage),
-                              backgroundColor: HumiColors.humicWhiteColor,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: HumiColors.humicWhiteColor,
-                                      width: 6,
-                                    )),
+    Get.put(ProfileScreenController());
+    return GetBuilder<ProfileScreenController>(builder: (_) {
+      return controller.isLoading
+          ? const Material(
+              child: Center(
+              child: CircularProgressIndicator(
+                color: HumiColors.humicPrimaryColor,
+              ),
+            ))
+          : Scaffold(
+              body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  HUMICPrimaryHeaderContainer(
+                    child: Column(
+                      children: [
+                        SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () => Get.back(),
+                                          icon: const Icon(
+                                            FluentIcons
+                                                .ios_arrow_ltr_24_regular,
+                                            color: HumiColors.humicWhiteColor,
+                                          )),
+                                      horizontalSpace(16),
+                                      Text(
+                                        "Profile",
+                                        style: GoogleFonts.plusJakartaSans(
+                                            textStyle: const TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color: HumiColors
+                                                    .humicWhiteColor)),
+                                      )
+                                    ],
+                                  ),
+                                  verticalSpace(40),
+
+                                  Center(
+                                    child: CircleAvatar(
+                                      radius: 100,
+                                      backgroundImage: const AssetImage(
+                                          HumicImages.humicProfileImage),
+                                      backgroundColor:
+                                          HumiColors.humicWhiteColor,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: HumiColors.humicWhiteColor,
+                                              width: 6,
+                                            )),
+                                      ),
+                                    ),
+                                  ),
+                                  verticalSpace(12),
+                                  Center(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "${controller.userProfileData?.role}",
+                                          style: GoogleFonts.plusJakartaSans(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: HumiColors
+                                                      .humicTransparencyColor)),
+                                        ),
+                                        verticalSpace(5),
+                                        Text(
+                                          "${controller.userProfileData?.name}",
+                                          style: GoogleFonts.plusJakartaSans(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: HumiColors
+                                                      .humicBlackColor)),
+                                        ),
+                                        verticalSpace(24),
+                                      ],
+                                    ),
+                                  ),
+                                  const Divider(
+                                    color: HumiColors.humicDividerColor,
+                                    thickness: 2,
+                                  ),
+                                  verticalSpace(24),
+                                  Form(
+                                    key: controller.profileFormKey,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "New Password",
+                                          style: GoogleFonts.plusJakartaSans(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: HumiColors
+                                                      .humicBlackColor)),
+                                        ),
+                                        verticalSpace(12),
+                                        Obx(
+                                          () => TextFormField(
+                                            controller: controller
+                                                .oldPasswordController,
+                                            obscureText: controller
+                                                .hideOldPassword.value,
+                                            decoration: InputDecoration(
+                                                prefixIcon: const Icon(FluentIcons
+                                                    .lock_closed_24_regular),
+                                                hintText: "Old Password",
+                                                hintStyle:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: HumiColors
+                                                        .humicTransparencyColor,
+                                                  ),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                focusedBorder:
+                                                    const OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: HumiColors
+                                                                .humicBlackColor)),
+                                                suffixIcon: IconButton(
+                                                    onPressed: () => controller
+                                                            .hideOldPassword
+                                                            .value =
+                                                        !controller
+                                                            .hideOldPassword
+                                                            .value,
+                                                    icon: Icon(controller
+                                                            .hideOldPassword
+                                                            .value
+                                                        ? FluentIcons.eye_off_24_regular
+                                                        : FluentIcons.eye_24_regular))),
+                                          ),
+                                        ),
+                                        verticalSpace(12),
+                                        Obx(
+                                          () => TextFormField(
+                                            controller: controller
+                                                .newPasswordController,
+                                            obscureText: controller
+                                                .hideNewPassword.value,
+                                            decoration: InputDecoration(
+                                                prefixIcon: const Icon(FluentIcons
+                                                    .lock_closed_24_regular),
+                                                hintText: "New Password",
+                                                hintStyle:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: HumiColors
+                                                        .humicTransparencyColor,
+                                                  ),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                focusedBorder:
+                                                    const OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: HumiColors
+                                                                .humicBlackColor)),
+                                                suffixIcon: IconButton(
+                                                    onPressed: () => controller
+                                                            .hideNewPassword
+                                                            .value =
+                                                        !controller
+                                                            .hideNewPassword
+                                                            .value,
+                                                    icon: Icon(controller
+                                                            .hideNewPassword
+                                                            .value
+                                                        ? FluentIcons.eye_off_24_regular
+                                                        : FluentIcons.eye_24_regular))),
+                                          ),
+                                        ),
+                                        verticalSpace(12),
+                                        Obx(
+                                          () => TextFormField(
+                                            controller: controller
+                                                .confirmPasswordController,
+                                            obscureText: controller
+                                                .hideConfirmPassword.value,
+                                            decoration: InputDecoration(
+                                                prefixIcon: const Icon(FluentIcons
+                                                    .lock_closed_24_regular),
+                                                hintText: HumicTexts
+                                                    .humicConfirmPasswordTitle,
+                                                hintStyle:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: HumiColors
+                                                        .humicTransparencyColor,
+                                                  ),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                focusedBorder:
+                                                    const OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: HumiColors
+                                                                .humicBlackColor)),
+                                                suffixIcon: IconButton(
+                                                    onPressed: () => controller
+                                                            .hideConfirmPassword
+                                                            .value =
+                                                        !controller
+                                                            .hideConfirmPassword
+                                                            .value,
+                                                    icon: Icon(controller.hideConfirmPassword.value
+                                                        ? FluentIcons.eye_off_24_regular
+                                                        : FluentIcons.eye_24_regular))),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  verticalSpace(24),
+                                  const Divider(
+                                    color: HumiColors.humicDividerColor,
+                                    thickness: 2,
+                                  ),
+                                  verticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 150,
+                                        height: 46,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: HumiColors
+                                                    .humicPrimaryColor),
+                                            onPressed: () {
+                                              if (controller
+                                                  .profileFormKey.currentState!
+                                                  .validate()) {
+                                                changePasswordSuccessfull();
+                                              }
+                                            },
+                                            child: Text(
+                                              'Confirm',
+                                              style: GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicWhiteColor)),
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                  verticalSpace(40),
+
+                                  // Logout Button
+                                  GestureDetector(
+                                    onTap: logoutConfirmation,
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 30),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            FluentIcons.sign_out_24_filled,
+                                            weight: 32,
+                                            size: 32,
+                                            color: HumiColors.humicPrimaryColor,
+                                          ),
+                                          horizontalSpace(18),
+                                          Text(
+                                            "Log out",
+                                            style: GoogleFonts.plusJakartaSans(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicPrimaryColor)),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  verticalSpace(12),
+                                ],
                               ),
                             ),
                           ),
-                          verticalSpace(12),
-                          Center(
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Staff Operational",
-                                  style: GoogleFonts.plusJakartaSans(
-                                      textStyle: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                          color: HumiColors
-                                              .humicTransparencyColor)),
-                                ),
-                                verticalSpace(5),
-                                Text(
-                                  "Muhammad Rakha, S.T., M.Kom.",
-                                  style: GoogleFonts.plusJakartaSans(
-                                      textStyle: const TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: HumiColors.humicBlackColor)),
-                                ),
-                                verticalSpace(24),
-                              ],
-                            ),
-                          ),
-                          const Divider(
-                            color: HumiColors.humicDividerColor,
-                            thickness: 2,
-                          ),
-                          verticalSpace(24),
-                          Form(
-                            key: profileFormKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "New Password",
-                                  style: GoogleFonts.plusJakartaSans(
-                                      textStyle: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: HumiColors.humicBlackColor)),
-                                ),
-                                verticalSpace(12),
-                                Obx(
-                                  () => TextFormField(
-                                    controller:
-                                        profileController.oldPasswordController,
-                                    obscureText:
-                                        profileController.hideOldPassword.value,
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(
-                                            FluentIcons.lock_closed_24_regular),
-                                        hintText: "Old Password",
-                                        hintStyle: GoogleFonts.plusJakartaSans(
-                                          textStyle: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: HumiColors
-                                                .humicTransparencyColor,
-                                          ),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: HumiColors
-                                                    .humicBlackColor)),
-                                        suffixIcon: IconButton(
-                                            onPressed: () => profileController
-                                                    .hideOldPassword.value =
-                                                !profileController
-                                                    .hideOldPassword.value,
-                                            icon: Icon(profileController
-                                                    .hideOldPassword.value
-                                                ? FluentIcons.eye_off_24_regular
-                                                : FluentIcons.eye_24_regular))),
-                                  ),
-                                ),
-                                verticalSpace(12),
-                                Obx(
-                                  () => TextFormField(
-                                    controller:
-                                        profileController.newPasswordController,
-                                    obscureText:
-                                        profileController.hideNewPassword.value,
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(
-                                            FluentIcons.lock_closed_24_regular),
-                                        hintText: "New Password",
-                                        hintStyle: GoogleFonts.plusJakartaSans(
-                                          textStyle: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: HumiColors
-                                                .humicTransparencyColor,
-                                          ),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: HumiColors
-                                                    .humicBlackColor)),
-                                        suffixIcon: IconButton(
-                                            onPressed: () => profileController
-                                                    .hideNewPassword.value =
-                                                !profileController
-                                                    .hideNewPassword.value,
-                                            icon: Icon(profileController
-                                                    .hideNewPassword.value
-                                                ? FluentIcons.eye_off_24_regular
-                                                : FluentIcons.eye_24_regular))),
-                                  ),
-                                ),
-                                verticalSpace(12),
-                                Obx(
-                                  () => TextFormField(
-                                    controller: profileController
-                                        .confirmPasswordController,
-                                    obscureText: profileController
-                                        .hideConfirmPassword.value,
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(
-                                            FluentIcons.lock_closed_24_regular),
-                                        hintText: HumicTexts
-                                            .humicConfirmPasswordTitle,
-                                        hintStyle: GoogleFonts.plusJakartaSans(
-                                          textStyle: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: HumiColors
-                                                .humicTransparencyColor,
-                                          ),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: HumiColors
-                                                    .humicBlackColor)),
-                                        suffixIcon: IconButton(
-                                            onPressed: () => profileController
-                                                    .hideConfirmPassword.value =
-                                                !profileController
-                                                    .hideConfirmPassword.value,
-                                            icon: Icon(profileController
-                                                    .hideConfirmPassword.value
-                                                ? FluentIcons.eye_off_24_regular
-                                                : FluentIcons.eye_24_regular))),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          verticalSpace(24),
-                          const Divider(
-                            color: HumiColors.humicDividerColor,
-                            thickness: 2,
-                          ),
-                          verticalSpace(32),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                width: 150,
-                                height: 46,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            HumiColors.humicPrimaryColor),
-                                    onPressed: () {
-                                      if (profileFormKey.currentState!
-                                          .validate()) {
-                                        showPasswordChangeDialog();
-                                      }
-                                    },
-                                    child: Text(
-                                      'Confirm',
-                                      style: GoogleFonts.plusJakartaSans(
-                                          textStyle: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                              color:
-                                                  HumiColors.humicWhiteColor)),
-                                    )),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ));
+                ],
+              ),
+            ));
+    });
   }
 }
 
-void showPasswordChangeDialog() {
+void changePasswordSuccessfull() {
+  print("Decline confirmation dialog should appear");
   Get.defaultDialog(
     title: '',
     content: Container(
-      color: HumiColors.humicWhiteColor,
-      padding: EdgeInsets.only(bottom: 38),
-      width: 312,
-      height: 381,
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      width: 329,
+      height: 409,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: HumiColors.humicWhiteColor,
+      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Lottie.asset(HumicImages.humicSuccessfullChangePassword,
+              width: 280, height: 280),
           Text(
             'Your password has been changed',
             style: GoogleFonts.plusJakartaSans(
@@ -298,7 +379,6 @@ void showPasswordChangeDialog() {
             ),
           ),
           verticalSpace(50),
-          const SizedBox(height: 20),
           SizedBox(
             width: 150,
             height: 46,
@@ -320,6 +400,92 @@ void showPasswordChangeDialog() {
                         color: HumiColors.humicWhiteColor)),
               ),
             ),
+          ),
+        ],
+      ),
+    ),
+    barrierDismissible: false,
+  );
+}
+
+void logoutConfirmation() {
+  print("Logout confirmation dialog should appear");
+  Get.defaultDialog(
+    title: '',
+    content: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      width: 329,
+      height: 409,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: HumiColors.humicWhiteColor,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+              width: 222,
+              height: 222,
+              child: Lottie.asset(HumicImages.humicLogoutAnimation)),
+          verticalSpace(50),
+          Text(
+            'Apakah anda yakin untuk Log Out?',
+            style: GoogleFonts.plusJakartaSans(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: HumiColors.humicBlackColor,
+            ),
+          ),
+          verticalSpace(20),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              SizedBox(
+                width: 150,
+                height: 46,
+                child: ElevatedButton(
+                  onPressed: () => Get.back(),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: HumiColors.humicCancelColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                  child: Text(
+                    'Back',
+                    style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: HumiColors.humicPrimaryColor)),
+                  ),
+                ),
+              ),
+              horizontalSpace(6),
+              SizedBox(
+                width: 150,
+                height: 46,
+                child: ElevatedButton(
+                  onPressed: () => Get.offAll(const LoginScreenView()),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: HumiColors.humicPrimaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                  child: Text(
+                    'Confirm',
+                    style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: HumiColors.humicWhiteColor)),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

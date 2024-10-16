@@ -7,5 +7,14 @@ import 'package:humic_payroll_mobile_app/app/modules/more_screen/views/more_scre
 class BottomNavigationBarController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const HomeScreenView(), const IncomeScreenView(), const ExpensesScreenView(), const MoreScreenView()];
+  final screens = [
+    const HomeScreenView(),
+    const IncomeScreenView(),
+    const ExpensesScreenView(),
+    const MoreScreenView()
+  ];
+
+  void changeIndex(int index) {
+    selectedIndex.value = index;
+  }
 }

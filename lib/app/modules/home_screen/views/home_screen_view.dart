@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/filter_screen/views/filter_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/profile_screen/views/profile_screen_view.dart';
@@ -14,10 +15,14 @@ class HomeScreenView extends GetView<HomeScreenController> {
   const HomeScreenView({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeScreenController());
     return GetBuilder<HomeScreenController>(builder: (_) {
       return controller.isLoading
           ? const Material(
-              child: Center(child: CircularProgressIndicator()),
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: HumiColors.humicPrimaryColor,
+              )),
             )
           : Scaffold(
               body: SafeArea(
@@ -93,7 +98,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       ),
                                     ),
                                     Text(
-                                      "Rp0",
+                                      "Rp${controller.dashboardData?.data?.monthlyExpense}",
                                       style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                             fontSize: 14,
@@ -101,7 +106,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                             color: HumiColors.humicBlackColor),
                                       ),
                                     ),
-                                    //Text("Rp${controller.dashboardData!.data.monthlyExpense}", style: GoogleFonts.plusJakartaSans(textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: HumiColors.humicBlackColor),),),
                                   ],
                                 ),
                               ),
@@ -131,7 +135,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       ),
                                     ),
                                     Text(
-                                      "Rp0",
+                                      "Rp${controller.dashboardData?.data?.ballance}",
                                       style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                             fontSize: 14,
@@ -139,7 +143,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                             color: HumiColors.humicWhiteColor),
                                       ),
                                     ),
-                                    //Text("Rp${controller.dashboardData!.data.ballance}", style: GoogleFonts.plusJakartaSans(textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: HumiColors.humicWhiteColor),),),
                                   ],
                                 ),
                               ),
@@ -159,7 +162,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "Home Income",
+                                      "Monthly Income",
                                       style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                             fontSize: 14,
@@ -168,7 +171,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       ),
                                     ),
                                     Text(
-                                      "Rp0",
+                                      "Rp${controller.dashboardData?.data?.monthlyIncome}",
                                       style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                             fontSize: 14,
@@ -176,7 +179,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                             color: HumiColors.humicBlackColor),
                                       ),
                                     ),
-                                    //Text("Rp${controller.dashboardData!.data.ballance}", style: GoogleFonts.plusJakartaSans(textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: HumiColors.humicBlackColor),),),
                                   ],
                                 ),
                               ),
@@ -196,8 +198,26 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       color: HumiColors.humicBlackColor)),
                             ),
                             GestureDetector(
-                              onTap: () =>
-                                  Get.to(() => const FilterScreenView()),
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  enableDrag: false,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) => Container(
+                                    height: 500,
+                                    decoration: const BoxDecoration(
+                                      color: HumiColors.humicWhiteColor,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    child: const FilterScreenView(),
+                                  ),
+                                );
+                              },
                               child: Row(
                                 children: [
                                   const Icon(
@@ -219,116 +239,180 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         ),
                         verticalSpace(18),
 
-                        // RESTFUL API
-                        // ListView.builder(
-                        //   itemCount: controller
-                        //       .dashboardData?.data.transactionList.data.length,
-                        //   shrinkWrap: true,
-                        //   primary: false,
-                        //   itemBuilder: (context, index) {
-                        //     var data = controller.dashboardData!.data
-                        //         .transactionList.data[index];
-                        //     return GestureDetector(
-                        //       onTap: () =>
-                        //           Get.to(() => const IncomeScreenView()),
-                        //       child: Container(
-                        //         width: double.infinity,
-                        //         height: 100,
-                        //         decoration: BoxDecoration(
-                        //           border: Border.all(
-                        //             color: HumiColors.humicTransparencyColor,
-                        //           ),
-                        //           borderRadius: BorderRadius.circular(8),
-                        //         ),
-                        //         padding: const EdgeInsets.only(
-                        //             left: 24, right: 24, top: 24),
-                        //         child: Row(
-                        //           mainAxisAlignment:
-                        //               MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             Column(
-                        //               crossAxisAlignment:
-                        //                   CrossAxisAlignment.center,
-                        //               children: [
-                        //                 verticalSpace(12),
-                        //                 const Image(
-                        //                   image: AssetImage(HumicImages
-                        //                       .humicIncomeSelectedIcon),
-                        //                   color: HumiColors.humicSecondaryColor,
-                        //                   width: 32,
-                        //                 ),
-                        //                 Text(
-                        //                   "Income",
-                        //                   style: GoogleFonts.plusJakartaSans(
-                        //                       textStyle: const TextStyle(
-                        //                           fontSize: 12.5,
-                        //                           fontWeight: FontWeight.w600,
-                        //                           color: HumiColors
-                        //                               .humicSecondaryColor)),
-                        //                 )
-                        //               ],
-                        //             ),
-                        //             Column(
-                        //               crossAxisAlignment:
-                        //                   CrossAxisAlignment.start,
-                        //               children: [
-                        //                 Text(
-                        //                   "03 Okt 2024",
-                        //                   style: GoogleFonts.plusJakartaSans(
-                        //                       textStyle: const TextStyle(
-                        //                           fontSize: 12,
-                        //                           fontWeight: FontWeight.bold,
-                        //                           color: HumiColors
-                        //                               .humicPrimaryColor)),
-                        //                 ),
-                        //                 Text(
-                        //                   "Conference 1",
-                        //                   style: GoogleFonts.plusJakartaSans(
-                        //                       textStyle: const TextStyle(
-                        //                           fontSize: 14,
-                        //                           fontWeight: FontWeight.bold,
-                        //                           color: HumiColors
-                        //                               .humicBlackColor)),
-                        //                 ),
-                        //                 Text(
-                        //                   "Rp600.000.000",
-                        //                   style: GoogleFonts.plusJakartaSans(
-                        //                       textStyle: const TextStyle(
-                        //                           fontSize: 14,
-                        //                           fontWeight: FontWeight.w600,
-                        //                           color: HumiColors
-                        //                               .humicTransparencyColor)),
-                        //                 )
-                        //               ],
-                        //             ),
-                        //             Container(
-                        //               width: 71,
-                        //               height: 23.67,
-                        //               decoration: BoxDecoration(
-                        //                 borderRadius:
-                        //                     BorderRadius.circular(3.16),
-                        //                 color: const Color(0xFF48B121)
-                        //                     .withOpacity(0.16),
-                        //               ),
-                        //               child: Center(
-                        //                   child: Text(
-                        //                 "Approved",
-                        //                 style: GoogleFonts.plusJakartaSans(
-                        //                     textStyle: const TextStyle(
-                        //                         fontSize: 11,
-                        //                         fontWeight: FontWeight.w600,
-                        //                         color: Color(0xFF48B121))),
-                        //               )),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
-                        //First History
+                        // -- RESTFUL API
+                        ListView.builder(
+                          itemCount: controller.dashboardData?.data
+                                  ?.transactionList?.data?.length ??
+                              0,
+                          shrinkWrap: true,
+                          primary: false,
+                          itemBuilder: (context, index) {
+                            var data = controller.dashboardData?.data
+                                ?.transactionList?.data?[index];
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        left: 24, right: 24, top: 24),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // Pemasukan atau Pengeluaran
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            verticalSpace(12),
+                                            Image(
+                                              image: AssetImage(
+                                                data?.transactionType
+                                                            ?.toLowerCase() ==
+                                                        'income'
+                                                    ? HumicImages
+                                                        .humicIncomeSelectedIcon
+                                                    : data?.transactionType
+                                                                ?.toLowerCase() ==
+                                                            'expense'
+                                                        ? HumicImages
+                                                            .humicExpensesSelectedIcon
+                                                        : HumicImages
+                                                            .humicIncomeSelectedIcon,
+                                              ),
+                                              color: data?.transactionType
+                                                          ?.toLowerCase() ==
+                                                      'income'
+                                                  ? HumiColors
+                                                      .humicSecondaryColor
+                                                  : data?.transactionType
+                                                              ?.toLowerCase() ==
+                                                          'expense'
+                                                      ? HumiColors
+                                                          .humicPrimaryColor
+                                                      : HumiColors
+                                                          .humicSecondaryColor, // Warna default jika tipe tidak dikenali
+                                              width: 32,
+                                            ),
+                                            Text(
+                                              "${data?.transactionType}",
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12.5,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: data?.transactionType
+                                                              ?.toLowerCase() ==
+                                                          'income'
+                                                      ? HumiColors
+                                                          .humicSecondaryColor
+                                                      : data?.transactionType
+                                                                  ?.toLowerCase() ==
+                                                              'expense'
+                                                          ? HumiColors
+                                                              .humicPrimaryColor
+                                                          : HumiColors
+                                                              .humicSecondaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
 
-                        verticalSpace(12),
+                                        // Tanggal, Nama Aktivitas, dan Total
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "03 Okt 2024",
+                                              style: GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: HumiColors
+                                                          .humicPrimaryColor)),
+                                            ),
+                                            Text(
+                                              "${data?.activityName}",
+                                              style: GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: HumiColors
+                                                          .humicBlackColor)),
+                                            ),
+                                            Text(
+                                              "${data?.amount}",
+                                              style: GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicTransparencyColor)),
+                                            )
+                                          ],
+                                        ),
+
+                                        // Diterima atau Ditolak
+                                        Container(
+                                          width: 71,
+                                          height: 23.67,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(3.16),
+                                              color: data?.status == 'approve'
+                                                  ? HumiColors
+                                                      .humicSecondaryColor
+                                                      .withOpacity(0.12)
+                                                  : data?.status == 'decline'
+                                                      ? HumiColors
+                                                          .humicPrimaryColor
+                                                          .withOpacity(0.12)
+                                                      : HumiColors
+                                                          .humicSecondaryColor),
+                                          child: Center(
+                                              child: Text(
+                                            "${data?.status}",
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: data?.status ==
+                                                          'approve'
+                                                      ? HumiColors
+                                                          .humicSecondaryColor
+                                                      : data?.status ==
+                                                              'decline'
+                                                          ? HumiColors
+                                                              .humicPrimaryColor
+                                                          : HumiColors
+                                                              .humicSecondaryColor),
+                                            ),
+                                          )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  verticalSpace(12),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),

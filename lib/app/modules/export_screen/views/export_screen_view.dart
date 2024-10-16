@@ -12,6 +12,7 @@ class ExportScreenView extends GetView<ExportScreenController> {
   const ExportScreenView({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(ExportScreenController());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -136,7 +137,7 @@ class ExportScreenView extends GetView<ExportScreenController> {
                                     color: HumiColors.humicTransparencyColor)),
                           ),
                           Text(
-                            "Excel(.csvx)",
+                            "PDF(.pdf)",
                             style: GoogleFonts.plusJakartaSans(
                                 textStyle: const TextStyle(
                                     fontSize: 16,
@@ -147,7 +148,7 @@ class ExportScreenView extends GetView<ExportScreenController> {
                       ),
                       horizontalSpace(106),
                       IconButton(
-                        onPressed: () => Get.back(),
+                        onPressed: () => controller.getPDF(),
                         icon: const Icon(FluentIcons.arrow_right_24_regular),
                       ),
                     ],
