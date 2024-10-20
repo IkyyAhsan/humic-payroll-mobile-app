@@ -18,6 +18,10 @@ abstract class Routes {
   static const FILTER_SCREEN = _Paths.FILTER_SCREEN;
   static const ADD_INCOME_SCREEN = _Paths.ADD_INCOME_SCREEN;
   static const ADD_EXPENSES_SCREEN = _Paths.ADD_EXPENSES_SCREEN;
+  static const PLANNING_SCREEN = _Paths.PLANNING_SCREEN;
+  static const PLANNING_DETAILS_SCREEN = _Paths.PLANNING_DETAILS_SCREEN;
+  static const PLANNING_EDIT_SCREEN = _Paths.PLANNING_EDIT_SCREEN;
+  static const PLANNING_ADD_SCREEN = _Paths.PLANNING_ADD_SCREEN;
 }
 
 abstract class _Paths {
@@ -37,4 +41,8 @@ abstract class _Paths {
   static const FILTER_SCREEN = '/filter-screen';
   static const ADD_INCOME_SCREEN = '/add-income-screen';
   static const ADD_EXPENSES_SCREEN = '/add-expenses-screen';
+  static const PLANNING_SCREEN = '/planning-screen';
+  static const PLANNING_DETAILS_SCREEN = '/planning-details-screen';
+  static const PLANNING_EDIT_SCREEN = '/planning-edit-screen';
+  static const PLANNING_ADD_SCREEN = '/planning-add-screen';
 }

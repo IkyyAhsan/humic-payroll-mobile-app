@@ -14,9 +14,10 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
     final homeScreenController = Get.put(HomeScreenController());
 
     return Scaffold(
+        backgroundColor: HumiColors.humicBackgroundColor,
         bottomNavigationBar: Obx(
           () => NavigationBar(
-              indicatorColor: Colors.transparent,
+              indicatorColor: HumiColors.humicPrimaryColor.withOpacity(0.12),
               indicatorShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

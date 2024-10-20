@@ -1,24 +1,21 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
-import 'package:intl/intl.dart';
 import '../controllers/filter_screen_controller.dart';
 
 class FilterScreenView extends GetView<FilterScreenController> {
-  const FilterScreenView({super.key});
+  final Function(String selectedType) onApplyFilter;
 
-  // Fungsi untuk memformat tanggal
-  String formatDate(DateTime date) {
-    return DateFormat('dd/MM/yyyy').format(date);
-  }
+  const FilterScreenView({super.key, required this.onApplyFilter});
 
   @override
   Widget build(BuildContext context) {
     final FilterScreenController controller = Get.put(FilterScreenController());
+    final HomeScreenController Homecontroller = Get.put(HomeScreenController());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -55,7 +52,6 @@ class FilterScreenView extends GetView<FilterScreenController> {
               Obx(() => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // Container for 'All'
                       GestureDetector(
                         onTap: () {
                           controller.updateType('All');
@@ -91,8 +87,6 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           ),
                         ),
                       ),
-
-                      // Container for 'Income'
                       GestureDetector(
                         onTap: () {
                           controller.updateType('Income');
@@ -126,21 +120,19 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           ),
                         ),
                       ),
-
-                      // Container for 'Expenses'
                       GestureDetector(
                         onTap: () {
-                          controller.updateType('Expenses');
+                          controller.updateType('Expense');
                         },
                         child: Container(
                           width: 114,
                           height: 48,
                           decoration: BoxDecoration(
-                            color: controller.selectedType.value == 'Expenses'
+                            color: controller.selectedType.value == 'Expense'
                                 ? HumiColors.humicPrimaryColor
                                 : HumiColors.humicWhiteColor,
                             border: Border.all(
-                              color: controller.selectedType.value == 'Expenses'
+                              color: controller.selectedType.value == 'Expense'
                                   ? HumiColors.humicPrimaryColor
                                   : HumiColors.humicPrimaryColor,
                             ),
@@ -148,13 +140,13 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           ),
                           child: Center(
                             child: Text(
-                              'Expenses',
+                              'Expense',
                               style: GoogleFonts.plusJakartaSans(
                                   textStyle: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color:
-                                    controller.selectedType.value == 'Expenses'
+                                    controller.selectedType.value == 'Expense'
                                         ? HumiColors.humicWhiteColor
                                         : HumiColors.humicPrimaryColor,
                               )),
@@ -165,20 +157,22 @@ class FilterScreenView extends GetView<FilterScreenController> {
                     ],
                   )),
               verticalSpace(24),
+
               const Divider(
                 color: HumiColors.humicDividerColor,
                 height: 2,
               ),
-              verticalSpace(18),
 
-              // Date Range Section
+              verticalSpace(24),
               Text(
-                "Data Range",
+                "Date Range",
                 style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: HumiColors.humicBlackColor)),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: HumiColors.humicBlackColor,
+                  ),
+                ),
               ),
               verticalSpace(20),
 
@@ -207,8 +201,9 @@ class FilterScreenView extends GetView<FilterScreenController> {
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.calendar_today,
-                                    color: Colors.grey),
+                                const Icon(
+                                  Icons.calendar_today,
+                                ),
                                 const SizedBox(width: 10),
                                 Text(
                                   controller.startDate.value == DateTime.now()
@@ -255,8 +250,9 @@ class FilterScreenView extends GetView<FilterScreenController> {
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.calendar_today,
-                                    color: Colors.grey),
+                                const Icon(
+                                  Icons.calendar_today,
+                                ),
                                 const SizedBox(width: 10),
                                 Text(
                                   controller.endDate.value == DateTime.now()
@@ -316,9 +312,12 @@ class FilterScreenView extends GetView<FilterScreenController> {
                     height: 43,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(() => const BottomNavigationBarView());
-                        print(
-                            "Filter Applied: ${controller.startDate.value} - ${controller.endDate.value}");
+                        // Terapkan filter yang dipilih
+                        onApplyFilter(controller.selectedType.value);
+                        Homecontroller.updateDateRangeFilter(
+                            controller.startDate.value,
+                            controller.endDate.value);
+                        Get.back();
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: HumiColors.humicPrimaryColor,

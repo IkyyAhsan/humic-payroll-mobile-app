@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/approval_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/export_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/planning_screen/views/planning_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 
@@ -15,6 +16,7 @@ class MoreScreenView extends GetView<MoreScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -41,7 +43,7 @@ class MoreScreenView extends GetView<MoreScreenController> {
                 ),
                 verticalSpace(20),
 
-                // First Fitures
+                // Export Fiture
                 GestureDetector(
                   onTap: () => Get.to(() => const ExportScreenView()),
                   child: Container(
@@ -78,7 +80,44 @@ class MoreScreenView extends GetView<MoreScreenController> {
                 ),
                 verticalSpace(12),
 
-                // Second Fitures
+                // Planning Fiture
+                GestureDetector(
+                  onTap: () => Get.to(() => const PlanningScreenView()),
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: HumiColors.humicTransparencyColor,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24, horizontal: 30),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FluentIcons.document_text_24_regular,
+                          weight: 32,
+                          size: 32,
+                        ),
+                        horizontalSpace(18),
+                        Text(
+                          "Planning",
+                          style: GoogleFonts.plusJakartaSans(
+                              textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: HumiColors.humicBlackColor)),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                verticalSpace(12),
+
+                // Approval Fiture
                 GestureDetector(
                   onTap: () => Get.to(() => const ApprovalScreenView()),
                   child: Container(

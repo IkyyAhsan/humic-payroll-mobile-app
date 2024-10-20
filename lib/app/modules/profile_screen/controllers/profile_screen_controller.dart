@@ -4,6 +4,7 @@ import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
 import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
 
 class ProfileScreenController extends GetxController {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -23,6 +24,7 @@ class ProfileScreenController extends GetxController {
     update();
   }
 
+  @override
   void onInit() {
     getUserProfileData();
     super.onInit();

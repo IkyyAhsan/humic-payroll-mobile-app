@@ -4,7 +4,7 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart'
 
 class HUMICPrimaryHeaderContainer extends StatelessWidget {
   const HUMICPrimaryHeaderContainer({
-    super.key, 
+    super.key,
     required this.child,
   });
 
@@ -19,7 +19,9 @@ class HUMICPrimaryHeaderContainer extends StatelessWidget {
             width: double.infinity,
             height: 247,
             padding: const EdgeInsets.all(0),
-            child: const Image(image: AssetImage(HumicImages.humicProfileBackgroundImage)),
+            child: const Image(
+              image: AssetImage(HumicImages.humicProfileBackgroundImage),
+            ),
           ),
           child,
         ],

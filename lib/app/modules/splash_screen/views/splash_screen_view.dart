@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import '../controllers/splash_screen_controller.dart';
@@ -16,6 +17,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
       });
     }, builder: (context) {
       return Scaffold(
+        backgroundColor: HumiColors.humicBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.only(bottom: 100),
           child: Column(
@@ -32,8 +34,8 @@ class SplashScreenView extends GetView<SplashScreenController> {
               verticalSpace(16),
             ],
           ),
-          ),
-        );
+        ),
+      );
     });
   }
 }

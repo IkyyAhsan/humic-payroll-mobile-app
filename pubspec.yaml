@@ -16,9 +16,9 @@ dependencies:
   get_cli: ^1.8.1
   get_storage: ^2.1.1
   google_fonts: ^6.2.1
-  intl: ^0.19.0
+  intl: ^0.18.1
   lottie: ^3.1.2
-  open_file: ^3.2.1
+  open_file: ^3.5.9
   path_provider: ^2.0.15
   pdf: ^3.11.1
   rename: ^3.0.2

@@ -12,6 +12,7 @@ class TransactionDetailsScreenView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(

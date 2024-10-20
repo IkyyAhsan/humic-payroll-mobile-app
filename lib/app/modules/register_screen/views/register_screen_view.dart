@@ -5,6 +5,7 @@ import 'package:humic_payroll_mobile_app/app/modules/login_screen/views/widgets/
 import 'package:humic_payroll_mobile_app/app/modules/register_screen/views/widgets/register_form.dart';
 import 'package:humic_payroll_mobile_app/app/modules/register_screen/views/widgets/register_title.dart';
 import 'package:humic_payroll_mobile_app/app/modules/register_screen/views/widgets/signin_button.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/text_strings.dart';
 import '../controllers/register_screen_controller.dart';
@@ -15,6 +16,7 @@ class RegisterScreenView extends GetView<RegisterScreenController> {
   Widget build(BuildContext context) {
     final controller = Get.put(RegisterScreenController());
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),

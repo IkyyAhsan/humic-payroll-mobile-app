@@ -15,6 +15,7 @@ import '../modules/export_screen/views/export_screen_view.dart';
 import '../modules/filter_screen/bindings/filter_screen_binding.dart';
 import '../modules/filter_screen/views/filter_screen_view.dart';
 import '../modules/home_screen/bindings/home_screen_binding.dart';
+import '../modules/home_screen/controllers/home_screen_controller.dart';
 import '../modules/home_screen/views/home_screen_view.dart';
 import '../modules/income_screen/bindings/income_screen_binding.dart';
 import '../modules/income_screen/views/income_screen_view.dart';
@@ -22,6 +23,14 @@ import '../modules/login_screen/bindings/login_screen_binding.dart';
 import '../modules/login_screen/views/login_screen_view.dart';
 import '../modules/more_screen/bindings/more_screen_binding.dart';
 import '../modules/more_screen/views/more_screen_view.dart';
+import '../modules/planning_add_screen/bindings/planning_add_screen_binding.dart';
+import '../modules/planning_add_screen/views/planning_add_screen_view.dart';
+import '../modules/planning_details_screen/bindings/planning_details_screen_binding.dart';
+import '../modules/planning_details_screen/views/planning_details_screen_view.dart';
+import '../modules/planning_edit_screen/bindings/planning_edit_screen_binding.dart';
+import '../modules/planning_edit_screen/views/planning_edit_screen_view.dart';
+import '../modules/planning_screen/bindings/planning_screen_binding.dart';
+import '../modules/planning_screen/views/planning_screen_view.dart';
 import '../modules/profile_screen/bindings/profile_screen_binding.dart';
 import '../modules/profile_screen/views/profile_screen_view.dart';
 import '../modules/register_screen/bindings/register_screen_binding.dart';
@@ -101,7 +110,16 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FILTER_SCREEN,
-      page: () => const FilterScreenView(),
+      page: () {
+        // Ambil instance dari HomeScreenController
+        final homeController = Get.find<HomeScreenController>();
+
+        return FilterScreenView(
+          onApplyFilter: (String selectedType) {
+            homeController.updateTransactionTypeFilter(selectedType);
+          },
+        );
+      },
       binding: FilterScreenBinding(),
     ),
     GetPage(
@@ -113,6 +131,26 @@ class AppPages {
       name: _Paths.ADD_EXPENSES_SCREEN,
       page: () => const AddExpensesScreenView(),
       binding: AddExpensesScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANNING_SCREEN,
+      page: () => const PlanningScreenView(),
+      binding: PlanningScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANNING_DETAILS_SCREEN,
+      page: () => const PlanningDetailsScreenView(),
+      binding: PlanningDetailsScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANNING_EDIT_SCREEN,
+      page: () => const PlanningEditScreenView(),
+      binding: PlanningEditScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANNING_ADD_SCREEN,
+      page: () => const PlanningAddScreenView(),
+      binding: PlanningAddScreenBinding(),
     ),
   ];
 }

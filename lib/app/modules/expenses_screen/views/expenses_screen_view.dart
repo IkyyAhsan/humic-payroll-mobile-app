@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/add_expenses_screen/views/add_expenses_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/approval_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/transaction_details_screen/views/transaction_details_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -14,6 +15,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -42,7 +44,8 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
 
                 // Third History
                 GestureDetector(
-                  onTap: () => Get.to(() => const ApprovalScreenView()),
+                  onTap: () =>
+                      Get.to(() => const TransactionDetailsScreenView()),
                   child: Container(
                     width: double.infinity,
                     height: 100,

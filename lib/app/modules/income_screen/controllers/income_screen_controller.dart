@@ -1,23 +1,22 @@
 import 'package:get/get.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/income.dart';
+import 'package:humic_payroll_mobile_app/app/services/income_services.dart';
 
 class IncomeScreenController extends GetxController {
-  //TODO: Implement IncomeScreenController
+  var userIncomeData = UserIncome().obs;
+  var incomeTransactions = <Datum>[].obs;
+  var isLoading = true.obs;
 
-  final count = 0.obs;
+  void getUserIncomeData() async {
+    isLoading.value = true;
+    userIncomeData.value = (await UserIncomeServices().getUserIncome())!;
+    isLoading.value = false;
+    update();
+  }
+
   @override
   void onInit() {
+    getUserIncomeData();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

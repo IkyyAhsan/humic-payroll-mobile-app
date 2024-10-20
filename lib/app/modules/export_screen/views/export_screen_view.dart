@@ -14,6 +14,7 @@ class ExportScreenView extends GetView<ExportScreenController> {
   Widget build(BuildContext context) {
     Get.put(ExportScreenController());
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(

@@ -16,13 +16,15 @@ class HumicImages {
   static const String humicProfileImage = "assets/images/profile.png";
   static const String humicProfileBackgroundImage =
       "assets/images/profile_background.png";
+  static const String humicUploadImageIcon = "assets/icons/upload.png";
 
   // Animation
   static const String humicLogoutAnimation = "assets/animations/logout.json";
-  static const String humicApproveAnimation =
-      "assets/animations/approve-animation.json";
-  static const String humicDeclineAnimation =
-      "assets/animations/decline-animation.json";
   static const String humicSuccessfullChangePassword =
       "assets/animations/successfull-change-password.json";
+  static const String humicDeclineAnimation =
+      "assets/animations/decline-animation.json";
+  static const String humicApproveAnimation =
+      "assets/animations/approve-animation.json";
+  static const String humicDataNotFound = "assets/animations/dataNotFound.json";
 }

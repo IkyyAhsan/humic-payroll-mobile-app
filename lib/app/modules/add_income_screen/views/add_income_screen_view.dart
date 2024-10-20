@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import '../controllers/add_income_screen_controller.dart';
 
@@ -12,6 +13,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> addIncomeFormKey = GlobalKey<FormState>();
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -183,33 +185,26 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   verticalSpace(12),
 
                   // Upload
-                  Container(
-                    height: 150, // Tinggi sesuai yang diinginkan
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: HumiColors.humicBlackColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: TextFormField(
-                      //controller: loginController.emailController,
-                      decoration: InputDecoration(
-                          enabledBorder: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 60),
-                          hintText: "Upload File Keuangan (PDF/xlsx)",
-                          hintStyle: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: HumiColors.humicTransparencyColor,
-                            ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: HumiColors.humicBlackColor, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage(HumicImages.humicUploadImageIcon),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: HumiColors.humicBlackColor))),
+                          Text("Upload File Keuangan (PDF/xlsx)")
+                        ],
+                      ),
                     ),
                   ),
                   verticalSpace(14),
@@ -225,34 +220,27 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   ),
                   verticalSpace(12),
 
-                  // Upload
-                  Container(
-                    height: 150, // Tinggi sesuai yang diinginkan
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: HumiColors.humicBlackColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: TextFormField(
-                      //controller: loginController.emailController,
-                      decoration: InputDecoration(
-                          enabledBorder: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 60),
-                          hintText: "Upload File Bukti (PNG/JPG/PDF)",
-                          hintStyle: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: HumiColors.humicTransparencyColor,
-                            ),
+                  // Evidence
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: HumiColors.humicBlackColor, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage(HumicImages.humicUploadImageIcon),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: HumiColors.humicBlackColor))),
+                          Text("Upload File Evidence (PDF/PNG/JPG)")
+                        ],
+                      ),
                     ),
                   ),
                   verticalSpace(50),

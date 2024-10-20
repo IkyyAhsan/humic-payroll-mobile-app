@@ -16,6 +16,7 @@ class LoginScreenView extends GetView<LoginScreenController> {
   Widget build(BuildContext context) {
     Get.put(LoginScreenController());
     return Scaffold(
+      backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
