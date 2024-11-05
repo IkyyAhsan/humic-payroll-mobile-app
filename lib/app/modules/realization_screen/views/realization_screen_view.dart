@@ -8,6 +8,8 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/bx.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/realization_screen_controller.dart';
 
@@ -227,6 +229,39 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                             },
                           ),
                         verticalSpace(16),
+                      ],
+                    ),
+                  ),
+                ),
+                // Add Plan
+                floatingActionButton: SizedBox(
+                  width: 138,
+                  height: 51,
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    backgroundColor: HumiColors.humicPrimaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(11),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          child: Iconify(
+                            Bx.edit,
+                            color: HumiColors.humicWhiteColor,
+                            size: 16,
+                          ),
+                        ),
+                        horizontalSpace(4),
+                        Text(
+                          "Edit",
+                          style: GoogleFonts.plusJakartaSans(
+                              textStyle: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: HumiColors.humicWhiteColor)),
+                        )
                       ],
                     ),
                   ),

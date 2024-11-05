@@ -45,7 +45,7 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
             ),
             verticalSpace(32),
             const Divider(
-              color: HumiColors.humicDividerColor,
+              color: HumiColors.humicBackgroundColor,
               height: 2,
             ),
             verticalSpace(20),

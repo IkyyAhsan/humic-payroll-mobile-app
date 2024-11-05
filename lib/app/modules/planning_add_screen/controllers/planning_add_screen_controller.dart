@@ -5,6 +5,7 @@ import 'package:humic_payroll_mobile_app/app/data/models/input/planning.dart';
 class PlanningAddScreenController extends GetxController {
   var planningData = <GetPlanning>[].obs;
   var isLoading = true.obs;
+  var i = 5;
 
   final TextEditingController namePlan = TextEditingController();
   final TextEditingController deadlinePlan = TextEditingController();
