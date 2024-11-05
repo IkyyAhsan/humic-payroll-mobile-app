@@ -47,7 +47,7 @@ class HumiCarouselSlider extends StatelessWidget {
                 ),
                 Text(
                   formatRupiah(
-                      (controller.dashboardData.value?.data?.monthlyExpense) ??
+                      (controller.dashboardData.value.data?.monthlyExpense) ??
                           0),
                   style: GoogleFonts.plusJakartaSans(
                     textStyle: const TextStyle(
@@ -85,7 +85,7 @@ class HumiCarouselSlider extends StatelessWidget {
                 ),
                 Text(
                   formatRupiah(
-                      (controller.dashboardData.value?.data?.ballance) ?? 0),
+                      (controller.dashboardData.value.data?.ballance) ?? 0),
                   style: GoogleFonts.plusJakartaSans(
                     textStyle: const TextStyle(
                         fontSize: 14,
@@ -121,7 +121,7 @@ class HumiCarouselSlider extends StatelessWidget {
                 ),
                 Text(
                   formatRupiah(
-                      (controller.dashboardData.value?.data?.monthlyIncome ??
+                      (controller.dashboardData.value.data?.monthlyIncome ??
                           0)),
                   style: GoogleFonts.plusJakartaSans(
                     textStyle: const TextStyle(

@@ -15,7 +15,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
   @override
   Widget build(BuildContext context) {
     final FilterScreenController controller = Get.put(FilterScreenController());
-    final HomeScreenController Homecontroller = Get.put(HomeScreenController());
+    final HomeScreenController homecontroller = Get.put(HomeScreenController());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -243,7 +243,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 8),
+                                vertical: 12, horizontal: 7),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
@@ -314,7 +314,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                       onPressed: () {
                         // Terapkan filter yang dipilih
                         onApplyFilter(controller.selectedType.value);
-                        Homecontroller.updateDateRangeFilter(
+                        homecontroller.updateDateRangeFilter(
                             controller.startDate.value,
                             controller.endDate.value);
                         Get.back();

@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/dashboard.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
 import 'package:humic_payroll_mobile_app/app/services/dashboard_services.dart';
+import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
 
 class HomeScreenController extends GetxController {
   var dashboardData = Dashboard().obs;
@@ -10,6 +12,7 @@ class HomeScreenController extends GetxController {
   var selectedType = "All".obs;
   var startDate = Rxn<DateTime>();
   var endDate = Rxn<DateTime>();
+  UserProfile? userProfileData;
 
   // Mendapatkan data dashboard
   void getDashboardData() async {
@@ -51,6 +54,7 @@ class HomeScreenController extends GetxController {
   @override
   void onInit() {
     getDashboardData();
+    getUserProfileData();
     super.onInit();
   }
 
@@ -65,5 +69,37 @@ class HomeScreenController extends GetxController {
     startDate.value = start;
     endDate.value = end;
     applyFilter();
+  }
+
+  void getUserProfileData() async {
+    userProfileData = await UserProfileServices().getUserProfile();
+    print(userProfileData);
+    update();
+  }
+
+  // Variabel yang mengontrol apakah "Realization" atau "Transaction" Planning yang aktif
+  var isPlanningRealization = true.obs;
+
+  // Variabel yang mengontrol apakah "Realization" atau "Transaction" Approve yang aktif
+  var isApproveRealization = true.obs;
+
+  // Fungsi untuk memindah Screen ke Realization
+  void planningToggleRealization() {
+    isPlanningRealization.value = true;
+  }
+
+  // Fungsi untuk memindah Screen ke Transaction
+  void planningToggleTransaction() {
+    isPlanningRealization.value = false;
+  }
+
+  // Fungsi untuk memindah Screen ke Realization
+  void approveToggleRealization() {
+    isApproveRealization.value = true;
+  }
+
+  // Fungsi untuk memindah Screen ke Transaction
+  void approveToggleTransaction() {
+    isApproveRealization.value = false;
   }
 }

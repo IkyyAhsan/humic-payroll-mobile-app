@@ -8,6 +8,20 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class ExportScreenController extends GetxController {
+  // Variabel yang mengontrol apakah "Realization" atau "Transaction" yang aktif
+  var isRealization = true.obs;
+
+  // Fungsi untuk memindah Screen ke Realization
+  void toggleRealization() {
+    isRealization.value = true;
+  }
+
+  // Fungsi untuk memindah Screen ke Transaction
+  void toggleTransaction() {
+    isRealization.value = false;
+  }
+
+  // Fungsi terkait PDF
   void getPDF() async {
     final pdf = pw.Document();
 

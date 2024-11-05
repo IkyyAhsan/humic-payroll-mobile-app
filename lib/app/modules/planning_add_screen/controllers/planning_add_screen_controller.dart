@@ -1,23 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/planning.dart';
 
 class PlanningAddScreenController extends GetxController {
-  //TODO: Implement PlanningAddScreenController
+  var planningData = <GetPlanning>[].obs;
+  var isLoading = true.obs;
 
-  final count = 0.obs;
+  final TextEditingController namePlan = TextEditingController();
+  final TextEditingController deadlinePlan = TextEditingController();
+  final TextEditingController targetPlan = TextEditingController();
+  final TextEditingController descriptionPlan = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
+    //fetchPlanningData();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

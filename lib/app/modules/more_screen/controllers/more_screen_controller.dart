@@ -1,23 +1,21 @@
 import 'package:get/get.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
+import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
 
 class MoreScreenController extends GetxController {
-  //TODO: Implement MoreScreenController
+  UserProfile? userProfileData;
+  bool isLoading = true;
 
-  final count = 0.obs;
+  void getUserProfileData() async {
+    userProfileData = await UserProfileServices().getUserProfile();
+    print(userProfileData);
+    isLoading = false;
+    update();
+  }
+
   @override
   void onInit() {
+    getUserProfileData();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

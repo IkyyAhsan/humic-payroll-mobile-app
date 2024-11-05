@@ -10,6 +10,7 @@ class IncomeScreenController extends GetxController {
   void getUserIncomeData() async {
     isLoading.value = true;
     userIncomeData.value = (await UserIncomeServices().getUserIncome())!;
+    print(userIncomeData.value.data?.data);
     isLoading.value = false;
     update();
   }

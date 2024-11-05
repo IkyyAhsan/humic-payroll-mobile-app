@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 var uri = "https://payroll.humicprototyping.com/api";
 BaseOptions options = BaseOptions(
     baseUrl: uri,
+    headers: {"Accept": "application/json"},
+    followRedirects: false,
 // ignore: missing_return
     validateStatus: (code) {
       if (code! >= 200) {

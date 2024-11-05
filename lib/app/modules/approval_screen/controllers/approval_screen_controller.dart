@@ -1,23 +1,16 @@
 import 'package:get/get.dart';
 
 class ApprovalScreenController extends GetxController {
-  //TODO: Implement ApprovalScreenController
+  // Variabel yang mengontrol apakah "Planning" atau "Transaction" yang aktif
+  var isPlanning = true.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  // Fungsi untuk memindah Screen ke Planning
+  void togglePlanning() {
+    isPlanning.value = true;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  // Fungsi untuk memindah Screen ke Transaction
+  void toggleTransaction() {
+    isPlanning.value = false;
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

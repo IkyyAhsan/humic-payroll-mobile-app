@@ -1,20 +1,20 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/approval_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/compare_screen/views/compare_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/export_screen_view.dart';
-import 'package:humic_payroll_mobile_app/app/modules/planning_screen/views/planning_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
-
 import '../controllers/more_screen_controller.dart';
 
 class MoreScreenView extends GetView<MoreScreenController> {
   const MoreScreenView({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(MoreScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
@@ -80,9 +80,44 @@ class MoreScreenView extends GetView<MoreScreenController> {
                 ),
                 verticalSpace(12),
 
-                // Planning Fiture
+                // Approval Fiture
+                controller.userProfileData?.role == "superAdmin"
+                    ? GestureDetector(
+                        onTap: () => Get.to(() => const ApprovalScreenView()),
+                        child: Container(
+                          width: double.infinity,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: HumiColors.humicTransparencyColor,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 24, horizontal: 30),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(HumicImages.humicApprovalIcon),
+                              horizontalSpace(18),
+                              Text(
+                                "Approval",
+                                style: GoogleFonts.plusJakartaSans(
+                                    textStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: HumiColors.humicBlackColor)),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    : Container(),
+                verticalSpace(12),
+
+                // Compare Fiture
                 GestureDetector(
-                  onTap: () => Get.to(() => const PlanningScreenView()),
+                  onTap: () => ((Get.to(const CompareScreenView()))),
                   child: Container(
                     width: double.infinity,
                     height: 100,
@@ -98,13 +133,12 @@ class MoreScreenView extends GetView<MoreScreenController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Icon(
-                          FluentIcons.document_text_24_regular,
-                          weight: 32,
-                          size: 32,
+                          FluentIcons.branch_compare_24_filled,
+                          size: 30,
                         ),
                         horizontalSpace(18),
                         Text(
-                          "Planning",
+                          "Compare",
                           style: GoogleFonts.plusJakartaSans(
                               textStyle: const TextStyle(
                                   fontSize: 16,
@@ -116,42 +150,6 @@ class MoreScreenView extends GetView<MoreScreenController> {
                   ),
                 ),
                 verticalSpace(12),
-
-                // Approval Fiture
-                GestureDetector(
-                  onTap: () => Get.to(() => const ApprovalScreenView()),
-                  child: Container(
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: HumiColors.humicTransparencyColor,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 24, horizontal: 30),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          FluentIcons.document_checkmark_24_regular,
-                          weight: 32,
-                          size: 32,
-                        ),
-                        horizontalSpace(18),
-                        Text(
-                          "Approval",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor)),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

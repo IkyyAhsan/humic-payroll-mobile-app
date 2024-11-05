@@ -8,7 +8,6 @@ abstract class Routes {
   static const REGISTER_SCREEN = _Paths.REGISTER_SCREEN;
   static const BOTTOM_NAVIGATION_BAR = _Paths.BOTTOM_NAVIGATION_BAR;
   static const INCOME_SCREEN = _Paths.INCOME_SCREEN;
-  static const EXPENSES_SCREEN = _Paths.EXPENSES_SCREEN;
   static const MORE_SCREEN = _Paths.MORE_SCREEN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const EXPORT_SCREEN = _Paths.EXPORT_SCREEN;
@@ -22,6 +21,10 @@ abstract class Routes {
   static const PLANNING_DETAILS_SCREEN = _Paths.PLANNING_DETAILS_SCREEN;
   static const PLANNING_EDIT_SCREEN = _Paths.PLANNING_EDIT_SCREEN;
   static const PLANNING_ADD_SCREEN = _Paths.PLANNING_ADD_SCREEN;
+  static const COMPARE_SCREEN = _Paths.COMPARE_SCREEN;
+  static const REALIZATION_SCREEN = _Paths.REALIZATION_SCREEN;
+  static const REALIZATION_DETAILS_SCREEN = _Paths.REALIZATION_DETAILS_SCREEN;
+  static const COMPARE_DETAILS_SCREEN = _Paths.COMPARE_DETAILS_SCREEN;
 }
 
 abstract class _Paths {
@@ -31,7 +34,6 @@ abstract class _Paths {
   static const REGISTER_SCREEN = '/register-screen';
   static const BOTTOM_NAVIGATION_BAR = '/bottom-navigation-bar';
   static const INCOME_SCREEN = '/income-screen';
-  static const EXPENSES_SCREEN = '/expenses-screen';
   static const MORE_SCREEN = '/more-screen';
   static const SPLASH_SCREEN = '/splash-screen';
   static const EXPORT_SCREEN = '/export-screen';
@@ -45,4 +47,8 @@ abstract class _Paths {
   static const PLANNING_DETAILS_SCREEN = '/planning-details-screen';
   static const PLANNING_EDIT_SCREEN = '/planning-edit-screen';
   static const PLANNING_ADD_SCREEN = '/planning-add-screen';
+  static const COMPARE_SCREEN = '/compare-screen';
+  static const REALIZATION_SCREEN = '/realization-screen';
+  static const REALIZATION_DETAILS_SCREEN = '/realization-details-screen';
+  static const COMPARE_DETAILS_SCREEN = '/compare-details-screen';
 }

@@ -16,6 +16,7 @@ class UserProfile {
   String role;
   DateTime? createdAt;
   DateTime updatedAt;
+  String? image;
 
   UserProfile({
     required this.id,
@@ -24,6 +25,7 @@ class UserProfile {
     required this.role,
     required this.createdAt,
     required this.updatedAt,
+    this.image,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
@@ -35,6 +37,7 @@ class UserProfile {
             ? DateTime.parse(json["createdAt"])
             : null,
         updatedAt: DateTime.parse(json["updated_at"]),
+        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,5 +47,6 @@ class UserProfile {
         "role": role,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "image": image,
       };
 }

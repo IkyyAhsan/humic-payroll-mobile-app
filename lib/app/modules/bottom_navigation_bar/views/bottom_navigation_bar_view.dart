@@ -1,7 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import '../controllers/bottom_navigation_bar_controller.dart';
@@ -11,7 +10,6 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
   @override
   Widget build(BuildContext context) {
     final bottomNavbarController = Get.put(BottomNavigationBarController());
-    final homeScreenController = Get.put(HomeScreenController());
 
     return Scaffold(
         backgroundColor: HumiColors.humicBackgroundColor,
@@ -28,37 +26,43 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
               onDestinationSelected: (index) =>
                   bottomNavbarController.selectedIndex.value = index,
               destinations: [
-                const NavigationDestination(
-                  icon: Icon(
-                    FluentIcons.home_24_regular,
+                NavigationDestination(
+                  icon: Image.asset(
+                    HumicImages.humicUnselectedHomeNavbar,
+                    width: 20,
                     color: HumiColors.humicTransparencyColor,
                   ),
-                  selectedIcon: Icon(FluentIcons.home_24_filled,
-                      color: HumiColors.humicPrimaryColor),
+                  selectedIcon: Image.asset(
+                    HumicImages.humicSelectedHomeNavbar,
+                    width: 20,
+                    color: HumiColors.humicPrimaryColor,
+                  ),
                   label: "Home",
                 ),
                 NavigationDestination(
                     icon: Image.asset(
-                      HumicImages.humicIncomeUnselectedIcon,
-                      width: 32,
+                      HumicImages.humicUnselectedPlanningNavbar,
+                      width: 28,
                       color: HumiColors.humicTransparencyColor,
                     ),
                     selectedIcon: Image.asset(
-                      HumicImages.humicIncomeSelectedIcon,
-                      width: 32,
+                      HumicImages.humicSelectedPlanningNavbar,
+                      width: 28,
+                      color: HumiColors.humicPrimaryColor,
                     ),
-                    label: "Income"),
-                NavigationDestination(
-                    icon: Image.asset(
-                      HumicImages.humicExpensesUnselectedIcon,
-                      width: 32,
+                    label: "Planning"),
+                const NavigationDestination(
+                    icon: Icon(
+                      FluentIcons.document_checkmark_24_regular,
+                      size: 28,
                       color: HumiColors.humicTransparencyColor,
                     ),
-                    selectedIcon: Image.asset(
-                      HumicImages.humicExpensesSelectedIcon,
-                      width: 32,
+                    selectedIcon: Icon(
+                      FluentIcons.document_checkmark_24_filled,
+                      size: 28,
+                      color: HumiColors.humicPrimaryColor,
                     ),
-                    label: "Expenses"),
+                    label: "Realization"),
                 const NavigationDestination(
                     icon: Icon(
                       FluentIcons.more_horizontal_24_regular,
