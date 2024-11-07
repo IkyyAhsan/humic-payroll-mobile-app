@@ -6,7 +6,6 @@ import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/control
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_item_screen.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';

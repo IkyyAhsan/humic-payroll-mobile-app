@@ -58,7 +58,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         HumicIncomeExpenseChart(),
                         verticalSpace(32),
 
-                        // Planning Pie Chart
+                        // Planning Pie Chart Header
                         const HumicPlanningPieChart(),
                         verticalSpace(24),
                         Obx(
@@ -1843,8 +1843,8 @@ class PlanningPieChart extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                width: 16,
-                                height: 16,
+                                width: 12,
+                                height: 12,
                                 color: data['color'],
                               ),
                               horizontalSpace(8),
@@ -1854,7 +1854,7 @@ class PlanningPieChart extends StatelessWidget {
                                     '${data['label']},',
                                     style: GoogleFonts.plusJakartaSans(
                                       textStyle: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -1862,11 +1862,12 @@ class PlanningPieChart extends StatelessWidget {
                                   Text(
                                     'Rp.${(data['value'] / 1000000).toStringAsFixed(3)}.000.000',
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xFF636363),
                                     ),
                                   ),
+                                  verticalSpace(12),
                                 ],
                               ),
                             ],

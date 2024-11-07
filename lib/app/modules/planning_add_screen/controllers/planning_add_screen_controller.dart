@@ -8,9 +8,8 @@ class PlanningAddScreenController extends GetxController {
   var i = 5;
 
   final TextEditingController namePlan = TextEditingController();
-  final TextEditingController deadlinePlan = TextEditingController();
-  final TextEditingController targetPlan = TextEditingController();
-  final TextEditingController descriptionPlan = TextEditingController();
+  final TextEditingController startDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
 
   @override
   void onInit() {

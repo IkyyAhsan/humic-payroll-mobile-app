@@ -1,9 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -14,6 +12,7 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
   const PlanningAddScreenView({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(PlanningAddScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
@@ -66,6 +65,7 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
               width: double.infinity,
               height: 56,
               child: TextFormField(
+                controller: controller.namePlan,
                 decoration: InputDecoration(
                     hintText: "Masukkan nama kegiatan..",
                     hintStyle: const TextStyle(
@@ -95,15 +95,27 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
               width: double.infinity,
               height: 56,
               child: TextFormField(
+                readOnly: true,
+                controller: controller.startDate,
                 decoration: InputDecoration(
-                    hintText: "DD/MM/YYYY",
-                    hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
+                  hintText: "DD/MM/YYYY",
+                  hintStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onTap: () async {
+                  DateTime? startDate = await showDatePicker(
+                    context: context,
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(
+                      2101,
+                    ),
+                  );
+                },
               ),
             ),
             verticalSpace(14),
@@ -122,15 +134,28 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
               width: double.infinity,
               height: 56,
               child: TextFormField(
+                readOnly: true,
+                controller: controller.endDate,
                 decoration: InputDecoration(
-                    hintText: "DD/MM/YYYY",
-                    hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
+                  hintText: "DD/MM/YYYY",
+                  hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: HumiColors.humicTransparencyColor,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onTap: () async {
+                  DateTime? endDate = await showDatePicker(
+                    context: context,
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(
+                      2101,
+                    ),
+                  );
+                },
               ),
             ),
             verticalSpace(55),
@@ -176,10 +201,12 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                     child: Text(
                       'Next',
                       style: GoogleFonts.plusJakartaSans(
-                          textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicWhiteColor)),
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicWhiteColor,
+                        ),
+                      ),
                     ),
                   ),
                 ),
