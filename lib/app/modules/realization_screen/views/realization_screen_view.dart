@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
-import 'package:humic_payroll_mobile_app/app/modules/realization_screen/views/widgets/realization_details.dart';
+import 'package:humic_payroll_mobile_app/app/modules/realization_detail_screen/views/realization_detail_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/views/realization_edit_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
@@ -19,9 +20,10 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
   Widget build(BuildContext context) {
     final HomeScreenController homeController = Get.put(HomeScreenController());
     Get.put(RealizationScreenController());
-    return Obx(
-      () {
-        return controller.isLoading.value
+    return GetBuilder<RealizationScreenController>(
+      init: RealizationScreenController(),
+      builder: (context) {
+        return controller.isLoading
             ? const Material(
                 child: Center(
                   child: CircularProgressIndicator(
@@ -32,237 +34,306 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
             : Scaffold(
                 backgroundColor: HumiColors.humicBackgroundColor,
                 body: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        verticalSpace(24),
-                        HumicCustomAppBar(
-                          title: 'Realization',
-                          image:
-                              "https://payroll.humicprototyping.com/storage/app/public/${homeController.userProfileData?.image}",
-                        ),
-                        verticalSpace(34),
-                        if (controller.realizationData.isEmpty)
-                          Center(
-                            child: Column(
-                              children: [
-                                verticalSpace(150),
-                                Lottie.asset(HumicImages.humicDataNotFound,
-                                    height: 170),
-                              ],
-                            ),
-                          )
-                        else
-                          ListView.builder(
-                            itemCount: controller.realizationData.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final data = controller.realizationData[index];
-                              return GestureDetector(
-                                onTap: () =>
-                                    Get.to(() => HumicRealizationDetails(
-                                          kegiatan: data.title,
-                                          startDate: '${data.startDate}',
-                                          endDate: '${data.endDate}',
-                                        )),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 95,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18, vertical: 12),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: HumiColors.humicWhiteColor,
-                                      boxShadow: [
-                                        BoxShadow(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          verticalSpace(24),
+                          HumicCustomAppBar(
+                            title: 'Realization',
+                            image:
+                                "https://payroll.humicprototyping.com/storage/app/public/${homeController.userProfileData?.image}",
+                          ),
+                          verticalSpace(34),
+                          if (controller.realizationData.data?.data == null)
+                            Center(
+                              child: Column(
+                                children: [
+                                  verticalSpace(150),
+                                  Lottie.asset(HumicImages.humicDataNotFound,
+                                      height: 170),
+                                ],
+                              ),
+                            )
+                          else
+                            ListView.builder(
+                              itemCount:
+                                  controller.realizationData.data?.data?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final data = controller
+                                    .realizationData.data?.data?[index];
+                                return GestureDetector(
+                                  onTap: () => Get.to(
+                                    () => const RealizationDetailScreenView(),
+                                    arguments: {'id': data?.id},
+                                  ),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 95,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 18,
+                                      vertical: 12,
+                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: HumiColors.humicWhiteColor,
+                                        boxShadow: [
+                                          BoxShadow(
                                             blurRadius: 16,
                                             offset: const Offset(0, 4),
                                             color: HumiColors.humicBlackColor
-                                                .withOpacity(0.07))
-                                      ]),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      //First Planning
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // Status, Name, and Total
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    width: 60,
-                                                    height: 25,
-                                                    decoration: BoxDecoration(
-                                                        color: (data.status ==
-                                                                    'approve' ||
-                                                                data.status ==
-                                                                    'Approve')
-                                                            ? HumiColors
-                                                                .humicSecondaryColor
-                                                                .withOpacity(
-                                                                    0.12)
-                                                            : (data.status ==
-                                                                        'decline' ||
-                                                                    data.status ==
-                                                                        'Decline')
-                                                                ? HumiColors
-                                                                    .humicPrimaryColor
-                                                                    .withOpacity(
-                                                                        0.12)
-                                                                : HumiColors
-                                                                    .humicThirdSecondaryColor
-                                                                    .withOpacity(
-                                                                        0.12),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        data.status,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: TextStyle(
+                                                .withOpacity(0.07),
+                                          ),
+                                        ]),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        //First Planning
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            // Status, Name, and Total
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 60,
+                                                      height: 25,
+                                                      decoration: BoxDecoration(
+                                                          color: (data?.status ==
+                                                                      'approve' ||
+                                                                  data?.status ==
+                                                                      'Approve')
+                                                              ? HumiColors
+                                                                  .humicSecondaryColor
+                                                                  .withOpacity(
+                                                                      0.12)
+                                                              : (data?.status ==
+                                                                          'decline' ||
+                                                                      data?.status ==
+                                                                          'Decline')
+                                                                  ? HumiColors
+                                                                      .humicPrimaryColor
+                                                                      .withOpacity(
+                                                                          0.12)
+                                                                  : HumiColors
+                                                                      .humicThirdSecondaryColor
+                                                                      .withOpacity(
+                                                                          0.12),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16)),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${data?.status}",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                TextStyle(
                                                               fontSize: 8,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
-                                                              color: (data.status ==
+                                                              color: (data?.status ==
                                                                           'approve' ||
-                                                                      data.status ==
+                                                                      data?.status ==
                                                                           'Approve')
                                                                   ? HumiColors
                                                                       .humicSecondaryColor
-                                                                  : (data.status ==
+                                                                  : (data?.status ==
                                                                               'decline' ||
-                                                                          data.status ==
+                                                                          data?.status ==
                                                                               'Decline')
                                                                       ? HumiColors
                                                                           .humicPrimaryColor
                                                                       : HumiColors
-                                                                          .humicThirdSecondaryColor),
+                                                                          .humicThirdSecondaryColor,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  horizontalSpace(4),
-                                                  Container(
-                                                    width: 50,
-                                                    height: 15,
-                                                    decoration: BoxDecoration(
-                                                      color: HumiColors
-                                                          .humicBlackColor
-                                                          .withOpacity(0.05),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${data.itemCount} Items',
-                                                        style: GoogleFonts.plusJakartaSans(
-                                                            textStyle: const TextStyle(
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: HumiColors
-                                                                    .humicTransparencyColor)),
+                                                    horizontalSpace(4),
+                                                    Container(
+                                                      width: 50,
+                                                      height: 15,
+                                                      decoration: BoxDecoration(
+                                                        color: HumiColors
+                                                            .humicBlackColor
+                                                            .withOpacity(0.05),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
                                                       ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              Text(
-                                                data.title,
-                                                style: GoogleFonts.plusJakartaSans(
+                                                      child: Center(
+                                                        child: Text(
+                                                          '${data?.itemCount} Items',
+                                                          style: GoogleFonts.plusJakartaSans(
+                                                              textStyle: const TextStyle(
+                                                                  fontSize: 8,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: HumiColors
+                                                                      .humicTransparencyColor)),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  "${data?.title}",
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
                                                     textStyle: GoogleFonts
                                                         .plusJakartaSans(
-                                                            textStyle: const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: HumiColors
-                                                                    .humicBlackColor))),
-                                              ),
-                                              Text(
-                                                "Total Netto: ${formatRupiah(int.tryParse(data.itemSumNettoAmount ?? '0') ?? 0)}",
-                                                style:
-                                                    GoogleFonts.plusJakartaSans(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicPrimaryColor,
+                                                      textStyle: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          color: HumiColors
+                                                              .humicBlackColor),
+                                                    ),
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                                Text(
+                                                  "Total Netto: ${formatRupiah(int.tryParse(data?.itemSumNettoAmount ?? '0') ?? 0)}",
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicPrimaryColor,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
 
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              _dateBox("Start", data.startDate),
-                                              horizontalSpace(5),
-                                              _dateBox("End", data.endDate),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            // Perubahan pada dateBox ketika isEditMode aktif
+                                            Obx(
+                                              () => controller.isEditMode.value
+                                                  ? ElevatedButton(
+                                                      onPressed: () {
+                                                        Get.to(
+                                                            () =>
+                                                                const RealizationEditScreenView(),
+                                                            arguments: {
+                                                              'id': data?.id
+                                                            })?.then((_) {
+                                                          controller
+                                                              .getRealizationData();
+                                                        });
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              backgroundColor:
+                                                                  HumiColors
+                                                                      .humicCancelColor),
+                                                      child: Row(
+                                                        children: [
+                                                          const Iconify(
+                                                            Bx.edit,
+                                                            color: HumiColors
+                                                                .humicPrimaryColor,
+                                                            size: 16,
+                                                          ),
+                                                          horizontalSpace(4),
+                                                          Text(
+                                                            "Edit",
+                                                            style: GoogleFonts.plusJakartaSans(
+                                                                textStyle: const TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: HumiColors
+                                                                        .humicPrimaryColor)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Row(
+                                                      children: [
+                                                        _dateBox(
+                                                            "Start",
+                                                            data?.startDate ??
+                                                                DateTime.now()),
+                                                        horizontalSpace(5),
+                                                        _dateBox(
+                                                            "End",
+                                                            data?.endDate ??
+                                                                DateTime.now()),
+                                                      ],
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        verticalSpace(16),
-                      ],
+                                );
+                              },
+                            ),
+                          verticalSpace(16),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 // Add Plan
-                floatingActionButton: SizedBox(
-                  width: 138,
-                  height: 51,
-                  child: FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: HumiColors.humicPrimaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          child: Iconify(
-                            Bx.edit,
-                            color: HumiColors.humicWhiteColor,
-                            size: 16,
-                          ),
-                        ),
-                        horizontalSpace(4),
-                        Text(
-                          "Edit",
-                          style: GoogleFonts.plusJakartaSans(
+                floatingActionButton: Obx(
+                  () => SizedBox(
+                    width: 138,
+                    height: 51,
+                    child: FloatingActionButton(
+                      onPressed: controller.toggleEditMode,
+                      backgroundColor: HumiColors.humicPrimaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(11),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          controller.isEditMode.value
+                              ? const Iconify(
+                                  Bx.x_circle,
+                                  color: HumiColors.humicWhiteColor,
+                                  size: 16,
+                                )
+                              : const Iconify(
+                                  Bx.edit,
+                                  color: HumiColors.humicWhiteColor,
+                                  size: 16,
+                                ),
+                          horizontalSpace(4),
+                          Text(
+                            controller.isEditMode.value ? "Close" : "Edit",
+                            style: GoogleFonts.plusJakartaSans(
                               textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicWhiteColor)),
-                        )
-                      ],
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicWhiteColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -292,7 +363,9 @@ Widget _dateBox(String label, DateTime date) {
         decoration: BoxDecoration(
           color: HumiColors.humicWhiteColor,
           border: Border.all(
-              color: HumiColors.humicBorderPlanningContainerColor, width: 2),
+            color: HumiColors.humicBorderPlanningContainerColor,
+            width: 2,
+          ),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(

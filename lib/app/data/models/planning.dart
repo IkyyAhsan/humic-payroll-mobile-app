@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final planning = planningFromJson(jsonString);
+
 import 'dart:convert';
 
 Planning planningFromJson(String str) => Planning.fromJson(json.decode(str));

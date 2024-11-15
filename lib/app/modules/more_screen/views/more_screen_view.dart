@@ -15,146 +15,158 @@ class MoreScreenView extends GetView<MoreScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(MoreScreenController());
-    return Scaffold(
-      backgroundColor: HumiColors.humicBackgroundColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpace(24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    horizontalSpace(16),
-                    Text(
-                      "More",
-                      style: GoogleFonts.plusJakartaSans(
-                          textStyle: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: HumiColors.humicBlackColor)),
-                    )
-                  ],
-                ),
-                verticalSpace(20),
-
-                // Export Fiture
-                GestureDetector(
-                  onTap: () => Get.to(() => const ExportScreenView()),
-                  child: Container(
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: HumiColors.humicTransparencyColor,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 24, horizontal: 30),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          FluentIcons.share_ios_24_filled,
-                          weight: 24,
-                          size: 32,
-                        ),
-                        horizontalSpace(18),
-                        Text(
-                          "Export",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor)),
-                        )
-                      ],
-                    ),
+    return GetBuilder<MoreScreenController>(builder: (_) {
+      return controller.isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: HumiColors.humicPrimaryColor,
+              ),
+            )
+          : Scaffold(
+              backgroundColor: HumiColors.humicBackgroundColor,
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
                   ),
-                ),
-                verticalSpace(12),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        verticalSpace(24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            horizontalSpace(16),
+                            Text(
+                              "More",
+                              style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: HumiColors.humicBlackColor)),
+                            )
+                          ],
+                        ),
+                        verticalSpace(20),
 
-                // Approval Fiture
-                controller.userProfileData?.role == "superAdmin"
-                    ? GestureDetector(
-                        onTap: () => Get.to(() => const ApprovalScreenView()),
-                        child: Container(
-                          width: double.infinity,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: HumiColors.humicTransparencyColor,
+                        // Export Fiture
+                        GestureDetector(
+                          onTap: () => Get.to(() => const ExportScreenView()),
+                          child: Container(
+                            width: double.infinity,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: HumiColors.humicTransparencyColor,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 24, horizontal: 30),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(HumicImages.humicApprovalIcon),
-                              horizontalSpace(18),
-                              Text(
-                                "Approval",
-                                style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: HumiColors.humicBlackColor)),
-                              )
-                            ],
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 24, horizontal: 30),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  FluentIcons.share_ios_24_filled,
+                                  weight: 24,
+                                  size: 32,
+                                ),
+                                horizontalSpace(18),
+                                Text(
+                                  "Export",
+                                  style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor)),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      )
-                    : Container(),
-                verticalSpace(12),
+                        verticalSpace(12),
 
-                // Compare Fiture
-                GestureDetector(
-                  onTap: () => ((Get.to(const CompareScreenView()))),
-                  child: Container(
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: HumiColors.humicTransparencyColor,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 24, horizontal: 30),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          FluentIcons.branch_compare_24_filled,
-                          size: 30,
+                        // Approval Fiture
+                        controller.userProfileData?.role == "superAdmin"
+                            ? GestureDetector(
+                                onTap: () =>
+                                    Get.to(() => const ApprovalScreenView()),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: HumiColors.humicTransparencyColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 24, horizontal: 30),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                          HumicImages.humicApprovalIcon),
+                                      horizontalSpace(18),
+                                      Text(
+                                        "Approval",
+                                        style: GoogleFonts.plusJakartaSans(
+                                            textStyle: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: HumiColors
+                                                    .humicBlackColor)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        verticalSpace(12),
+
+                        // Compare Fiture
+                        GestureDetector(
+                          onTap: () => ((Get.to(const CompareScreenView()))),
+                          child: Container(
+                            width: double.infinity,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: HumiColors.humicTransparencyColor,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 24, horizontal: 30),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  FluentIcons.branch_compare_24_filled,
+                                  size: 30,
+                                ),
+                                horizontalSpace(18),
+                                Text(
+                                  "Compare",
+                                  style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor)),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        horizontalSpace(18),
-                        Text(
-                          "Compare",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor)),
-                        )
+                        verticalSpace(12),
                       ],
                     ),
                   ),
                 ),
-                verticalSpace(12),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ),
+            );
+    });
   }
 }

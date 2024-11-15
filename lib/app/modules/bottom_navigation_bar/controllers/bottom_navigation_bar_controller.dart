@@ -5,7 +5,7 @@ import 'package:humic_payroll_mobile_app/app/modules/planning_screen/views/plann
 import 'package:humic_payroll_mobile_app/app/modules/realization_screen/views/realization_screen_view.dart';
 
 class BottomNavigationBarController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
+   Rx<int> selectedIndex = 0.obs;
 
   final screens = [
     const HomeScreenView(),

@@ -25,6 +25,10 @@ abstract class Routes {
   static const REALIZATION_SCREEN = _Paths.REALIZATION_SCREEN;
   static const REALIZATION_DETAILS_SCREEN = _Paths.REALIZATION_DETAILS_SCREEN;
   static const COMPARE_DETAILS_SCREEN = _Paths.COMPARE_DETAILS_SCREEN;
+  static const PLANNING_DETAIL_SCREEN = _Paths.PLANNING_DETAIL_SCREEN;
+  static const REALIZATION_DETAIL_SCREEN = _Paths.REALIZATION_DETAIL_SCREEN;
+  static const REALIZATION_EDIT_SCREEN = _Paths.REALIZATION_EDIT_SCREEN;
+  static const REALIZATION_ADD_ITEM_SCREEN = _Paths.REALIZATION_ADD_ITEM_SCREEN;
 }
 
 abstract class _Paths {
@@ -51,4 +55,8 @@ abstract class _Paths {
   static const REALIZATION_SCREEN = '/realization-screen';
   static const REALIZATION_DETAILS_SCREEN = '/realization-details-screen';
   static const COMPARE_DETAILS_SCREEN = '/compare-details-screen';
+  static const PLANNING_DETAIL_SCREEN = '/planning-detail-screen';
+  static const REALIZATION_DETAIL_SCREEN = '/realization-detail-screen';
+  static const REALIZATION_EDIT_SCREEN = '/realization-edit-screen';
+  static const REALIZATION_ADD_ITEM_SCREEN = '/realization-add-item-screen';
 }

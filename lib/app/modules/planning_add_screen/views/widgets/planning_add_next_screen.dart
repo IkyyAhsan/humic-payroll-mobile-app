@@ -6,13 +6,19 @@ import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/control
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_item_screen.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
+import 'package:intl/intl.dart';
 
 class PlanningAddNextScreen extends StatelessWidget {
-  const PlanningAddNextScreen({super.key});
+  final int? id;
+
+  const PlanningAddNextScreen({
+    super.key,
+    this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +74,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Conference ICYCYTA",
-                    // controller.namePlan.text,
+                    controller.namePlan.text,
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: const TextStyle(
                         fontSize: 16,
@@ -97,7 +102,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "15 Oktober 2024",
+                    controller.startDate.text,
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: const TextStyle(
                         fontSize: 16,
@@ -123,7 +128,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "21 November 2024",
+                    controller.endDate.text,
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: const TextStyle(
                         fontSize: 16,
@@ -135,13 +140,15 @@ class PlanningAddNextScreen extends StatelessWidget {
                 ],
               ),
               verticalSpace(40),
-              Text(
-                "Items",
-                style: GoogleFonts.plusJakartaSans(
-                  textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: HumiColors.humicTransparencyColor,
+              Center(
+                child: Text(
+                  "Items",
+                  style: GoogleFonts.plusJakartaSans(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                   ),
                 ),
               ),
@@ -161,264 +168,295 @@ class PlanningAddNextScreen extends StatelessWidget {
                           offset: const Offset(0, 4),
                           color: HumiColors.humicBlackColor.withOpacity(0.05)),
                     ]),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HumiColors.humicWhiteColor,
-                      borderRadius: BorderRadius.circular(9),
-                      boxShadow: [
-                        BoxShadow(
-                          color: HumiColors.humicBlackColor.withOpacity(0.11),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Table(
-                      columnWidths: const {
-                        0: FixedColumnWidth(100),
-                        1: FixedColumnWidth(130),
-                        2: FixedColumnWidth(130),
-                        3: FixedColumnWidth(130),
-                        4: FixedColumnWidth(130),
-                        5: FixedColumnWidth(130),
-                        6: FixedColumnWidth(40),
-                      },
-                      children: [
-                        // Header Setiap Row
-                        const TableRow(children: [
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Tanggal",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Keterangan",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Nilai Bruto",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Nilai Pajak",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Nilai Netto",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Kategori",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicTransparencyColor,
-                              ),
-                            ),
-                          ),
-                        ]),
-
-                        // Value Row 1
-                        TableRow(
+                child: Obx(
+                  () => controller.rows.isEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "21/10/2024",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
-                                ),
-                              ),
+                            const Image(
+                              image:
+                                  AssetImage(HumicImages.humicNoItemFoundIcon),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.all(6),
-                              child: Text(
-                                "Sehat",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                formatRupiah(200000000),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                formatRupiah(20000000),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                formatRupiah(20000000),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
-                                ),
-                              ),
-                            ),
-                            const Padding(
-                              padding:
-                                  EdgeInsets.only(left: 8, top: 8, bottom: 8),
-                              child: Text(
-                                "Berhasil",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: HumiColors.humicPrimaryColor,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Iconify(
-                                  MaterialSymbols.delete,
-                                  size: 24,
-                                  color: HumiColors.humicWhiteColor,
-                                ),
+                            verticalSpace(8),
+                            Text(
+                              "No item found",
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicTransparencyColor),
                               ),
                             ),
                           ],
-                        ),
+                        )
+                      : SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HumiColors.humicWhiteColor,
+                              borderRadius: BorderRadius.circular(9),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: HumiColors.humicBlackColor
+                                      .withOpacity(0.11),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Table(
+                              columnWidths: const {
+                                0: FixedColumnWidth(100),
+                                1: FixedColumnWidth(130),
+                                2: FixedColumnWidth(130),
+                                3: FixedColumnWidth(130),
+                                4: FixedColumnWidth(130),
+                                5: FixedColumnWidth(130),
+                                6: FixedColumnWidth(40),
+                              },
+                              children: [
+                                // Header Setiap Row
+                                const TableRow(children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "Tanggal",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "Keterangan",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "Nilai Bruto",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "Nilai Pajak",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "Nilai Netto",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "Kategori",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      "",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                ]),
 
-                        // Value Hasil
-                        const TableRow(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "Total",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
+                                // Value Row 1
+                                TableRow(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        controller.tanggalItem.text,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6),
+                                      child: Text(
+                                        controller.keteranganItem.text,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        controller.nilaiBrutoItem.text,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        controller.nilaiPajakItem.text,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        controller.nilaiNettoItem.text,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 8, top: 8, bottom: 8),
+                                      child: Text(
+                                        "Berhasil",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: HumiColors.humicPrimaryColor,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: IconButton(
+                                        onPressed: () {},
+                                        icon: const Iconify(
+                                          MaterialSymbols.delete,
+                                          size: 24,
+                                          color: HumiColors.humicWhiteColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+
+                                // Value Hasil
+                                const TableRow(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(
+                                        "Total",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(6),
+                                      child: Text(
+                                        "",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(
+                                        "Rp200.000.000",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(
+                                        "Rp20.000.000",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(
+                                        "Rp20.000.000",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(
+                                        "",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Text(
+                                        "",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicPrimaryColor,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(6),
-                              child: Text(
-                                "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "Rp200.000.000",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "Rp20.000.000",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "Rp20.000.000",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
 
@@ -454,8 +492,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                     width: 160,
                     height: 46,
                     child: ElevatedButton(
-                      onPressed: () =>
-                          Get.offAll(() => const PlanningAddItemScreen()),
+                      onPressed: () => Get.to(() => PlanningAddItemScreen(
+                            id: id,
+                          )),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: HumiColors.humicPrimaryColor,
                           padding: const EdgeInsets.symmetric(
@@ -492,5 +531,20 @@ class PlanningAddNextScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<void> selectDate(BuildContext context) async {
+  final controller = Get.put(PlanningAddScreenController());
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2100),
+  );
+
+  if (picked != null) {
+    controller.selectedDate.value =
+        DateFormat('dd MMMM yyyy').format(picked) as DateTime;
   }
 }

@@ -1,23 +1,24 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/controllers/planning_add_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 
-class PlanningAddItemScreen extends StatelessWidget {
-  final int? id;
-  const PlanningAddItemScreen({super.key, this.id});
+import '../controllers/realization_add_item_screen_controller.dart';
 
+class RealizationAddItemScreenView
+    extends GetView<RealizationAddItemScreenController> {
+  const RealizationAddItemScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(PlanningAddScreenController());
+    Get.put(RealizationAddItemScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -35,10 +36,12 @@ class PlanningAddItemScreen extends StatelessWidget {
                   Text(
                     "Add Item",
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: HumiColors.humicBlackColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -67,7 +70,7 @@ class PlanningAddItemScreen extends StatelessWidget {
                 height: 56,
                 child: TextFormField(
                   readOnly: true,
-                  controller: controller.endDate,
+                  controller: controller.tanggalItem,
                   decoration: InputDecoration(
                     hintText: "DD/MM/YYYY",
                     hintStyle: const TextStyle(

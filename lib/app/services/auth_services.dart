@@ -53,6 +53,7 @@ class AuthServices {
 
       if (response.statusCode == 200) {
         _message = response.data['message'];
+        GetStorage().write('token', response.data['token']);
         return true;
       } else {
         return false;
