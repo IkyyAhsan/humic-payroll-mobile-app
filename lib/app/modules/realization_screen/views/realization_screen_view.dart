@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_detail_screen/views/realization_detail_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/controllers/realization_edit_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/views/realization_edit_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -224,11 +225,13 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                                               ],
                                             ),
 
-                                            // Perubahan pada dateBox ketika isEditMode aktif
                                             Obx(
                                               () => controller.isEditMode.value
                                                   ? ElevatedButton(
                                                       onPressed: () {
+                                                        Get.delete<
+                                                            RealizationEditScreenController>();
+
                                                         Get.to(
                                                             () =>
                                                                 const RealizationEditScreenView(),

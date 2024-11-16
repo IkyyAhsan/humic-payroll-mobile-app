@@ -67,8 +67,9 @@ void approveConfirmation() {
                 width: 150,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      Get.offAll(() => const BottomNavigationBarView()),
+                  onPressed: () {
+                    Get.offAll(() => const BottomNavigationBarView());
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(

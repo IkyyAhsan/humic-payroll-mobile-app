@@ -105,27 +105,25 @@ class PlanningAddScreenController extends GetxController {
   }
 
   void addItem() async {
-    if (await AddItemServices().addItemPlanning(
-        item: AddItem(
-            planningId: data.value?.id ?? 0,
-            date: selectedDate3.value,
-            information: keteranganItem.text,
-            brutoAmount: int.parse(nilaiBrutoItem.text),
-            taxAmount: int.parse(nilaiPajakItem.text),
-            nettoAmount: int.parse(nilaiNettoItem.text),
-            category: kategoriItem.text,
-            isAddition: 0))) {
+    bool result = await AddItemServices().addItemPlanning(
+      item: AddItem(
+        planningId: data.value?.id ?? 0,
+        date: selectedDate3.value,
+        information: keteranganItem.text,
+        brutoAmount: int.parse(nilaiBrutoItem.text),
+        taxAmount: int.parse(nilaiPajakItem.text),
+        nettoAmount: int.parse(nilaiNettoItem.text),
+        category: kategoriItem.text,
+        isAddition: 0,
+      ),
+    );
+    print("AddItem Result: $result"); // Debugging
+    if (result) {
       Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
       final controller = Get.put(BottomNavigationBarController());
       controller.selectedIndex.value = 1;
     } else {
-      print(false);
+      print("AddItem failed");
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    //fetchPlanningData();
   }
 }

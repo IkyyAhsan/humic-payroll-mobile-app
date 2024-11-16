@@ -126,15 +126,18 @@ class Datum {
         id: json["id"],
         userId: json["user_id"],
         title: json["title"],
-        startDate:
-            json["start_date"] == null ? null : DateTime.parse(json["start_date"]),
+        startDate: json["start_date"] == null
+            ? null
+            : DateTime.parse(json["start_date"]),
         endDate:
             json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
         status: json["status"],
-        createdAt:
-            json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt:
-            json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         itemCount: json["item_count"],
         itemSumNettoAmount: json["item_sum_netto_amount"],
       );

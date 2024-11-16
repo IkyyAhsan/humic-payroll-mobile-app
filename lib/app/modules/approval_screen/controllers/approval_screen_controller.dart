@@ -1,16 +1,40 @@
 import 'package:get/get.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/approve.dart';
+import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
 
 class ApprovalScreenController extends GetxController {
-  // Variabel yang mengontrol apakah "Planning" atau "Transaction" yang aktif
-  var isPlanning = true.obs;
+  var approvalData = Approve();
+  var isPlanning = true;
+  var isLoading = true;
 
-  // Fungsi untuk memindah Screen ke Planning
-  void togglePlanning() {
-    isPlanning.value = true;
+  void getApprovalData() async {
+    isPlanning = true;
+
+    final approvalResponse = await ApprovalServices().getApproveData();
+
+    if (approvalResponse != null) {
+      approvalData = approvalResponse;
+    } else {
+      print('No data received from API');
+    }
+
+    isLoading = false;
+    update();
   }
 
-  // Fungsi untuk memindah Screen ke Transaction
+  void togglePlanning() {
+    isPlanning = true;
+    update();
+  }
+
   void toggleTransaction() {
-    isPlanning.value = false;
+    isPlanning = false;
+    update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getApprovalData();
   }
 }

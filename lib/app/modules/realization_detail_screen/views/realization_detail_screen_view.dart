@@ -7,7 +7,6 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
-
 import '../controllers/realization_detail_screen_controller.dart';
 
 class RealizationDetailScreenView

@@ -14,125 +14,164 @@ class HumiCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
-    return CarouselSlider(
-        options: CarouselOptions(
+    final currentIndex = RxInt(0); // Track current index
+
+    return Obx(() => CarouselSlider(
+          options: CarouselOptions(
             height: 120,
             viewportFraction: 0.5,
             enlargeCenterPage: true,
             enableInfiniteScroll: false,
-            initialPage: 1),
-        items: [
-          Container(
-            width: 172,
-            height: 117,
-            margin: const EdgeInsets.only(right: 12),
-            decoration: BoxDecoration(
+            initialPage: 1,
+            onPageChanged: (index, reason) {
+              currentIndex.value = index;
+            },
+          ),
+          items: [
+            // Balance Card
+            Container(
+              width: 172,
+              height: 117,
+              margin: const EdgeInsets.only(right: 12),
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
+                color: currentIndex.value == 0
+                    ? HumiColors.humicPrimaryColor
+                    : HumiColors.humicWhiteColor,
                 border: Border.all(
                   color: HumiColors.humicPrimaryColor,
-                )),
-            padding: const EdgeInsets.only(left: 18, bottom: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Monthly Expenses",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
+                ),
+              ),
+              padding: const EdgeInsets.only(left: 18, bottom: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Balance",
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor),
+                        color: currentIndex.value == 0
+                            ? HumiColors.humicWhiteColor
+                            : HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  formatRupiah(
-                      (controller.dashboardData.value.data?.monthlyExpense) ??
-                          0),
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
+                  Text(
+                    formatRupiah(
+                        (controller.dashboardData.value.data?.ballance) ?? 0),
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: HumiColors.humicBlackColor),
+                        color: currentIndex.value == 0
+                            ? HumiColors.humicWhiteColor
+                            : HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Container(
-            width: 172,
-            height: 117,
-            margin: const EdgeInsets.only(right: 12),
-            decoration: BoxDecoration(
+            // Monthly Income Card
+            Container(
+              width: 172,
+              height: 117,
+              margin: const EdgeInsets.only(right: 12),
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: HumiColors.humicPrimaryColor,
+                color: currentIndex.value == 1
+                    ? HumiColors.humicPrimaryColor
+                    : HumiColors.humicWhiteColor,
                 border: Border.all(
                   color: HumiColors.humicPrimaryColor,
-                )),
-            padding: const EdgeInsets.only(left: 18, bottom: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Balance",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
+                ),
+              ),
+              padding: const EdgeInsets.only(left: 18, bottom: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Monthly Income",
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: HumiColors.humicWhiteColor),
+                        color: currentIndex.value == 1
+                            ? HumiColors.humicWhiteColor
+                            : HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  formatRupiah(
-                      (controller.dashboardData.value.data?.ballance) ?? 0),
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
+                  Text(
+                    formatRupiah(
+                        (controller.dashboardData.value.data?.monthlyIncome ??
+                            0)),
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: HumiColors.humicWhiteColor),
+                        color: currentIndex.value == 1
+                            ? HumiColors.humicWhiteColor
+                            : HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Container(
-            width: 172,
-            height: 117,
-            margin: const EdgeInsets.only(right: 12),
-            decoration: BoxDecoration(
+            // Monthly Expenses Card
+            Container(
+              width: 172,
+              height: 117,
+              margin: const EdgeInsets.only(right: 12),
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
+                color: currentIndex.value == 2
+                    ? HumiColors.humicPrimaryColor
+                    : HumiColors.humicWhiteColor,
                 border: Border.all(
                   color: HumiColors.humicPrimaryColor,
-                )),
-            padding: const EdgeInsets.only(left: 18, bottom: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Monthly Income",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
+                ),
+              ),
+              padding: const EdgeInsets.only(left: 18, bottom: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Monthly Expenses",
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor),
+                        color: currentIndex.value == 2
+                            ? HumiColors.humicWhiteColor
+                            : HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  formatRupiah(
-                      (controller.dashboardData.value.data?.monthlyIncome ??
-                          0)),
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
+                  Text(
+                    formatRupiah(
+                        (controller.dashboardData.value.data?.monthlyExpense ??
+                            0)),
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: HumiColors.humicBlackColor),
+                        color: currentIndex.value == 2
+                            ? HumiColors.humicWhiteColor
+                            : HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ]);
+          ],
+        ));
   }
 }

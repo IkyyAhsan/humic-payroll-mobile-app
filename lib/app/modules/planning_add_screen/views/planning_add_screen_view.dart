@@ -129,9 +129,10 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                     decoration: InputDecoration(
                       hintText: "DD/MM/YYYY",
                       hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: HumiColors.humicTransparencyColor,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -158,9 +159,10 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                         'Cancel',
                         style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicPrimaryColor),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: HumiColors.humicPrimaryColor,
+                          ),
                         ),
                       ),
                     ),

@@ -17,8 +17,7 @@ class RealizationEditScreenView
   const RealizationEditScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(RealizationEditScreenController());
-
+    final controller = Get.put(RealizationEditScreenController());
     return GetBuilder<RealizationEditScreenController>(
       builder: (context) {
         int totalBruto = 0;

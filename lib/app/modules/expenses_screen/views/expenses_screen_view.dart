@@ -1,22 +1,23 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/add_income_screen/views/add_income_screen_view.dart';
-import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_details.dart';
+import 'package:humic_payroll_mobile_app/app/modules/add_expenses_screen/views/add_expenses_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:lottie/lottie.dart';
-import '../controllers/income_screen_controller.dart';
 
-class IncomeScreenView extends GetView<IncomeScreenController> {
-  const IncomeScreenView({super.key});
+import '../controllers/expenses_screen_controller.dart';
+
+class ExpensesScreenView extends GetView<ExpensesScreenController> {
+  const ExpensesScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(IncomeScreenController());
+    Get.put(ExpensesScreenController());
     return Obx(() {
       return controller.isLoading.value
           ? const Material(
@@ -48,7 +49,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                 )),
                             horizontalSpace(16),
                             Text(
-                              "Income",
+                              "Outcome",
                               style: GoogleFonts.plusJakartaSans(
                                   textStyle: const TextStyle(
                                       fontSize: 24,
@@ -61,11 +62,12 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
 
                         // First History
                         Obx(() {
-                          if (controller.userIncomeData.value.data?.data ==
+                          if (controller.userExpensesData.value.data
+                                  ?.transactionList?.data ==
                               null) {
                             return RefreshIndicator(
                               onRefresh: () async =>
-                                  controller.getUserIncomeData(),
+                                  controller.getExpensesData(),
                               child: SingleChildScrollView(
                                 physics: const AlwaysScrollableScrollPhysics(),
                                 child: Center(
@@ -83,18 +85,23 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                           } else {
                             return RefreshIndicator(
                               onRefresh: () async =>
-                                  controller.getUserIncomeData(),
+                                  controller.getExpensesData(),
                               child: ListView.builder(
-                                  itemCount: controller.userIncomeData.value
-                                          .data?.data?.length ??
+                                  itemCount: controller
+                                          .userExpensesData
+                                          .value
+                                          .data
+                                          ?.transactionList
+                                          ?.data
+                                          ?.length ??
                                       0,
                                   shrinkWrap: true,
                                   primary: false,
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var data = controller.userIncomeData.value
-                                        .data?.data?[index];
+                                    var data = controller.userExpensesData.value
+                                        .data?.transactionList?.data?[index];
                                     return GestureDetector(
                                       onTap: () => Get.back(),
                                       child: Column(
@@ -307,7 +314,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                 width: 138,
                 height: 51,
                 child: FloatingActionButton(
-                  onPressed: () => Get.to(() => const AddIncomeScreenView()),
+                  onPressed: () => Get.to(() => const AddExpensesScreenView()),
                   backgroundColor: HumiColors.humicPrimaryColor,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

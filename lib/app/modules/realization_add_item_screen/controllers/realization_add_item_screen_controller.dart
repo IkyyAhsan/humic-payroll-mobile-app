@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_screen/controllers/realization_screen_controller.dart';
-import 'package:humic_payroll_mobile_app/app/modules/realization_screen/views/realization_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
@@ -18,6 +16,12 @@ class RealizationAddItemScreenController extends GetxController {
   final TextEditingController nilaiPajakItem = TextEditingController();
   final TextEditingController nilaiNettoItem = TextEditingController();
   final TextEditingController kategoriItem = TextEditingController();
+
+  @override
+  void onInit() {
+    resetForm();
+    super.onInit();
+  }
 
   void changeTanggalItem() async {
     DateTime? date = await showDatePicker(
@@ -66,5 +70,15 @@ class RealizationAddItemScreenController extends GetxController {
     } else {
       print(false);
     }
+  }
+
+  void resetForm() {
+    tanggalItem.clear();
+    keteranganItem.clear();
+    nilaiBrutoItem.clear();
+    nilaiPajakItem.clear();
+    nilaiNettoItem.clear();
+    kategoriItem.clear();
+    selectedDate.value = DateTime.now();
   }
 }

@@ -8,7 +8,7 @@ class RealizationEditScreenController extends GetxController {
   ShowRealization? realizationDetailData;
   bool isLoading = true;
   bool isRealization = false;
-    var id = Get.arguments['id'];
+  var id = Get.arguments['id'];
 
   @override
   void onInit() {
@@ -17,17 +17,22 @@ class RealizationEditScreenController extends GetxController {
   }
 
   void getRealizationDetailData() async {
-
     isLoading = true;
     realizationDetailData =
         await ShowRealizationServices().getShowRealization(id);
     isLoading = false;
     update();
   }
- void delete(int itemId ) async {
+
+  void delete(int itemId) async {
     isRealization = await RealizationServices().deleteItem(itemId);
     if (isRealization) {
       getRealizationDetailData();
     }
+  }
+
+  void resetData() {
+    realizationDetailData = null;
+    update();
   }
 }

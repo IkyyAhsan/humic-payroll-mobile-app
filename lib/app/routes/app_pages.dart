@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/approval_detail_screen/bindings/approval_detail_screen_binding.dart';
+import '../modules/approval_detail_screen/views/approval_detail_screen_view.dart';
 import '../modules/approval_screen/bindings/approval_screen_binding.dart';
 import '../modules/approval_screen/views/approval_screen_view.dart';
 import '../modules/bottom_navigation_bar/bindings/bottom_navigation_bar_binding.dart';
@@ -8,6 +10,8 @@ import '../modules/compare_details_screen/bindings/compare_details_screen_bindin
 import '../modules/compare_details_screen/views/compare_details_screen_view.dart';
 import '../modules/compare_screen/bindings/compare_screen_binding.dart';
 import '../modules/compare_screen/views/compare_screen_view.dart';
+import '../modules/expenses_screen/bindings/expenses_screen_binding.dart';
+import '../modules/expenses_screen/views/expenses_screen_view.dart';
 import '../modules/export_screen/bindings/export_screen_binding.dart';
 import '../modules/export_screen/views/export_screen_view.dart';
 import '../modules/filter_screen/bindings/filter_screen_binding.dart';
@@ -157,6 +161,16 @@ class AppPages {
       name: _Paths.REALIZATION_ADD_ITEM_SCREEN,
       page: () => const RealizationAddItemScreenView(),
       binding: RealizationAddItemScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXPENSES_SCREEN,
+      page: () => const ExpensesScreenView(),
+      binding: ExpensesScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPROVAL_DETAIL_SCREEN,
+      page: () => const ApprovalDetailScreenView(),
+      binding: ApprovalDetailScreenBinding(),
     ),
   ];
 }

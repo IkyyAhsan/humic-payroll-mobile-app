@@ -17,7 +17,7 @@ class PlanningAddItemScreen extends StatelessWidget {
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -35,10 +35,12 @@ class PlanningAddItemScreen extends StatelessWidget {
                   Text(
                     "Add Item",
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: HumiColors.humicBlackColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -71,9 +73,10 @@ class PlanningAddItemScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "DD/MM/YYYY",
                     hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -135,9 +138,10 @@ class PlanningAddItemScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "Masukkan nilai bruto..",
                     hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -166,9 +170,10 @@ class PlanningAddItemScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "Masukkan nilai pajak..",
                     hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -197,9 +202,10 @@ class PlanningAddItemScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "Masukkan nilai netto..",
                     hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -208,7 +214,7 @@ class PlanningAddItemScreen extends StatelessWidget {
               ),
               verticalSpace(14),
 
-              // Kategori
+// Kategori
               Text(
                 "Kategori",
                 style: GoogleFonts.plusJakartaSans(
@@ -223,20 +229,68 @@ class PlanningAddItemScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 height: 56,
-                child: TextFormField(
-                  controller: controller.kategoriItem,
+                child: DropdownButtonFormField<String>(
+                  value: controller.kategoriItem.text.isEmpty
+                      ? null
+                      : controller.kategoriItem.text,
+                  items: [
+                    DropdownMenuItem(
+                      value: "internal",
+                      child: Text(
+                        "Internal",
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "eksternal",
+                      child: Text(
+                        "Eksternal",
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "rka",
+                      child: Text(
+                        "RKA",
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   decoration: InputDecoration(
-                    hintText: "Masukkan kategori..",
+                    hintText: "Pilih kategori..",
                     hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                  onChanged: (value) {
+                    controller.kategoriItem.text = value ?? "";
+                  },
                 ),
               ),
+
               verticalSpace(40),
 
               //Button Add Item
@@ -244,7 +298,7 @@ class PlanningAddItemScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: controller.addItem,
+                  onPressed: () => controller.addItem(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: HumiColors.humicPrimaryColor,
                     padding: const EdgeInsets.symmetric(
