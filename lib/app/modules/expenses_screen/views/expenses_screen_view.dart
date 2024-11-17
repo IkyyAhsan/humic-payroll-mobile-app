@@ -30,9 +30,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
               backgroundColor: HumiColors.humicBackgroundColor,
               body: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,28 +40,29 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             IconButton(
-                                onPressed: () => Get.back(),
-                                icon: const Icon(
-                                  FluentIcons.ios_arrow_ltr_24_regular,
-                                  color: HumiColors.humicBlackColor,
-                                )),
+                              onPressed: () => Get.back(),
+                              icon: const Icon(
+                                FluentIcons.ios_arrow_ltr_24_regular,
+                                color: HumiColors.humicBlackColor,
+                              ),
+                            ),
                             horizontalSpace(16),
                             Text(
                               "Outcome",
                               style: GoogleFonts.plusJakartaSans(
-                                  textStyle: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: HumiColors.humicBlackColor)),
+                                textStyle: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: HumiColors.humicBlackColor),
+                              ),
                             ),
                           ],
                         ),
                         verticalSpace(20),
 
-                        // First History
+                        // Filtered History
                         Obx(() {
-                          if (controller.userExpensesData.value.data
-                                  ?.transactionList?.data ==
+                          if (controller.userExpensesData.value.data?.data ==
                               null) {
                             return RefreshIndicator(
                               onRefresh: () async =>
@@ -75,232 +74,238 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                     children: [
                                       verticalSpace(150),
                                       Lottie.asset(
-                                          HumicImages.humicDataNotFound,
-                                          height: 230),
+                                        HumicImages.humicDataNotFound,
+                                        height: 230,
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
                             );
                           } else {
+                            // Filter data hanya untuk "expense"
+                            var filteredData = controller
+                                    .userExpensesData.value.data?.data
+                                    ?.where((item) =>
+                                        item.transactionType == "expense")
+                                    .toList() ??
+                                [];
+
                             return RefreshIndicator(
                               onRefresh: () async =>
                                   controller.getExpensesData(),
-                              child: ListView.builder(
-                                  itemCount: controller
-                                          .userExpensesData
-                                          .value
-                                          .data
-                                          ?.transactionList
-                                          ?.data
-                                          ?.length ??
-                                      0,
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    var data = controller.userExpensesData.value
-                                        .data?.transactionList?.data?[index];
-                                    return GestureDetector(
-                                      onTap: () => Get.back(),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: double.infinity,
-                                            height: 100,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: HumiColors
-                                                    .humicTransparencyColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                              child: filteredData.isEmpty
+                                  ? SingleChildScrollView(
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            verticalSpace(150),
+                                            Lottie.asset(
+                                              HumicImages.humicDataNotFound,
+                                              height: 230,
                                             ),
-                                            padding: const EdgeInsets.only(
-                                                left: 24, right: 24, top: 21),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                //Income
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      verticalSpace(12),
-                                                      Image(
-                                                        image: AssetImage(
-                                                          data?.transactionType ==
-                                                                      'income' ||
-                                                                  data?.transactionType ==
-                                                                      'Income'
-                                                              ? HumicImages
-                                                                  .humicIncomeSelectedIcon
-                                                              : HumicImages
-                                                                  .humicExpensesSelectedIcon,
-                                                        ),
-                                                        color: (data?.transactionType ==
-                                                                    'income' ||
-                                                                data?.transactionType ==
-                                                                    'Income')
-                                                            ? HumiColors
-                                                                .humicSecondaryColor
-                                                            : (data?.transactionType ==
-                                                                        'expense' ||
-                                                                    data?.transactionType ==
-                                                                        'Expense')
-                                                                ? HumiColors
-                                                                    .humicPrimaryColor
-                                                                : HumiColors
-                                                                    .humicThirdSecondaryColor,
-                                                        width: 32,
-                                                      ),
-                                                      Text(
-                                                        "${data?.transactionType}",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: TextStyle(
-                                                              fontSize: 12.5,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: (data?.transactionType ==
-                                                                          'income' ||
-                                                                      data?.transactionType ==
-                                                                          'Income')
-                                                                  ? HumiColors
-                                                                      .humicSecondaryColor
-                                                                  : (data?.transactionType ==
-                                                                              'expense' ||
-                                                                          data?.transactionType ==
-                                                                              'Expense')
-                                                                      ? HumiColors
-                                                                          .humicPrimaryColor
-                                                                      : HumiColors
-                                                                          .humicThirdSecondaryColor),
-                                                        ),
-                                                      ),
-                                                    ],
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      itemCount: filteredData.length,
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        var data = filteredData[index];
+                                        return GestureDetector(
+                                          onTap: () => Get.back(),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                height: 100,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: HumiColors
+                                                        .humicTransparencyColor,
                                                   ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
                                                 ),
-                                                horizontalSpace(30),
-
-                                                // Date, Activity Name, Amount
-                                                SizedBox(
-                                                  width: 150,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        formatDate(
-                                                            data?.createdAt),
-                                                        style: GoogleFonts.plusJakartaSans(
-                                                            textStyle: const TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: HumiColors
-                                                                    .humicPrimaryColor)),
-                                                      ),
-                                                      Text(
-                                                        "${data?.activityName}",
-                                                        style: GoogleFonts.plusJakartaSans(
-                                                            textStyle: const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: HumiColors
-                                                                    .humicBlackColor)),
-                                                      ),
-                                                      Text(
-                                                        formatRupiah(
-                                                            data?.amount ?? 0),
-                                                        style: GoogleFonts.plusJakartaSans(
-                                                            textStyle: const TextStyle(
-                                                                fontSize: 14,
+                                                padding: const EdgeInsets.only(
+                                                    left: 24,
+                                                    right: 24,
+                                                    top: 21),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    // Income/Expense Icon
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          verticalSpace(12),
+                                                          Image(
+                                                            image: AssetImage(
+                                                              data
+                                                                          .transactionType ==
+                                                                      'income'
+                                                                  ? HumicImages
+                                                                      .humicIncomeSelectedIcon
+                                                                  : HumicImages
+                                                                      .humicExpensesSelectedIcon,
+                                                            ),
+                                                            color: data.transactionType ==
+                                                                    'income'
+                                                                ? HumiColors
+                                                                    .humicSecondaryColor
+                                                                : HumiColors
+                                                                    .humicPrimaryColor,
+                                                            width: 32,
+                                                          ),
+                                                          Text(
+                                                            "${data.transactionType}",
+                                                            style: GoogleFonts
+                                                                .plusJakartaSans(
+                                                              textStyle:
+                                                                  TextStyle(
+                                                                fontSize: 12.5,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                color: HumiColors
-                                                                    .humicTransparencyColor)),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                horizontalSpace(30),
+                                                                color: data.transactionType ==
+                                                                        'income'
+                                                                    ? HumiColors
+                                                                        .humicSecondaryColor
+                                                                    : HumiColors
+                                                                        .humicPrimaryColor,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    horizontalSpace(30),
 
-                                                // Status Transaksi
-                                                Container(
-                                                  width: 71,
-                                                  height: 23.67,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3.16),
-                                                    color: (data?.status ==
-                                                                'approve' ||
-                                                            data?.status ==
-                                                                'Approve')
-                                                        ? HumiColors
-                                                            .humicSecondaryColor
-                                                            .withOpacity(0.12)
-                                                        : (data?.status ==
-                                                                    'denied' ||
-                                                                data?.status ==
-                                                                    'Denied')
+                                                    // Date, Activity Name, Amount
+                                                    SizedBox(
+                                                      width: 150,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            formatDate(
+                                                                data.createdAt),
+                                                            style: GoogleFonts.plusJakartaSans(
+                                                                textStyle: const TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: HumiColors
+                                                                        .humicPrimaryColor)),
+                                                          ),
+                                                          Text(
+                                                            "${data.activityName}",
+                                                            style: GoogleFonts.plusJakartaSans(
+                                                                textStyle: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: HumiColors
+                                                                        .humicBlackColor)),
+                                                          ),
+                                                          Text(
+                                                            formatRupiah(
+                                                                data.amount ??
+                                                                    0),
+                                                            style: GoogleFonts.plusJakartaSans(
+                                                                textStyle: const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: HumiColors
+                                                                        .humicTransparencyColor)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    horizontalSpace(30),
+
+                                                    // Transaction Status
+                                                    Container(
+                                                      width: 71,
+                                                      height: 23.67,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(3.16),
+                                                        color: data.status ==
+                                                                'approve'
                                                             ? HumiColors
-                                                                .humicPrimaryColor
+                                                                .humicSecondaryColor
                                                                 .withOpacity(
                                                                     0.12)
-                                                            : HumiColors
-                                                                .humicThirdSecondaryColor
-                                                                .withOpacity(
-                                                                    0.12),
-                                                  ),
-                                                  child: Center(
-                                                      child: Text(
-                                                    data?.status ?? "",
-                                                    style: GoogleFonts
-                                                        .plusJakartaSans(
-                                                      textStyle: TextStyle(
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: (data?.status ==
-                                                                      'approve' ||
-                                                                  data?.status ==
-                                                                      'Approve')
-                                                              ? HumiColors
-                                                                  .humicSecondaryColor
-                                                              : (data?.status ==
-                                                                          'denied' ||
-                                                                      data?.status ==
-                                                                          'Denied')
+                                                            : data.status ==
+                                                                    'denied'
+                                                                ? HumiColors
+                                                                    .humicPrimaryColor
+                                                                    .withOpacity(
+                                                                        0.12)
+                                                                : HumiColors
+                                                                    .humicThirdSecondaryColor
+                                                                    .withOpacity(
+                                                                        0.12),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          data.status ?? "",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                TextStyle(
+                                                              fontSize: 11,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: data.status ==
+                                                                      'approve'
                                                                   ? HumiColors
-                                                                      .humicPrimaryColor
-                                                                  : HumiColors
-                                                                      .humicThirdSecondaryColor),
+                                                                      .humicSecondaryColor
+                                                                  : data.status ==
+                                                                          'denied'
+                                                                      ? HumiColors
+                                                                          .humicPrimaryColor
+                                                                      : HumiColors
+                                                                          .humicThirdSecondaryColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  )),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              verticalSpace(12),
+                                            ],
                                           ),
-                                          verticalSpace(12),
-                                        ],
-                                      ),
-                                    );
-                                  }),
+                                        );
+                                      },
+                                    ),
                             );
                           }
                         }),

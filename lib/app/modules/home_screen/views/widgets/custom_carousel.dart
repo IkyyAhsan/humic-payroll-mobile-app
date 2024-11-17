@@ -61,7 +61,7 @@ class HumiCarouselSlider extends StatelessWidget {
                   ),
                   Text(
                     formatRupiah(
-                        (controller.dashboardData.value.data?.ballance) ?? 0),
+                        (controller.dashboardData.value.data?.balance) ?? 0),
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                         fontSize: 14,

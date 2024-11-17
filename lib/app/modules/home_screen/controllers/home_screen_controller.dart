@@ -6,7 +6,7 @@ import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
 
 class HomeScreenController extends GetxController {
   var dashboardData = Dashboard().obs;
-  var filteredTransactions = <Datum>[].obs;
+  var filteredTransactions = <Transaction>[].obs;
   var isLoading = true.obs;
 
   var selectedType = "All".obs;
@@ -26,7 +26,8 @@ class HomeScreenController extends GetxController {
 
   // Fungsi untuk filter transaksi
   void applyFilter() {
-    List<Datum>? transactions = dashboardData.value.data?.transactionList?.data;
+    List<Transaction>? transactions =
+        dashboardData.value.data?.transactionList?.data;
 
     // Filter berdasarkan tipe transaksi
     if (selectedType.value != "All") {

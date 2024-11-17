@@ -123,7 +123,7 @@ class HumicApprovalRowCard extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: declineConfirmation,
+                    onTap: onDecline,
                     child: Container(
                       width: 40,
                       height: 40,
@@ -139,7 +139,7 @@ class HumicApprovalRowCard extends StatelessWidget {
                   ),
                   horizontalSpace(4),
                   GestureDetector(
-                    onTap: approveConfirmation,
+                    onTap: onApprove,
                     child: Container(
                       width: 40,
                       height: 40,

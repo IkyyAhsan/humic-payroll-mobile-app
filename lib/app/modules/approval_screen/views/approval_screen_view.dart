@@ -124,6 +124,7 @@ class ApprovalScreenView extends GetView<ApprovalScreenController> {
                             controller.isPlanning
                                 ? HumicApprovePlanningScreen(
                                     approve: controller.approvalData,
+                                    
                                   )
                                 : HumicApproveTransactionScreen(
                                     approve: controller.approvalData,

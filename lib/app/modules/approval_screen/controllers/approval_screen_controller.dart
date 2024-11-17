@@ -6,7 +6,6 @@ class ApprovalScreenController extends GetxController {
   var approvalData = Approve();
   var isPlanning = true;
   var isLoading = true;
-
   void getApprovalData() async {
     isPlanning = true;
 
@@ -20,6 +19,16 @@ class ApprovalScreenController extends GetxController {
 
     isLoading = false;
     update();
+  }
+
+  void updateFinance(int id) async {
+    print(await ApprovalServices()
+        .updatePlanningStatusById(id: id, status: "deleted"));
+  }
+
+  void deletedFinance(int id) async {
+    print(await ApprovalServices()
+        .updatePlanningStatusById(id: id, status: "decline"));
   }
 
   void togglePlanning() {

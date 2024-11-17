@@ -12,6 +12,7 @@ import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/h
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/planning_pie_chart.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_data.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -184,1461 +185,292 @@ class HomeScreenView extends GetView<HomeScreenController> {
                           () => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Tampilan "Realization" atau "Transaction"
                               if (controller.isApproveRealization.value)
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
-                                    children: [
-                                      // Approve Realization 1
-                                      Container(
-                                        width: 220,
-                                        height: 150,
-                                        padding: const EdgeInsets.only(
-                                            left: 18, right: 18, top: 30),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFF3F3F3),
-                                            width: 3,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicCancelColor
-                                                        .withOpacity(0.14),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Planning",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicCancelTextColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                horizontalSpace(5),
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicBlackColor
-                                                        .withOpacity(0.05),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "3 Items",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(3),
-                                            Text(
-                                              "Conference ICYCYTA",
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
+                                    children: controller.dashboardData.value
+                                            .data?.approval?.planning
+                                            ?.map((planning) {
+                                          return Container(
+                                            width: 220,
+                                            height: 150,
+                                            margin: const EdgeInsets.only(
+                                                right: 12),
+                                            padding: const EdgeInsets.only(
+                                                left: 18, right: 18, top: 30),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: const Color(0xFFF3F3F3),
+                                                width: 3,
                                               ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                             ),
-                                            verticalSpace(5),
-                                            Row(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                Row(
                                                   children: [
-                                                    Text(
-                                                      "Start:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                horizontalSpace(12),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "End:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(15),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicCancelColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Denied",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicCancelTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicPrimaryColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Approve",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicWhiteColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      horizontalSpace(12),
-                                      // Approve Realization 2
-                                      Container(
-                                        width: 220,
-                                        height: 150,
-                                        padding: const EdgeInsets.only(
-                                            left: 18, right: 18, top: 30),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFF3F3F3),
-                                            width: 3,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicCancelColor
-                                                        .withOpacity(0.12),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Planning",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicCancelTextColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                horizontalSpace(5),
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicBlackColor
-                                                        .withOpacity(0.05),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "3 Items",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(3),
-                                            Text(
-                                              "Conference ICYCYTA",
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
-                                              ),
-                                            ),
-                                            verticalSpace(5),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Start:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                horizontalSpace(12),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "End:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(15),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicCancelColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Denied",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicCancelTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicPrimaryColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Approve",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicWhiteColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      horizontalSpace(12),
-                                      // Approve Realization 3
-                                      Container(
-                                        width: 220,
-                                        height: 150,
-                                        padding: const EdgeInsets.only(
-                                            left: 18, right: 18, top: 30),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFF3F3F3),
-                                            width: 3,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicCancelColor
-                                                        .withOpacity(0.12),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Planning",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicCancelTextColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                horizontalSpace(5),
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicBlackColor
-                                                        .withOpacity(0.05),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "3 Items",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(3),
-                                            Text(
-                                              "Conference ICYCYTA",
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
-                                              ),
-                                            ),
-                                            verticalSpace(5),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Start:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                horizontalSpace(12),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "End:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(15),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      shape:
-                                                          RoundedRectangleBorder(
+                                                    Container(
+                                                      width: 60,
+                                                      height: 20,
+                                                      decoration: BoxDecoration(
+                                                        color: HumiColors
+                                                            .humicCancelColor
+                                                            .withOpacity(0.14),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4),
+                                                                .circular(3),
                                                       ),
-                                                      backgroundColor:
-                                                          HumiColors
-                                                              .humicCancelColor,
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Denied",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Planning",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
                                                               fontSize: 8,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
                                                               color: HumiColors
-                                                                  .humicCancelTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
+                                                                  .humicCancelTextColor,
                                                             ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicPrimaryColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Approve",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    horizontalSpace(5),
+                                                    Container(
+                                                      width: 60,
+                                                      height: 20,
+                                                      decoration: BoxDecoration(
+                                                        color: HumiColors
+                                                            .humicBlackColor
+                                                            .withOpacity(0.05),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(3),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${planning.itemCount ?? 0} Items",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Color(
+                                                                  0xFF636363),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                verticalSpace(3),
+                                                Text(
+                                                  planning.title ?? "Untitled",
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                verticalSpace(5),
+                                                Row(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Start:",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Color(
+                                                                  0xFF636363),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          planning.startDate !=
+                                                                  null
+                                                              ? formatDate(
+                                                                  planning
+                                                                      .startDate)
+                                                              : "-",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
                                                               fontSize: 8,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
                                                               color: HumiColors
-                                                                  .humicWhiteColor),
+                                                                  .humicBlackColor,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    horizontalSpace(12),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "End:",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Color(
+                                                                  0xFF636363),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          planning.endDate !=
+                                                                  null
+                                                              ? formatDate(
+                                                                  planning
+                                                                      .endDate)
+                                                              : "-",
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: HumiColors
+                                                                  .humicBlackColor,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                verticalSpace(15),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 85,
+                                                      height: 24,
+                                                      child: ElevatedButton(
+                                                        onPressed: () {},
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                          ),
+                                                          backgroundColor:
+                                                              HumiColors
+                                                                  .humicCancelColor,
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Denied",
+                                                            style: GoogleFonts
+                                                                .plusJakartaSans(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                fontSize: 8,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: HumiColors
+                                                                    .humicCancelTextColor,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
+                                                    SizedBox(
+                                                      width: 85,
+                                                      height: 24,
+                                                      child: ElevatedButton(
+                                                        onPressed: () {},
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                          ),
+                                                          backgroundColor:
+                                                              HumiColors
+                                                                  .humicPrimaryColor,
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Approve",
+                                                            style: GoogleFonts
+                                                                .plusJakartaSans(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                fontSize: 8,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: HumiColors
+                                                                    .humicWhiteColor,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                            ),
+                                          );
+                                        }).toList() ??
+                                        [],
                                   ),
                                 )
                               else
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      // Approve Transaction 1
-                                      Container(
-                                        width: 220,
-                                        height: 150,
-                                        padding: const EdgeInsets.only(
-                                            left: 18, right: 18, top: 30),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFF3F3F3),
-                                            width: 3,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicSecondaryColor
-                                                        .withOpacity(0.12),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Income",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicSecondaryColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                horizontalSpace(5),
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicBlackColor
-                                                        .withOpacity(0.05),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "3 Items",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(3),
-                                            Text(
-                                              "Conference ICYCYTA",
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
-                                              ),
-                                            ),
-                                            verticalSpace(5),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Start:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                horizontalSpace(12),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "End:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(15),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicCancelColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Denied",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicCancelTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicPrimaryColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Approve",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicWhiteColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      horizontalSpace(12),
-                                      // Approve Transaction 2
-                                      Container(
-                                        width: 220,
-                                        height: 150,
-                                        padding: const EdgeInsets.only(
-                                            left: 18, right: 18, top: 30),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFF3F3F3),
-                                            width: 3,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicCancelColor
-                                                        .withOpacity(0.12),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Expense",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicCancelTextColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                horizontalSpace(5),
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicBlackColor
-                                                        .withOpacity(0.05),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "3 Items",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(3),
-                                            Text(
-                                              "Conference ICYCYTA",
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
-                                              ),
-                                            ),
-                                            verticalSpace(5),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Start:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                horizontalSpace(12),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "End:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(15),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicCancelColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Denied",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicCancelTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicPrimaryColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Approve",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicWhiteColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      horizontalSpace(12),
-                                      // Approve Transaction 3
-                                      Container(
-                                        width: 220,
-                                        height: 150,
-                                        padding: const EdgeInsets.only(
-                                            left: 18, right: 18, top: 30),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFF3F3F3),
-                                            width: 3,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicThirdSecondaryColor
-                                                        .withOpacity(0.14),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Planning",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicThirdSecondaryColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                horizontalSpace(5),
-                                                Container(
-                                                  width: 60,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: HumiColors
-                                                        .humicBlackColor
-                                                        .withOpacity(0.05),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "3 Items",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(3),
-                                            Text(
-                                              "Conference ICYCYTA",
-                                              style:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
-                                              ),
-                                            ),
-                                            verticalSpace(5),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Start:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                horizontalSpace(12),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "End:",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0xFF636363),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "15/10/2024",
-                                                      style: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: HumiColors
-                                                                .humicBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            verticalSpace(15),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                      ),
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xFFE9B0B0),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Denied",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicCancelTextColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 85,
-                                                  height: 24,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                            ),
-                                                            backgroundColor:
-                                                                HumiColors
-                                                                    .humicPrimaryColor),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Approve",
-                                                        style: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          textStyle: const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicWhiteColor),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                const Center(
+                                  child: Text("No Data Available"),
+                                ),
                             ],
                           ),
                         ),
@@ -1721,167 +553,198 @@ class HomeScreenView extends GetView<HomeScreenController> {
 }
 
 class PlanningPieChart extends StatelessWidget {
-  final List<Map<String, dynamic>> planningData = [
-    {'label': 'Conference ICYCYTA', 'value': 600000000, 'color': Colors.orange},
-    {'label': 'Conference Lainnya', 'value': 200000000, 'color': Colors.green},
-    {'label': 'Conference Other', 'value': 100000000, 'color': Colors.blue},
-  ];
-
   PlanningPieChart({super.key});
+
+  // Warna untuk setiap label
+  final List<Color> colors = [
+    Colors.orange,
+    Colors.green,
+    Colors.blue,
+    Colors.purple,
+    Colors.red,
+    Colors.cyan,
+    Colors.amber,
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: const Color(0XFFF3F3F3),
+    final controller = Get.put(HomeScreenController());
+
+    return Obx(() {
+      // Ambil data dari controller
+      var pieChartData = controller.dashboardData.value.data?.pieChart;
+      if (pieChartData == null) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      // Konversi data untuk digunakan pada Pie Chart
+      List<Map<String, dynamic>> planningData = pieChartData.planningData!
+          .asMap()
+          .entries
+          .map((entry) => {
+                'label': entry.value.name,
+                'value': entry.value.value,
+                'color': colors[entry.key % colors.length], // Warna unik
+              })
+          .toList();
+
+      // Total planning
+      double totalPlanning = pieChartData.totalPlanning?.toDouble() ?? 0;
+
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: const Color(0XFFF3F3F3),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Total",
-                      style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF636363),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      formatRupiah(900000000),
-                      style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: HumiColors.humicBlackColor,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  width: 80,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: const Color(0xFFC4C4C4),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Iconify(
-                        Uil.calender,
-                        size: 16,
-                      ),
-                      horizontalSpace(4),
                       Text(
-                        "2024",
+                        "Total",
                         style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicBlackColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF636363),
                           ),
                         ),
                       ),
+                      Text(
+                        '${formatRupiah(totalPlanning.toInt())}',
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                ),
-              ],
-            ),
+                  Container(
+                    width: 80,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: const Color(0xFFC4C4C4),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Iconify(
+                          Uil.calender,
+                          size: 16,
+                        ),
+                        horizontalSpace(4),
+                        Text(
+                          "2024",
+                          style: GoogleFonts.plusJakartaSans(
+                            textStyle: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
 
-            // pie Chart
-            SizedBox(
-              height: 200,
-              child: Row(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: PieChart(
-                        PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 0,
-                          sections: planningData.map((data) {
-                            final valueInMillions = data['value'] / 1000000;
-                            return PieChartSectionData(
-                              color: data['color'],
-                              value: valueInMillions,
-                              title: '',
-                              radius: 80,
+              // Pie Chart
+              SizedBox(
+                height: 200,
+                child: Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: PieChart(
+                          PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 0,
+                            sections: planningData.map((data) {
+                              final valueInMillions = data['value'] / 1000000;
+                              return PieChartSectionData(
+                                color: data['color'],
+                                value: valueInMillions,
+                                title: '',
+                                radius: 80,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    horizontalSpace(16),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: planningData.map((data) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    color: data['color'],
+                                  ),
+                                  horizontalSpace(8),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${data['label']},',
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '${formatRupiah(data['value'])}',
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF636363),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-                  ),
-                  horizontalSpace(16),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: planningData.map((data) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 12,
-                                height: 12,
-                                color: data['color'],
-                              ),
-                              horizontalSpace(8),
-                              Column(
-                                children: [
-                                  Text(
-                                    '${data['label']},',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      textStyle: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Rp.${(data['value'] / 1000000).toStringAsFixed(3)}.000.000',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF636363),
-                                    ),
-                                  ),
-                                  verticalSpace(12),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    }).toList(),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

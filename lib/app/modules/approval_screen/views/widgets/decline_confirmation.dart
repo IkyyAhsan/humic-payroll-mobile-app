@@ -7,7 +7,10 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart'
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:lottie/lottie.dart';
 
-void declineConfirmation() {
+import '../../../../routes/app_pages.dart';
+import '../../controllers/approval_screen_controller.dart';
+
+void declineConfirmation({int? id}) {
   print("Decline confirmation dialog should appear");
   Get.defaultDialog(
     title: '',
@@ -67,8 +70,12 @@ void declineConfirmation() {
                 width: 150,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      Get.offAll(() => const BottomNavigationBarView()),
+                  onPressed: () {
+                    var controller = Get.put(ApprovalScreenController());
+                    controller.deletedFinance(id ?? 0);
+                    Get.back();
+                    Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(

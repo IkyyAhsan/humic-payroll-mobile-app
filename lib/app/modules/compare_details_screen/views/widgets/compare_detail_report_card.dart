@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/planning_compare.dart';
 import 'package:humic_payroll_mobile_app/app/modules/compare_details_screen/controllers/compare_details_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 
 class HumicDetailCompareReport extends StatelessWidget {
@@ -11,23 +13,25 @@ class HumicDetailCompareReport extends StatelessWidget {
     required this.eventName,
     required this.startDate,
     required this.endDate,
-    this.eventDate,
-    this.eventDescription,
-    this.brutoValue,
-    this.taxValue,
-    this.nettoValue,
-    this.category,
+    required this.data,
+    // this.eventDate,
+    // this.eventDescription,
+    // this.brutoValue,
+    // this.taxValue,
+    // this.nettoValue,
+    // this.category,
   });
 
   final String eventName;
   final String startDate;
   final String endDate;
-  final String? eventDate;
-  final String? eventDescription;
-  final String? brutoValue;
-  final String? taxValue;
-  final String? nettoValue;
-  final String? category;
+  final List<Item> data;
+  // final String? eventDate;
+  // final String? eventDescription;
+  // final String? brutoValue;
+  // final String? taxValue;
+  // final String? nettoValue;
+  // final String? category;
 
   @override
   Widget build(BuildContext context) {
@@ -212,70 +216,73 @@ class HumicDetailCompareReport extends StatelessWidget {
                     ),
                   ),
                 ]),
-
-                // Value Row 1
-                TableRow(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      "$eventDate",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Text(
-                      "$eventDescription",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      "$brutoValue",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      "$taxValue",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      "$nettoValue",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      "$category",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  )
-                ]),
+                ...data
+                    .map(
+                      (e) => // Value Row 1
+                          TableRow(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            "${e.information}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: Text(
+                            formatRupiah(e.brutoAmount ?? 0),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            formatRupiah(e.taxAmount ?? 0),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            formatRupiah(e.brutoAmount ?? 0),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            formatRupiah(e.nettoAmount ?? 0),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            "${e.category}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        )
+                      ]),
+                    )
+                    .toList(),
 
                 // Value Hasil
                 const TableRow(children: [
