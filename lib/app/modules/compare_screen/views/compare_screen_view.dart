@@ -15,7 +15,7 @@ class CompareScreenView extends GetView<CompareScreenController> {
         init: CompareScreenController(),
         builder: (context) {
           return controller.isLoading
-              ? Material(
+              ? const Material(
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -112,26 +112,31 @@ class CompareScreenView extends GetView<CompareScreenController> {
                                             children: [
                                               Text(
                                                 "03/10/2024 - 21/11/2024",
-                                                style: GoogleFonts.plusJakartaSans(
-                                                    textStyle: const TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: HumiColors
-                                                            .humicPrimaryColor)),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: HumiColors
+                                                        .humicPrimaryColor,
+                                                  ),
+                                                ),
                                               ),
                                               SizedBox(
                                                 width: 180,
                                                 child: Text(
                                                   "${e.title}",
                                                   maxLines: 2,
-                                                  style: GoogleFonts.plusJakartaSans(
-                                                      textStyle: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: HumiColors
-                                                              .humicBlackColor)),
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                               Text(

@@ -9,6 +9,21 @@ class PlanningScreenController extends GetxController {
   RxInt currentPage = 1.obs;
   RxInt totalPages = 1.obs;
 
+  var selectedPlanningYear = DateTime.now().year.obs;
+
+  // Fungsi memuat data berdasarkan tahun
+  void fetchDataForYear(int year) {
+    // Implementasi untuk memuat data dashboard berdasarkan tahun
+    // Contoh:
+    // dashboardData.value = await DashboardServices().getDashboardData(year: year);
+  }
+
+  // Fungsi untuk memperbarui data berdasarkan tahun
+  void updatePlanningYear(int year) {
+    selectedPlanningYear.value = year;
+    fetchDataForYear(year);
+  }
+
   void addPagination() {
     if (currentPage.value < totalPages.value) {
       currentPage.value++;

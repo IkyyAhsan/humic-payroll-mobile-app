@@ -48,12 +48,13 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                             ),
                             horizontalSpace(16),
                             Text(
-                              "Outcome",
+                              "Expense",
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: HumiColors.humicBlackColor),
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: HumiColors.humicBlackColor,
+                                ),
                               ),
                             ),
                           ],

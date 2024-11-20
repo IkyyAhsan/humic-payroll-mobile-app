@@ -19,7 +19,7 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
         init: CompareDetailsScreenController(),
         builder: (context) {
           return controller.isLoading
-              ? Material(
+              ? const Material(
                   child: Center(
                   child: CircularProgressIndicator(),
                 ))
@@ -35,28 +35,26 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () => Get.back(),
-                                        icon: const Icon(
-                                          FluentIcons.ios_arrow_ltr_24_regular,
-                                          color: HumiColors.humicBlackColor,
-                                        ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () => Get.back(),
+                                      icon: const Icon(
+                                        FluentIcons.ios_arrow_ltr_24_regular,
+                                        color: HumiColors.humicBlackColor,
                                       ),
-                                      horizontalSpace(16),
-                                      Text(
-                                        "Compare",
-                                        style: GoogleFonts.plusJakartaSans(
-                                            textStyle: const TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold,
-                                                color: HumiColors
-                                                    .humicBlackColor)),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    horizontalSpace(16),
+                                    Text(
+                                      "Compare",
+                                      style: GoogleFonts.plusJakartaSans(
+                                          textStyle: const TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color:
+                                                  HumiColors.humicBlackColor)),
+                                    ),
+                                  ],
                                 ),
                                 // Toggle Buttons for Planning and Transaction
                                 Obx(
@@ -94,15 +92,17 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
                                       ElevatedButton(
                                         onPressed: controller.toggleRealization,
                                         style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 12),
-                                            backgroundColor: !controller
-                                                    .isPlanning.value
-                                                ? HumiColors.humicPrimaryColor
-                                                : HumiColors.humicWhiteColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25))),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12),
+                                          backgroundColor:
+                                              !controller.isPlanning.value
+                                                  ? HumiColors.humicPrimaryColor
+                                                  : HumiColors.humicWhiteColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
+                                        ),
                                         child: Text(
                                           "Realization",
                                           style: GoogleFonts.plusJakartaSans(
@@ -128,7 +128,8 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
                               () => controller.isPlanning.value
                                   ? HumicPlanningCompareScreen(
                                       planning:
-                                          controller.compare?.data?.planning)
+                                          controller.compare?.data?.planning,
+                                    )
                                   : HumicRealizationCompareScreen(
                                       planning:
                                           controller.compare?.data?.realization,

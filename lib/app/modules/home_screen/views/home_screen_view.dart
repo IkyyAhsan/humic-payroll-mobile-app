@@ -11,8 +11,8 @@ import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/c
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/planning_pie_chart.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_data.dart';
+import 'package:humic_payroll_mobile_app/app/modules/profile_screen/views/profile_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -46,8 +46,24 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         verticalSpace(24),
                         HumicCustomAppBar(
                           title: 'Dashboard',
-                          image:
-                              "https://payroll.humicprototyping.com/storage/app/public/${controller.userProfileData?.image}",
+                          widget: GestureDetector(
+                            onTap: () =>
+                                Get.to(() => const ProfileScreenView()),
+                            child: Container(
+                              width: 60,
+                              height: 60,
+                              decoration:
+                                  const BoxDecoration(shape: BoxShape.circle),
+                              child: CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(
+                                  "https://payroll.humicprototyping.com/storage/app/public/${controller.userProfileData?.image}",
+                                ),
+                              ),
+                            ),
+                          ),
+                          // image:
+                          //     "https://payroll.humicprototyping.com/storage/app/public/${controller.userProfileData?.image}",
                         ),
                         verticalSpace(18),
 
@@ -56,7 +72,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         verticalSpace(24),
 
                         // Income and Expenses Bar Chart
-                        HumicIncomeExpenseChart(),
+                        const HumicIncomeExpenseChart(),
                         verticalSpace(32),
 
                         // Planning Pie Chart Header
@@ -98,382 +114,382 @@ class HomeScreenView extends GetView<HomeScreenController> {
                             ),
                           ),
                         ),
-                        verticalSpace(56),
+                        verticalSpace(12),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Approve",
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w600,
-                                    color: HumiColors.humicBlackColor),
-                              ),
-                            ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Text(
+                        //       "Approve",
+                        //       style: GoogleFonts.plusJakartaSans(
+                        //         textStyle: const TextStyle(
+                        //             fontSize: 24,
+                        //             fontWeight: FontWeight.w600,
+                        //             color: HumiColors.humicBlackColor),
+                        //       ),
+                        //     ),
 
-                            // Toggle Buttons for Planning and Transaction
-                            Obx(
-                              () => Row(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed:
-                                        controller.approveToggleRealization,
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12),
-                                      backgroundColor:
-                                          controller.isApproveRealization.value
-                                              ? HumiColors.humicPrimaryColor
-                                              : HumiColors.humicWhiteColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "Realization",
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: controller
-                                                  .isApproveRealization.value
-                                              ? HumiColors.humicWhiteColor
-                                              : HumiColors
-                                                  .humicTransparencyColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  horizontalSpace(5),
-                                  ElevatedButton(
-                                    onPressed:
-                                        controller.approveToggleTransaction,
-                                    style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12),
-                                        backgroundColor: !controller
-                                                .isApproveRealization.value
-                                            ? HumiColors.humicPrimaryColor
-                                            : HumiColors.humicWhiteColor,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25))),
-                                    child: Text(
-                                      "Transaction",
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: !controller
-                                                  .isApproveRealization.value
-                                              ? HumiColors.humicWhiteColor
-                                              : HumiColors
-                                                  .humicTransparencyColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        verticalSpace(24),
-                        Obx(
-                          () => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (controller.isApproveRealization.value)
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: controller.dashboardData.value
-                                            .data?.approval?.planning
-                                            ?.map((planning) {
-                                          return Container(
-                                            width: 220,
-                                            height: 150,
-                                            margin: const EdgeInsets.only(
-                                                right: 12),
-                                            padding: const EdgeInsets.only(
-                                                left: 18, right: 18, top: 30),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: const Color(0xFFF3F3F3),
-                                                width: 3,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      width: 60,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                        color: HumiColors
-                                                            .humicCancelColor
-                                                            .withOpacity(0.14),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(3),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          "Planning",
-                                                          style: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicCancelTextColor,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    horizontalSpace(5),
-                                                    Container(
-                                                      width: 60,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                        color: HumiColors
-                                                            .humicBlackColor
-                                                            .withOpacity(0.05),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(3),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          "${planning.itemCount ?? 0} Items",
-                                                          style: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Color(
-                                                                  0xFF636363),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                verticalSpace(3),
-                                                Text(
-                                                  planning.title ?? "Untitled",
-                                                  style: GoogleFonts
-                                                      .plusJakartaSans(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: HumiColors
-                                                          .humicBlackColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                                verticalSpace(5),
-                                                Row(
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "Start:",
-                                                          style: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Color(
-                                                                  0xFF636363),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          planning.startDate !=
-                                                                  null
-                                                              ? formatDate(
-                                                                  planning
-                                                                      .startDate)
-                                                              : "-",
-                                                          style: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicBlackColor,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    horizontalSpace(12),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "End:",
-                                                          style: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Color(
-                                                                  0xFF636363),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          planning.endDate !=
-                                                                  null
-                                                              ? formatDate(
-                                                                  planning
-                                                                      .endDate)
-                                                              : "-",
-                                                          style: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: HumiColors
-                                                                  .humicBlackColor,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                verticalSpace(15),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 85,
-                                                      height: 24,
-                                                      child: ElevatedButton(
-                                                        onPressed: () {},
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4),
-                                                          ),
-                                                          backgroundColor:
-                                                              HumiColors
-                                                                  .humicCancelColor,
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Denied",
-                                                            style: GoogleFonts
-                                                                .plusJakartaSans(
-                                                              textStyle:
-                                                                  const TextStyle(
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: HumiColors
-                                                                    .humicCancelTextColor,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 85,
-                                                      height: 24,
-                                                      child: ElevatedButton(
-                                                        onPressed: () {},
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4),
-                                                          ),
-                                                          backgroundColor:
-                                                              HumiColors
-                                                                  .humicPrimaryColor,
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Approve",
-                                                            style: GoogleFonts
-                                                                .plusJakartaSans(
-                                                              textStyle:
-                                                                  const TextStyle(
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: HumiColors
-                                                                    .humicWhiteColor,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        }).toList() ??
-                                        [],
-                                  ),
-                                )
-                              else
-                                const Center(
-                                  child: Text("No Data Available"),
-                                ),
-                            ],
-                          ),
-                        ),
+                        //     // Toggle Buttons for Planning and Transaction
+                        //     Obx(
+                        //       () => Row(
+                        //         children: [
+                        //           ElevatedButton(
+                        //             onPressed:
+                        //                 controller.approveToggleRealization,
+                        //             style: ElevatedButton.styleFrom(
+                        //               padding: const EdgeInsets.symmetric(
+                        //                   horizontal: 12),
+                        //               backgroundColor:
+                        //                   controller.isApproveRealization.value
+                        //                       ? HumiColors.humicPrimaryColor
+                        //                       : HumiColors.humicWhiteColor,
+                        //               shape: RoundedRectangleBorder(
+                        //                 borderRadius: BorderRadius.circular(25),
+                        //               ),
+                        //             ),
+                        //             child: Text(
+                        //               "Planning",
+                        //               style: GoogleFonts.plusJakartaSans(
+                        //                 textStyle: TextStyle(
+                        //                   fontSize: 12,
+                        //                   fontWeight: FontWeight.w600,
+                        //                   color: controller
+                        //                           .isApproveRealization.value
+                        //                       ? HumiColors.humicWhiteColor
+                        //                       : HumiColors
+                        //                           .humicTransparencyColor,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //           horizontalSpace(5),
+                        //           ElevatedButton(
+                        //             onPressed:
+                        //                 controller.approveToggleTransaction,
+                        //             style: ElevatedButton.styleFrom(
+                        //                 padding: const EdgeInsets.symmetric(
+                        //                     horizontal: 12),
+                        //                 backgroundColor: !controller
+                        //                         .isApproveRealization.value
+                        //                     ? HumiColors.humicPrimaryColor
+                        //                     : HumiColors.humicWhiteColor,
+                        //                 shape: RoundedRectangleBorder(
+                        //                     borderRadius:
+                        //                         BorderRadius.circular(25))),
+                        //             child: Text(
+                        //               "Transaction",
+                        //               style: GoogleFonts.plusJakartaSans(
+                        //                 textStyle: TextStyle(
+                        //                   fontSize: 12,
+                        //                   fontWeight: FontWeight.w600,
+                        //                   color: !controller
+                        //                           .isApproveRealization.value
+                        //                       ? HumiColors.humicWhiteColor
+                        //                       : HumiColors
+                        //                           .humicTransparencyColor,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // verticalSpace(24),
+                        // Obx(
+                        //   () => Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       if (controller.isApproveRealization.value)
+                        //         SingleChildScrollView(
+                        //           scrollDirection: Axis.horizontal,
+                        //           child: Row(
+                        //             children: controller.dashboardData.value
+                        //                     .data?.approval?.planning
+                        //                     ?.map((planning) {
+                        //                   return Container(
+                        //                     width: 220,
+                        //                     height: 150,
+                        //                     margin: const EdgeInsets.only(
+                        //                         right: 12),
+                        //                     padding: const EdgeInsets.only(
+                        //                         left: 18, right: 18, top: 30),
+                        //                     decoration: BoxDecoration(
+                        //                       border: Border.all(
+                        //                         color: const Color(0xFFF3F3F3),
+                        //                         width: 3,
+                        //                       ),
+                        //                       borderRadius:
+                        //                           BorderRadius.circular(8),
+                        //                     ),
+                        //                     child: Column(
+                        //                       crossAxisAlignment:
+                        //                           CrossAxisAlignment.start,
+                        //                       children: [
+                        //                         Row(
+                        //                           children: [
+                        //                             Container(
+                        //                               width: 60,
+                        //                               height: 20,
+                        //                               decoration: BoxDecoration(
+                        //                                 color: HumiColors
+                        //                                     .humicCancelColor
+                        //                                     .withOpacity(0.14),
+                        //                                 borderRadius:
+                        //                                     BorderRadius
+                        //                                         .circular(3),
+                        //                               ),
+                        //                               child: Center(
+                        //                                 child: Text(
+                        //                                   "Planning",
+                        //                                   style: GoogleFonts
+                        //                                       .plusJakartaSans(
+                        //                                     textStyle:
+                        //                                         const TextStyle(
+                        //                                       fontSize: 8,
+                        //                                       fontWeight:
+                        //                                           FontWeight
+                        //                                               .w600,
+                        //                                       color: HumiColors
+                        //                                           .humicCancelTextColor,
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                             horizontalSpace(5),
+                        //                             Container(
+                        //                               width: 60,
+                        //                               height: 20,
+                        //                               decoration: BoxDecoration(
+                        //                                 color: HumiColors
+                        //                                     .humicBlackColor
+                        //                                     .withOpacity(0.05),
+                        //                                 borderRadius:
+                        //                                     BorderRadius
+                        //                                         .circular(3),
+                        //                               ),
+                        //                               child: Center(
+                        //                                 child: Text(
+                        //                                   "${planning.itemCount ?? 0} Items",
+                        //                                   style: GoogleFonts
+                        //                                       .plusJakartaSans(
+                        //                                     textStyle:
+                        //                                         const TextStyle(
+                        //                                       fontSize: 8,
+                        //                                       fontWeight:
+                        //                                           FontWeight
+                        //                                               .w600,
+                        //                                       color: Color(
+                        //                                           0xFF636363),
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                           ],
+                        //                         ),
+                        //                         verticalSpace(3),
+                        //                         Text(
+                        //                           planning.title ?? "Untitled",
+                        //                           style: GoogleFonts
+                        //                               .plusJakartaSans(
+                        //                             textStyle: const TextStyle(
+                        //                               fontSize: 12,
+                        //                               fontWeight:
+                        //                                   FontWeight.w600,
+                        //                               color: HumiColors
+                        //                                   .humicBlackColor,
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                         verticalSpace(5),
+                        //                         Row(
+                        //                           children: [
+                        //                             Column(
+                        //                               crossAxisAlignment:
+                        //                                   CrossAxisAlignment
+                        //                                       .start,
+                        //                               children: [
+                        //                                 Text(
+                        //                                   "Start:",
+                        //                                   style: GoogleFonts
+                        //                                       .plusJakartaSans(
+                        //                                     textStyle:
+                        //                                         const TextStyle(
+                        //                                       fontSize: 8,
+                        //                                       fontWeight:
+                        //                                           FontWeight
+                        //                                               .w600,
+                        //                                       color: Color(
+                        //                                           0xFF636363),
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                                 Text(
+                        //                                   planning.startDate !=
+                        //                                           null
+                        //                                       ? formatDate(
+                        //                                           planning
+                        //                                               .startDate)
+                        //                                       : "-",
+                        //                                   style: GoogleFonts
+                        //                                       .plusJakartaSans(
+                        //                                     textStyle:
+                        //                                         const TextStyle(
+                        //                                       fontSize: 8,
+                        //                                       fontWeight:
+                        //                                           FontWeight
+                        //                                               .w600,
+                        //                                       color: HumiColors
+                        //                                           .humicBlackColor,
+                        //                                     ),
+                        //                                   ),
+                        //                                 )
+                        //                               ],
+                        //                             ),
+                        //                             horizontalSpace(12),
+                        //                             Column(
+                        //                               crossAxisAlignment:
+                        //                                   CrossAxisAlignment
+                        //                                       .start,
+                        //                               children: [
+                        //                                 Text(
+                        //                                   "End:",
+                        //                                   style: GoogleFonts
+                        //                                       .plusJakartaSans(
+                        //                                     textStyle:
+                        //                                         const TextStyle(
+                        //                                       fontSize: 8,
+                        //                                       fontWeight:
+                        //                                           FontWeight
+                        //                                               .w600,
+                        //                                       color: Color(
+                        //                                           0xFF636363),
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                                 Text(
+                        //                                   planning.endDate !=
+                        //                                           null
+                        //                                       ? formatDate(
+                        //                                           planning
+                        //                                               .endDate)
+                        //                                       : "-",
+                        //                                   style: GoogleFonts
+                        //                                       .plusJakartaSans(
+                        //                                     textStyle:
+                        //                                         const TextStyle(
+                        //                                       fontSize: 8,
+                        //                                       fontWeight:
+                        //                                           FontWeight
+                        //                                               .w600,
+                        //                                       color: HumiColors
+                        //                                           .humicBlackColor,
+                        //                                     ),
+                        //                                   ),
+                        //                                 )
+                        //                               ],
+                        //                             ),
+                        //                           ],
+                        //                         ),
+                        //                         verticalSpace(15),
+                        //                         Row(
+                        //                           mainAxisAlignment:
+                        //                               MainAxisAlignment
+                        //                                   .spaceBetween,
+                        //                           children: [
+                        //                             SizedBox(
+                        //                               width: 85,
+                        //                               height: 24,
+                        //                               child: ElevatedButton(
+                        //                                 onPressed: () {},
+                        //                                 style: ElevatedButton
+                        //                                     .styleFrom(
+                        //                                   shape:
+                        //                                       RoundedRectangleBorder(
+                        //                                     borderRadius:
+                        //                                         BorderRadius
+                        //                                             .circular(
+                        //                                                 4),
+                        //                                   ),
+                        //                                   backgroundColor:
+                        //                                       HumiColors
+                        //                                           .humicCancelColor,
+                        //                                 ),
+                        //                                 child: Center(
+                        //                                   child: Text(
+                        //                                     "Denied",
+                        //                                     style: GoogleFonts
+                        //                                         .plusJakartaSans(
+                        //                                       textStyle:
+                        //                                           const TextStyle(
+                        //                                         fontSize: 8,
+                        //                                         fontWeight:
+                        //                                             FontWeight
+                        //                                                 .w600,
+                        //                                         color: HumiColors
+                        //                                             .humicCancelTextColor,
+                        //                                       ),
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                             SizedBox(
+                        //                               width: 85,
+                        //                               height: 24,
+                        //                               child: ElevatedButton(
+                        //                                 onPressed: () {},
+                        //                                 style: ElevatedButton
+                        //                                     .styleFrom(
+                        //                                   shape:
+                        //                                       RoundedRectangleBorder(
+                        //                                     borderRadius:
+                        //                                         BorderRadius
+                        //                                             .circular(
+                        //                                                 4),
+                        //                                   ),
+                        //                                   backgroundColor:
+                        //                                       HumiColors
+                        //                                           .humicPrimaryColor,
+                        //                                 ),
+                        //                                 child: Center(
+                        //                                   child: Text(
+                        //                                     "Approve",
+                        //                                     style: GoogleFonts
+                        //                                         .plusJakartaSans(
+                        //                                       textStyle:
+                        //                                           const TextStyle(
+                        //                                         fontSize: 8,
+                        //                                         fontWeight:
+                        //                                             FontWeight
+                        //                                                 .w600,
+                        //                                         color: HumiColors
+                        //                                             .humicWhiteColor,
+                        //                                       ),
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                           ],
+                        //                         )
+                        //                       ],
+                        //                     ),
+                        //                   );
+                        //                 }).toList() ??
+                        //                 [],
+                        //           ),
+                        //         )
+                        //       else
+                        //         const Center(
+                        //           child: Text("No Data Available"),
+                        //         ),
+                        //     ],
+                        //   ),
+                        // ),
 
                         verticalSpace(32),
 
@@ -584,7 +600,7 @@ class PlanningPieChart extends StatelessWidget {
           .map((entry) => {
                 'label': entry.value.name,
                 'value': entry.value.value,
-                'color': colors[entry.key % colors.length], // Warna unik
+                'color': colors[entry.key % colors.length],
               })
           .toList();
 
@@ -635,30 +651,68 @@ class PlanningPieChart extends StatelessWidget {
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: const Color(0xFFC4C4C4),
-                      ),
+                      border: Border.all(color: HumiColors.humicDividerColor),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Iconify(
-                          Uil.calender,
-                          size: 16,
-                        ),
-                        horizontalSpace(4),
-                        Text(
-                          "2024",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
+
+                    // Data Tahun
+                    child: Container(
+                      width: 100,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: HumiColors
+                            .humicBackgroundColor, // Warna latar belakang dropdown
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<int>(
+                          value: controller.selectedPieChartYear.value,
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            size: 1,
+                            color: HumiColors
+                                .humicBackgroundColor, // Sesuaikan warna ikon
                           ),
+                          onChanged: (int? newValue) {
+                            if (newValue != null &&
+                                newValue !=
+                                    controller.selectedPieChartYear.value) {
+                              controller.updatePieChartYear(newValue);
+                            }
+                          },
+                          isExpanded: true,
+                          alignment: Alignment.center,
+                          items: List.generate(
+                            5,
+                            (index) => DateTime.now().year - index,
+                          ).map<DropdownMenuItem<int>>((int year) {
+                            return DropdownMenuItem<int>(
+                              value: year,
+                              child: Center(
+                                child: Row(
+                                  children: [
+                                    horizontalSpace(10),
+                                    Iconify(
+                                      Uil.calender,
+                                      size: 16,
+                                    ),
+                                    horizontalSpace(5),
+                                    Text(
+                                      "$year",
+                                      style: GoogleFonts.plusJakartaSans(
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicBlackColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],

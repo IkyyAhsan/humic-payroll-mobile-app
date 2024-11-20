@@ -2,7 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/widgets/export_realization.dart';
+import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/widgets/export_items.dart';
 import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/widgets/export_transaction.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -54,11 +54,11 @@ class ExportScreenView extends GetView<ExportScreenController> {
                       () => Row(
                         children: [
                           ElevatedButton(
-                            onPressed: controller.toggleRealization,
+                            onPressed: controller.toggleItems,
                             style: ElevatedButton.styleFrom(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
-                              backgroundColor: controller.isRealization.value
+                              backgroundColor: controller.isItems.value
                                   ? HumiColors.humicPrimaryColor
                                   : HumiColors.humicWhiteColor,
                               shape: RoundedRectangleBorder(
@@ -66,12 +66,12 @@ class ExportScreenView extends GetView<ExportScreenController> {
                               ),
                             ),
                             child: Text(
-                              "Realization",
+                              "Items",
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
-                                  color: controller.isRealization.value
+                                  color: controller.isItems.value
                                       ? HumiColors.humicWhiteColor
                                       : HumiColors.humicTransparencyColor,
                                 ),
@@ -84,18 +84,18 @@ class ExportScreenView extends GetView<ExportScreenController> {
                             style: ElevatedButton.styleFrom(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
-                                backgroundColor: !controller.isRealization.value
+                                backgroundColor: !controller.isItems.value
                                     ? HumiColors.humicPrimaryColor
                                     : HumiColors.humicWhiteColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25))),
                             child: Text(
-                              "Transaction",
+                              "Transactions",
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
-                                  color: !controller.isRealization.value
+                                  color: !controller.isItems.value
                                       ? HumiColors.humicWhiteColor
                                       : HumiColors.humicTransparencyColor,
                                 ),
@@ -112,9 +112,9 @@ class ExportScreenView extends GetView<ExportScreenController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          controller.isRealization.value
-                              ? "Export Realization Data"
-                              : "Export Transaction Data",
+                          controller.isItems.value
+                              ? "Export Items Data"
+                              : "Export Transactions Data",
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -125,9 +125,9 @@ class ExportScreenView extends GetView<ExportScreenController> {
                         ),
                         verticalSpace(12),
 
-                        // Tampilan "Realization" atau "Transaction"
-                        if (controller.isRealization.value)
-                          const HumicExportRealizationScreen()
+                        // Tampilan "Items" atau "Transactions"
+                        if (controller.isItems.value)
+                          const HumicExportItemScreen()
                         else
                           const HumicExportTransactionScreen(),
                       ],

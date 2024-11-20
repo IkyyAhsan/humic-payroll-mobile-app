@@ -30,8 +30,8 @@ class LoginScreenController extends GetxController {
           colorText: HumiColors.humicWhiteColor,
         );
       } else {
-        Get.snackbar("Terjadi kesalahan",
-            "Email atau password yang anda masukkan salah.",
+        Get.snackbar("There is an error",
+            "The email or password you entered is incorrect.",
             backgroundColor: HumiColors.humicPrimaryColor,
             colorText: HumiColors.humicWhiteColor);
       }

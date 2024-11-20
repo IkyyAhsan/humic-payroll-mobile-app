@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -26,9 +25,12 @@ void declineConfirmation({int? id}) {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-              width: 222,
-              height: 222,
-              child: Lottie.asset(HumicImages.humicDeclineAnimation)),
+            width: 222,
+            height: 222,
+            child: Lottie.asset(
+              HumicImages.humicDeclineAnimation,
+            ),
+          ),
           verticalSpace(50),
           Text(
             'Are you sure you want to decline this Report?',
@@ -51,17 +53,21 @@ void declineConfirmation({int? id}) {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicCancelColor,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
+                        horizontal: 30,
+                        vertical: 10,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )),
                   child: Text(
                     'Back',
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicPrimaryColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: HumiColors.humicPrimaryColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -86,10 +92,12 @@ void declineConfirmation({int? id}) {
                   child: Text(
                     'Confirm',
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicWhiteColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: HumiColors.humicWhiteColor,
+                      ),
+                    ),
                   ),
                 ),
               ),

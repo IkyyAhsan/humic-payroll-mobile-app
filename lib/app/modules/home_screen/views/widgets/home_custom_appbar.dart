@@ -8,11 +8,11 @@ class HumicCustomAppBar extends StatelessWidget {
   const HumicCustomAppBar({
     super.key,
     required this.title,
-    this.image,
+    this.widget,
   });
 
   final String title;
-  final String? image;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +28,7 @@ class HumicCustomAppBar extends StatelessWidget {
                 color: HumiColors.humicBlackColor),
           ),
         ),
-        GestureDetector(
-          onTap: () => Get.to(() => const ProfileScreenView()),
-          child: Container(
-            width: 60,
-            height: 60,
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: CircleAvatar(
-                radius: 100, backgroundImage: NetworkImage(image ?? "")),
-          ),
-        ),
+        widget ?? const SizedBox(),
       ],
     );
   }

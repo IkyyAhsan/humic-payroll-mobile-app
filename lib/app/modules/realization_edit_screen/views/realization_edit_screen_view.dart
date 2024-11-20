@@ -195,7 +195,7 @@ class RealizationEditScreenView
                                     3: FixedColumnWidth(130),
                                     4: FixedColumnWidth(130),
                                     5: FixedColumnWidth(130),
-                                    6: FixedColumnWidth(40),
+                                    6: FixedColumnWidth(100),
                                   },
                                   children: [
                                     //Header setiap Row
@@ -261,9 +261,13 @@ class RealizationEditScreenView
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            bottom: 8,
+                                            left: 24),
                                         child: Text(
-                                          "",
+                                          "Action",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: HumiColors.humicBlackColor,
@@ -354,26 +358,55 @@ class RealizationEditScreenView
                                                 ),
                                               ),
                                             ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                controller.delete(data.id ?? 0);
-                                              },
-                                              child: Container(
-                                                width: 40,
-                                                height: 35,
-                                                decoration: BoxDecoration(
-                                                  color: HumiColors
-                                                      .humicPrimaryColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                            Row(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                    width: 40,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                      color: HumiColors
+                                                          .humicPrimaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    child: const Icon(
+                                                      FluentIcons
+                                                          .edit_24_regular,
+                                                      size: 16,
+                                                      color: HumiColors
+                                                          .humicWhiteColor,
+                                                    ),
+                                                  ),
                                                 ),
-                                                child: const Icon(
-                                                  FluentIcons.delete_24_regular,
-                                                  size: 16,
-                                                  color: HumiColors
-                                                      .humicWhiteColor,
+                                                horizontalSpace(12),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller
+                                                        .delete(data.id ?? 0);
+                                                  },
+                                                  child: Container(
+                                                    width: 40,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                      color: HumiColors
+                                                          .humicPrimaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    child: const Icon(
+                                                      FluentIcons
+                                                          .delete_24_regular,
+                                                      size: 16,
+                                                      color: HumiColors
+                                                          .humicWhiteColor,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ],
                                         );

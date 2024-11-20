@@ -7,11 +7,19 @@ class RealizationScreenController extends GetxController {
   var isLoading = true;
   var isEditMode = false.obs;
 
-  @override
-  void onInit() {
-    getRealizationData();
-    isEditMode.value = false;
-    super.onInit();
+  var selectedRealizationYear = DateTime.now().year.obs;
+
+  // Fungsi memuat data berdasarkan tahun
+  void fetchDataForYear(int year) {
+    // Implementasi untuk memuat data dashboard berdasarkan tahun
+    // Contoh:
+    // dashboardData.value = await DashboardServices().getDashboardData(year: year);
+  }
+
+  // Fungsi untuk memperbarui data berdasarkan tahun
+  void updateRealizationYear(int year) {
+    selectedRealizationYear.value = year;
+    fetchDataForYear(year);
   }
 
   void getRealizationData() async {
@@ -27,6 +35,13 @@ class RealizationScreenController extends GetxController {
     }
     isLoading = false;
     update();
+  }
+
+  @override
+  void onInit() {
+    getRealizationData();
+    isEditMode.value = false;
+    super.onInit();
   }
 
   void toggleEditMode() {

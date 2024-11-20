@@ -6,7 +6,6 @@ import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/contr
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
-
 import '../../../data/models/input/planning.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constants/date_format.dart';
@@ -122,6 +121,7 @@ class PlanningAddScreenController extends GetxController {
       Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
       final controller = Get.put(BottomNavigationBarController());
       controller.selectedIndex.value = 1;
+      update();
     } else {
       print("AddItem failed");
     }

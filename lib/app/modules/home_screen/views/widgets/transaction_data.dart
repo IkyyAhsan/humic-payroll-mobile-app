@@ -58,8 +58,12 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                         transactionId: '${data.id}',
                         eventName: '${data.activityName}',
                         date: formatDate(data.createdAt),
-                        income: formatRupiah(data.amount!),
+                        type: formatRupiah(data.amount!),
                         tax: '${data.taxAmount}',
+                        transactionTypeName: data.transactionType == 'income' ||
+                                data.transactionType == "Income"
+                            ? "Pemasukan"
+                            : "Pengeluaran",
                       )),
                   child: Column(
                     children: [

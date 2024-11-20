@@ -7,6 +7,7 @@ import 'package:humic_payroll_mobile_app/app/modules/planning_screen/controllers
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/year_format.dart';
 
 class HumicPlanningData extends StatelessWidget {
   const HumicPlanningData({super.key});
@@ -39,9 +40,10 @@ class HumicPlanningData extends StatelessWidget {
                     color: HumiColors.humicWhiteColor,
                     boxShadow: [
                       BoxShadow(
-                          blurRadius: 16,
-                          offset: const Offset(0, 4),
-                          color: HumiColors.humicBlackColor.withOpacity(0.07))
+                        blurRadius: 16,
+                        offset: const Offset(0, 4),
+                        color: HumiColors.humicBlackColor.withOpacity(0.07),
+                      )
                     ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +114,29 @@ class HumicPlanningData extends StatelessWidget {
                                                   .humicTransparencyColor)),
                                     ),
                                   ),
-                                )
+                                ),
+                                horizontalSpace(4),
+                                Container(
+                                  width: 50,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                    color: HumiColors.humicYearColor
+                                        .withOpacity(0.10),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      formatYear(data.createdAt),
+                                      style: GoogleFonts.plusJakartaSans(
+                                        textStyle: const TextStyle(
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.w600,
+                                          color: HumiColors.humicYearColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             Text(

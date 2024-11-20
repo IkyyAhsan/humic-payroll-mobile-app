@@ -14,6 +14,30 @@ class HomeScreenController extends GetxController {
   var endDate = Rxn<DateTime>();
   UserProfile? userProfileData;
 
+  var selectedBarChartYear = DateTime.now().year.obs;
+  var selectedPieChartYear = DateTime.now().year.obs;
+
+  // Fungsi untuk memperbarui tahun
+  void updateBarChartYear(int year) {
+    selectedBarChartYear.value = year;
+    selectedPieChartYear.value = year;
+    fetchDataForYear(year);
+  }
+
+  // Fungsi untuk memperbarui tahun
+  void updatePieChartYear(int year) {
+    selectedBarChartYear.value = year;
+    selectedPieChartYear.value = year;
+    fetchDataForYear(year);
+  }
+
+  // Fungsi memuat data berdasarkan tahun
+  void fetchDataForYear(int year) {
+    // Implementasi untuk memuat data dashboard berdasarkan tahun
+    // Contoh:
+    // dashboardData.value = await DashboardServices().getDashboardData(year: year);
+  }
+
   // Mendapatkan data dashboard
   void getDashboardData() async {
     isLoading.value = true;
@@ -102,5 +126,38 @@ class HomeScreenController extends GetxController {
   // Fungsi untuk memindah Screen ke Transaction
   void approveToggleTransaction() {
     isApproveRealization.value = false;
+  }
+
+  // Fungsi untuk memformat nama bulan menjadi singkatan tiga huruf
+  String formatMonth(String? monthName) {
+    if (monthName == null || monthName.isEmpty) return '';
+    switch (monthName.toLowerCase()) {
+      case 'january':
+        return 'Jan';
+      case 'february':
+        return 'Feb';
+      case 'march':
+        return 'Mar';
+      case 'april':
+        return 'Apr';
+      case 'may':
+        return 'May';
+      case 'june':
+        return 'Jun';
+      case 'july':
+        return 'Jul';
+      case 'august':
+        return 'Aug';
+      case 'september':
+        return 'Sep';
+      case 'october':
+        return 'Oct';
+      case 'november':
+        return 'Nov';
+      case 'december':
+        return 'Dec';
+      default:
+        return monthName;
+    }
   }
 }

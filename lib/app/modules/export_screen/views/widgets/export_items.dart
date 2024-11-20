@@ -1,31 +1,26 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/widgets/export_row_card.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
-import 'package:iconify_flutter/iconify_flutter.dart';
-import 'package:iconify_flutter/icons/material_symbols.dart';
-import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:intl/intl.dart';
 
-class HumicExportTransactionScreen extends StatefulWidget {
-  const HumicExportTransactionScreen({
-    super.key,
-  });
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/spaces.dart';
+
+class HumicExportItemScreen extends StatefulWidget {
+  const HumicExportItemScreen({super.key});
 
   @override
-  State<HumicExportTransactionScreen> createState() =>
-      _HumicExportTransactionScreenState();
+  State<HumicExportItemScreen> createState() =>
+      _HumicExportRealizationScreenState();
 }
 
-class _HumicExportTransactionScreenState
-    extends State<HumicExportTransactionScreen> {
+class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
   String selectedFileType = "PDF(.pdf)";
   String selectedDateRange = "03 Okt - 03 Okt 2024";
   String selectedCategory = "internal";
 
   final List<String> fileTypes = ["PDF(.pdf)", "Excel(.xlsx)"];
+  final List<String> categories = ["internal", "eksternal", "rka"];
 
   // Fungsi untuk format tanggal
   String formatDate(DateTime date) {
@@ -92,6 +87,7 @@ class _HumicExportTransactionScreenState
                 ),
               ),
             );
+
             if (result != null) {
               setState(() {
                 selectedFileType = result;
@@ -167,9 +163,71 @@ class _HumicExportTransactionScreenState
             }
           },
         ),
+        verticalSpace(12),
+
+        // Select Category
+        HumicExportRowCard(
+          icon: const Icon(Icons.category, size: 32),
+          horizontalSizedBox: horizontalSpace(60),
+          title: "Select Category",
+          subtitle: selectedCategory,
+          onTap: () async {
+            final result = await showDialog<String>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Select Category"),
+                content: StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButton<String>(
+                        value: selectedCategory,
+                        isExpanded: true,
+                        underline: const SizedBox.shrink(),
+                        items: categories.map((String category) {
+                          return DropdownMenuItem<String>(
+                            value: category,
+                            child: Text(
+                              category,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              selectedCategory = newValue;
+                            });
+                            Navigator.pop(context, newValue);
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+
+            if (result != null) {
+              setState(() {
+                selectedCategory = result;
+              });
+            }
+          },
+        ),
+
         verticalSpace(60),
 
-// Download Button
+        // Download Button
         SizedBox(
           width: double.infinity,
           height: 60,

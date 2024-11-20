@@ -22,9 +22,10 @@ class HumicPlanningPieChart extends StatelessWidget {
               "Planning",
               style: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: HumiColors.humicBlackColor),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: HumiColors.humicBlackColor,
+                ),
               ),
             ),
 
@@ -60,14 +61,16 @@ class HumicPlanningPieChart extends StatelessWidget {
                   ElevatedButton(
                     onPressed: controller.planningToggleTransaction,
                     style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        backgroundColor: !controller.isPlanningRealization.value
-                            ? HumiColors.humicPrimaryColor
-                            : HumiColors.humicWhiteColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      backgroundColor: !controller.isPlanningRealization.value
+                          ? HumiColors.humicPrimaryColor
+                          : HumiColors.humicWhiteColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
                     child: Text(
-                      "Transaction",
+                      "Realization",
                       style: GoogleFonts.plusJakartaSans(
                         textStyle: TextStyle(
                           fontSize: 12,

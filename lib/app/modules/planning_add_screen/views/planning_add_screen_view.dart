@@ -34,10 +34,12 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                   Text(
                     "Add Plan",
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: HumiColors.humicBlackColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -68,9 +70,10 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                   decoration: InputDecoration(
                       hintText: "Masukkan nama kegiatan..",
                       hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: HumiColors.humicTransparencyColor,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       )),
@@ -99,9 +102,10 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                     decoration: InputDecoration(
                       hintText: "DD/MM/YYYY",
                       hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: HumiColors.humicTransparencyColor,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -124,20 +128,21 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                 width: double.infinity,
                 height: 56,
                 child: TextFormField(
-                    readOnly: true,
-                    controller: controller.endDate,
-                    decoration: InputDecoration(
-                      hintText: "DD/MM/YYYY",
-                      hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  readOnly: true,
+                  controller: controller.endDate,
+                  decoration: InputDecoration(
+                    hintText: "DD/MM/YYYY",
+                    hintStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
                     ),
-                    onTap: controller.changeEndDate),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onTap: controller.changeEndDate,
+                ),
               ),
               verticalSpace(55),
               Row(
@@ -176,7 +181,9 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: HumiColors.humicPrimaryColor,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
+                            horizontal: 30,
+                            vertical: 10,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           )),

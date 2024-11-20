@@ -11,13 +11,15 @@ class HumicTransactionDetails extends StatelessWidget {
       required this.transactionId,
       required this.eventName,
       required this.date,
-      required this.income,
-      required this.tax});
+      required this.type,
+      required this.tax,
+      required this.transactionTypeName});
 
+  final String transactionTypeName;
   final String transactionId;
   final String eventName;
   final String date;
-  final String income;
+  final String type;
   final String tax;
 
   @override
@@ -138,7 +140,7 @@ class HumicTransactionDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Pemasukan",
+                      transactionTypeName,
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
                               fontSize: 16,
@@ -146,7 +148,7 @@ class HumicTransactionDetails extends StatelessWidget {
                               color: HumiColors.humicTransparencyColor)),
                     ),
                     Text(
-                      income,
+                      type,
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
                               fontSize: 16,
@@ -258,27 +260,50 @@ class HumicTransactionDetails extends StatelessWidget {
 
                 // Button For Close
                 verticalSpace(80),
-                Center(
-                  child: SizedBox(
-                    width: 173,
-                    height: 46,
-                    child: ElevatedButton(
-                      onPressed: () => Get.back(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: HumiColors.humicCancelColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                      child: const Text(
-                        'Close',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicPrimaryColor,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: 45,
+                      width: 45,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(),
+                          backgroundColor: HumiColors.humicPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Icon(
+                          FluentIcons.delete_24_regular,
+                          size: 20,
+                          color: HumiColors.humicWhiteColor,
                         ),
                       ),
                     ),
-                  ),
+                    horizontalSpace(16),
+                    SizedBox(
+                      width: 173,
+                      height: 46,
+                      child: ElevatedButton(
+                        onPressed: () => Get.back(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: HumiColors.humicPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        child: const Text(
+                          'Close',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicWhiteColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),

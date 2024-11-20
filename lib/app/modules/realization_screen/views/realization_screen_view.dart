@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_detail_screen/views/realization_detail_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/controllers/realization_edit_screen_controller.dart';
@@ -10,8 +9,10 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/year_format.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
+import 'package:iconify_flutter/icons/uil.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/realization_screen_controller.dart';
 
@@ -19,11 +20,11 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
   const RealizationScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    final HomeScreenController homeController = Get.put(HomeScreenController());
     Get.put(RealizationScreenController());
+
     return GetBuilder<RealizationScreenController>(
       init: RealizationScreenController(),
-      builder: (context) {
+      builder: (_) {
         return controller.isLoading
             ? const Material(
                 child: Center(
@@ -44,8 +45,143 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                           verticalSpace(24),
                           HumicCustomAppBar(
                             title: 'Realization',
-                            image:
-                                "https://payroll.humicprototyping.com/storage/app/public/${homeController.userProfileData?.image}",
+                            widget: GestureDetector(
+                              onTap: () async {
+                                final int? pickedYear =
+                                    await showModalBottomSheet<int>(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(16.0),
+                                    ),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    int tempYear = controller
+                                        .selectedRealizationYear.value;
+                                    return Container(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Select Year',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Expanded(
+                                            child: Theme(
+                                              data: Theme.of(context).copyWith(
+                                                colorScheme: Theme.of(context)
+                                                    .colorScheme
+                                                    .copyWith(
+                                                      primary: Colors
+                                                          .red, // Ubah warna menjadi merah
+                                                    ),
+                                                textTheme: const TextTheme(
+                                                  bodyMedium: TextStyle(
+                                                    color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: YearPicker(
+                                                firstDate: DateTime(2010),
+                                                lastDate: DateTime(2050),
+                                                initialDate: DateTime(tempYear),
+                                                selectedDate:
+                                                    DateTime(tempYear),
+                                                onChanged: (DateTime date) {
+                                                  Navigator.pop(
+                                                      context, date.year);
+                                                  controller
+                                                      .updateRealizationYear(
+                                                          date.year);
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+
+                                if (pickedYear != null &&
+                                    pickedYear !=
+                                        controller
+                                            .selectedRealizationYear.value) {
+                                  controller.updateRealizationYear(pickedYear);
+                                }
+                              },
+                              child: Container(
+                                width: 80,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                      color: HumiColors.humicDividerColor),
+                                ),
+
+                                // Data Tahun
+                                child: Obx(
+                                  () => DropdownButtonHideUnderline(
+                                    child: DropdownButton<int>(
+                                      value: controller
+                                          .selectedRealizationYear.value,
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 1,
+                                        color: HumiColors.humicBackgroundColor,
+                                      ),
+                                      onChanged: (int? newValue) {
+                                        if (newValue != null &&
+                                            newValue !=
+                                                controller
+                                                    .selectedRealizationYear
+                                                    .value) {
+                                          controller
+                                              .updateRealizationYear(newValue);
+                                        }
+                                      },
+                                      isExpanded: true,
+                                      alignment: Alignment.center,
+                                      items: List.generate(
+                                        5,
+                                        (index) => DateTime.now().year - index,
+                                      ).map<DropdownMenuItem<int>>((int year) {
+                                        return DropdownMenuItem<int>(
+                                          value: year,
+                                          child: Row(
+                                            children: [
+                                              horizontalSpace(10),
+                                              Iconify(
+                                                Uil.calender,
+                                                size: 16,
+                                              ),
+                                              horizontalSpace(5),
+                                              Text(
+                                                "$year",
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           verticalSpace(34),
                           if (controller.realizationData.data?.data == null)
@@ -181,17 +317,52 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                                                       child: Center(
                                                         child: Text(
                                                           '${data?.itemCount} Items',
-                                                          style: GoogleFonts.plusJakartaSans(
-                                                              textStyle: const TextStyle(
-                                                                  fontSize: 8,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: HumiColors
-                                                                      .humicTransparencyColor)),
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: HumiColors
+                                                                  .humicTransparencyColor,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
-                                                    )
+                                                    ),
+                                                    horizontalSpace(4),
+                                                    Container(
+                                                      width: 50,
+                                                      height: 15,
+                                                      decoration: BoxDecoration(
+                                                        color: HumiColors
+                                                            .humicYearColor
+                                                            .withOpacity(0.10),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          formatYear(
+                                                              data?.createdAt),
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: HumiColors
+                                                                  .humicYearColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                                 Text(
@@ -258,15 +429,18 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                                                           horizontalSpace(4),
                                                           Text(
                                                             "Edit",
-                                                            style: GoogleFonts.plusJakartaSans(
-                                                                textStyle: const TextStyle(
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    color: HumiColors
-                                                                        .humicPrimaryColor)),
+                                                            style: GoogleFonts
+                                                                .plusJakartaSans(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: HumiColors
+                                                                    .humicPrimaryColor,
+                                                              ),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),

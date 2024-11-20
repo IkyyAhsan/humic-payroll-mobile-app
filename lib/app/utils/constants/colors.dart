@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class HumiColors {
   static const Color humicPrimaryColor = Color(0xFFB4252A);
+  static const Color humicYearColor = Color(0xFF3B71E5);
   static const Color humicSecondaryColor = Color(0xFF48B121);
   static const Color humicThirdSecondaryColor = Color(0xFFEA9B4D);
   static const Color humicTransparencyColor = Color(0xFF636363);

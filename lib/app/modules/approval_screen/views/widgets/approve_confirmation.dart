@@ -25,9 +25,12 @@ void approveConfirmation({int? id}) {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-              width: 222,
-              height: 222,
-              child: Lottie.asset(HumicImages.humicApproveAnimation)),
+            width: 222,
+            height: 222,
+            child: Lottie.asset(
+              HumicImages.humicApproveAnimation,
+            ),
+          ),
           verticalSpace(50),
           Text(
             'Are you sure you want to approve this Report?',
@@ -57,10 +60,12 @@ void approveConfirmation({int? id}) {
                   child: Text(
                     'Back',
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicPrimaryColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: HumiColors.humicPrimaryColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -85,10 +90,12 @@ void approveConfirmation({int? id}) {
                   child: Text(
                     'Confirm',
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicWhiteColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: HumiColors.humicWhiteColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
