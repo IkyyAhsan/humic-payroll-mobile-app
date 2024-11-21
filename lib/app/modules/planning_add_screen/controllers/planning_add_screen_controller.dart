@@ -4,6 +4,8 @@ import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_planning.dart';
 import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
+import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/modules/realization_screen/controllers/realization_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
 import '../../../data/models/input/planning.dart';
@@ -22,7 +24,6 @@ class PlanningAddScreenController extends GetxController {
 
   final isSuccessAddPlanning = false.obs;
   final data = Rxn<PlanningDetail>();
-
   // Add Planning
   final TextEditingController namePlan = TextEditingController();
   final TextEditingController startDate = TextEditingController();
@@ -118,12 +119,30 @@ class PlanningAddScreenController extends GetxController {
     );
     print("AddItem Result: $result"); // Debugging
     if (result) {
-      Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
-      final controller = Get.put(BottomNavigationBarController());
-      controller.selectedIndex.value = 1;
+      final controller = Get.put(PlanningDetailScreenController());
+      controller.getPlanningDetailData(planningId: data.value?.id);
+      print(controller.planningDetailData);
+      print("id: ${data.value?.id}");
+      Get.to(PlanningAddNextScreen(), arguments: {"id": data.value?.id});
+      controller.update();
+
       update();
     } else {
       print("AddItem failed");
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    namePlan.clear();
+    startDate.clear();
+    endDate.clear();
+    tanggalItem.clear();
+    keteranganItem.clear();
+    nilaiBrutoItem.clear();
+    nilaiPajakItem.clear();
+    nilaiNettoItem.clear();
+    kategoriItem.clear();
   }
 }

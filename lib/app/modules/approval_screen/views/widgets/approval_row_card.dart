@@ -73,7 +73,7 @@ class HumicApprovalRowCard extends StatelessWidget {
                 ],
               ),
             ),
-            horizontalSpace(30),
+            horizontalSpace(16),
             Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,6 @@ class HumicApprovalRowCard extends StatelessWidget {
                 ],
               ),
             ),
-            horizontalSpace(10),
             Container(
               child: Row(
                 children: [

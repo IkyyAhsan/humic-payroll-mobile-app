@@ -123,7 +123,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                 ],
                               ),
                             ),
-                            horizontalSpace(30),
+                            horizontalSpace(20),
 
                             // Date, Activity name, Amount
                             SizedBox(
@@ -167,7 +167,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                 ],
                               ),
                             ),
-                            horizontalSpace(30),
+                            horizontalSpace(18),
 
                             // Transaction Status
                             Column(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/controllers/approval_screen_controller.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -42,11 +41,10 @@ void approveConfirmation({int? id}) {
             ),
           ),
           verticalSpace(20),
-          const SizedBox(height: 20),
           Row(
             children: [
               SizedBox(
-                width: 150,
+                width: 140,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () => Get.back(),
@@ -71,7 +69,7 @@ void approveConfirmation({int? id}) {
               ),
               horizontalSpace(6),
               SizedBox(
-                width: 150,
+                width: 140,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () async {

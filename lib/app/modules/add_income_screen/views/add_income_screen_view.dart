@@ -62,7 +62,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
 
                   // Nama Kegiatan
                   TextFormField(
-                    //controller: loginController.emailController,
+                    controller: controller.namaKegiatan,
                     decoration: InputDecoration(
                         hintText: "Masukkan nama kegiatan..",
                         hintStyle: GoogleFonts.plusJakartaSans(
@@ -93,7 +93,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
 
                   // Tanggal
                   TextFormField(
-                    //controller: loginController.emailController,
+                    controller: controller.tanggalKegiatan,
                     decoration: InputDecoration(
                         hintText: "DD/MM/YYYY",
                         hintStyle: GoogleFonts.plusJakartaSans(
@@ -124,7 +124,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
 
                   // Pemasukan
                   TextFormField(
-                    //controller: loginController.emailController,
+                    controller: controller.pemasukanKegiatan,
                     decoration: InputDecoration(
                         hintText: "Masukkan jumlah pemasukan..",
                         hintStyle: GoogleFonts.plusJakartaSans(
@@ -155,7 +155,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
 
                   // Pajak
                   TextFormField(
-                    //controller: loginController.emailController,
+                    controller: controller.pajakKegiatan,
                     decoration: InputDecoration(
                         hintText: "Masukkan jumlah pajak..",
                         hintStyle: GoogleFonts.plusJakartaSans(
@@ -177,10 +177,12 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   Text(
                     "Upload",
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicBlackColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
                   verticalSpace(12),
 

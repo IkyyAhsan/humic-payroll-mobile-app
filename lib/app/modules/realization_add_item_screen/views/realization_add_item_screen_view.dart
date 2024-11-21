@@ -226,18 +226,65 @@ class RealizationAddItemScreenView
               SizedBox(
                 width: double.infinity,
                 height: 56,
-                child: TextFormField(
-                  controller: controller.kategoriItem,
+                child: DropdownButtonFormField<String>(
+                  value: controller.kategoriItem.text.isEmpty
+                      ? null
+                      : controller.kategoriItem.text,
+                  items: [
+                    DropdownMenuItem(
+                      value: "internal",
+                      child: Text(
+                        "Internal",
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "eksternal",
+                      child: Text(
+                        "Eksternal",
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "rka",
+                      child: Text(
+                        "Rencana Kerja Anggaran",
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   decoration: InputDecoration(
-                    hintText: "Masukkan kategori..",
+                    hintText: "Pilih kategori..",
                     hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HumiColors.humicTransparencyColor,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                  onChanged: (value) {
+                    controller.kategoriItem.text = value ?? "";
+                  },
                 ),
               ),
               verticalSpace(40),

@@ -6,11 +6,15 @@ class PlanningDetailScreenController extends GetxController {
   ShowPlanning? planningDetailData;
   bool isLoading = true;
 
-  void getPlanningDetailData() async {
-    var id = Get.arguments['id'];
+  void getPlanningDetailData({int? planningId}) async {
+    if (planningId == null) {
+      var id = Get.arguments['id'];
 
+      planningId = id;
+    }
     isLoading = true;
-    planningDetailData = await ShowPlanningServices().getShowPlanning(id);
+    planningDetailData =
+        await ShowPlanningServices().getShowPlanning(planningId ?? 0);
     isLoading = false;
     update();
   }
