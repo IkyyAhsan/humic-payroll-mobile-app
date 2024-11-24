@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_planning.dart';
-import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
-import 'package:humic_payroll_mobile_app/app/modules/realization_screen/controllers/realization_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
 import '../../../data/models/input/planning.dart';
-import '../../../routes/app_pages.dart';
 import '../../../utils/constants/date_format.dart';
 
 class PlanningAddScreenController extends GetxController {
@@ -36,6 +33,22 @@ class PlanningAddScreenController extends GetxController {
   final TextEditingController nilaiPajakItem = TextEditingController();
   final TextEditingController nilaiNettoItem = TextEditingController();
   final TextEditingController kategoriItem = TextEditingController();
+
+  @override
+  Future<void> dispose() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Membersihkan controller
+    tanggalItem.clear();
+    keteranganItem.clear();
+    nilaiBrutoItem.clear();
+    nilaiPajakItem.clear();
+    nilaiNettoItem.clear();
+    kategoriItem.clear();
+
+    super.dispose();
+    update();
+  }
 
   void removeItem(int index) {
     rows.removeAt(index);
@@ -123,26 +136,12 @@ class PlanningAddScreenController extends GetxController {
       controller.getPlanningDetailData(planningId: data.value?.id);
       print(controller.planningDetailData);
       print("id: ${data.value?.id}");
-      Get.to(PlanningAddNextScreen(), arguments: {"id": data.value?.id});
+      Get.to(const PlanningAddNextScreen(), arguments: {"id": data.value?.id});
       controller.update();
 
       update();
     } else {
       print("AddItem failed");
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    namePlan.clear();
-    startDate.clear();
-    endDate.clear();
-    tanggalItem.clear();
-    keteranganItem.clear();
-    nilaiBrutoItem.clear();
-    nilaiPajakItem.clear();
-    nilaiNettoItem.clear();
-    kategoriItem.clear();
   }
 }

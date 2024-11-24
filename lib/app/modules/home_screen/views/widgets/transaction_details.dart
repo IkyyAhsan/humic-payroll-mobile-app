@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 
@@ -13,7 +14,8 @@ class HumicTransactionDetails extends StatelessWidget {
       required this.date,
       required this.type,
       required this.tax,
-      required this.transactionTypeName});
+      required this.transactionTypeName,
+      required this.status});
 
   final String transactionTypeName;
   final String transactionId;
@@ -21,9 +23,11 @@ class HumicTransactionDetails extends StatelessWidget {
   final String date;
   final String type;
   final String tax;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(HomeScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
@@ -257,32 +261,40 @@ class HumicTransactionDetails extends StatelessWidget {
                     )
                   ],
                 ),
-
-                // Button For Close
                 verticalSpace(80),
+
+                // Button For Delete
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(
-                      height: 45,
-                      width: 45,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(),
-                          backgroundColor: HumiColors.humicPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    // Tombol Remove hanya ditampilkan jika role adalah admin dan status adalah approve
+                    if (controller.userProfileData?.role == 'admin')
+                      if (status == 'decline' || status == 'pending')
+                        SizedBox(
+                          height: 45,
+                          width: 45,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              controller.deleteTransaction(
+                                  id: int.parse(transactionId));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(),
+                              backgroundColor: HumiColors.humicPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Icon(
+                              FluentIcons.delete_24_regular,
+                              size: 20,
+                              color: HumiColors.humicWhiteColor,
+                            ),
                           ),
                         ),
-                        child: const Icon(
-                          FluentIcons.delete_24_regular,
-                          size: 20,
-                          color: HumiColors.humicWhiteColor,
-                        ),
-                      ),
-                    ),
                     horizontalSpace(16),
+
+                    // Tombol Close selalu ditampilkan
                     SizedBox(
                       width: 173,
                       height: 46,
@@ -291,7 +303,8 @@ class HumicTransactionDetails extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: HumiColors.humicPrimaryColor,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         child: const Text(
                           'Close',
@@ -304,7 +317,7 @@ class HumicTransactionDetails extends StatelessWidget {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

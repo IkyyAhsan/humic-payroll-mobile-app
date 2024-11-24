@@ -10,6 +10,7 @@ class CompareScreenController extends GetxController {
     isLoading = false;
     update();
   }
+
   @override
   void onInit() {
     super.onInit();

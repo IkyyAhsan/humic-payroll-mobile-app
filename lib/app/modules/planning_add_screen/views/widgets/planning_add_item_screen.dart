@@ -27,7 +27,9 @@ class PlanningAddItemScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
-                        onPressed: () => Get.back(),
+                        onPressed: () {
+                          Get.back();
+                        },
                         icon: const Icon(
                           FluentIcons.ios_arrow_ltr_24_regular,
                           color: HumiColors.humicBlackColor,
@@ -299,7 +301,10 @@ class PlanningAddItemScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: () => controller.addItem(),
+                    onPressed: () async {
+                      controller.addItem();
+                      await controller.dispose();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(

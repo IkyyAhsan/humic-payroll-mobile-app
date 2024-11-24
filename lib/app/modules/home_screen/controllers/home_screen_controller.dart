@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/dashboard.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
 import 'package:humic_payroll_mobile_app/app/services/dashboard_services.dart';
+import 'package:humic_payroll_mobile_app/app/services/finance_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
 
 class HomeScreenController extends GetxController {
@@ -16,6 +17,15 @@ class HomeScreenController extends GetxController {
 
   var selectedBarChartYear = DateTime.now().year.obs;
   var selectedPieChartYear = DateTime.now().year.obs;
+
+  void deleteTransaction({int? id}) async {
+    print(id);
+    final data = await FinanceServices().deleteFinance(id: id);
+    if (data) {
+      Get.back();
+      update();
+    }
+  }
 
   // Fungsi untuk memperbarui tahun
   void updateBarChartYear(int year) {
@@ -32,10 +42,17 @@ class HomeScreenController extends GetxController {
   }
 
   // Fungsi memuat data berdasarkan tahun
-  void fetchDataForYear(int year) {
-    // Implementasi untuk memuat data dashboard berdasarkan tahun
-    // Contoh:
-    // dashboardData.value = await DashboardServices().getDashboardData(year: year);
+  void fetchDataForYear(int year) async {
+    // Konversi tahun ke ISO format
+    DateTime isoDate = convertYearToIsoString(year);
+
+    // Panggil service backend dengan parameter ISO string
+    var response = await DashboardServices().getDashboardData(year: isoDate);
+
+    // Update data jika diperlukan
+    if (response != null) {
+      dashboardData.value = response;
+    }
   }
 
   // Mendapatkan data dashboard
@@ -111,11 +128,13 @@ class HomeScreenController extends GetxController {
   // Fungsi untuk memindah Screen ke Realization
   void planningToggleRealization() {
     isPlanningRealization.value = true;
+    print(isPlanningRealization.value);
   }
 
   // Fungsi untuk memindah Screen ke Transaction
   void planningToggleTransaction() {
     isPlanningRealization.value = false;
+    print(isPlanningRealization.value);
   }
 
   // Fungsi untuk memindah Screen ke Realization
@@ -160,4 +179,8 @@ class HomeScreenController extends GetxController {
         return monthName;
     }
   }
+}
+
+DateTime convertYearToIsoString(int year) {
+  return DateTime(year, 1, 1); // Tahun ke 1 Januari pada tahun tersebut
 }

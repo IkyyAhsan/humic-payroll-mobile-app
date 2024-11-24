@@ -45,5 +45,35 @@ class PlanningServices {
       return null;
     }
   }
-  
+
+  Future<bool> deletePlanning({int? id}) async {
+    try {
+      var response = await dio.delete('/planning/$id');
+      print(response.data);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> deleteItem(int index) async {
+    try {
+      dio.options.headers['Authorization'] =
+          'Bearer ${GetStorage().read('token')}';
+      final response = await dio.delete(
+        '/item/$index',
+      );
+      print(response.data);
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
 }

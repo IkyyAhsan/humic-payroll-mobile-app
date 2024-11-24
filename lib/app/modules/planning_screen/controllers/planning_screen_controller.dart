@@ -27,18 +27,18 @@ class PlanningScreenController extends GetxController {
   void addPagination() {
     if (currentPage.value < totalPages.value) {
       currentPage.value++;
-      getPlanningData(currentPage.value);
+      getPlanningData(index: currentPage.value);
     }
   }
 
   void decrementPagination() {
     if (currentPage.value > 1) {
       currentPage.value--;
-      getPlanningData(currentPage.value);
+      getPlanningData(index: currentPage.value);
     }
   }
 
-  void getPlanningData(int index) async {
+  void getPlanningData({int? index = 0}) async {
     isLoading.value = true;
 
     final planningResponse =
@@ -59,7 +59,7 @@ class PlanningScreenController extends GetxController {
 
   @override
   void onInit() {
-    getPlanningData(currentPage.value);
+    getPlanningData(index: currentPage.value);
     super.onInit();
   }
 }

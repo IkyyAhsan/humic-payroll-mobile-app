@@ -638,7 +638,7 @@ void logoutConfirmation() {
           Row(
             children: [
               SizedBox(
-                width: 150,
+                width: 140,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () => Get.back(),
@@ -661,7 +661,7 @@ void logoutConfirmation() {
               ),
               horizontalSpace(6),
               SizedBox(
-                width: 150,
+                width: 140,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () => Get.offAll(const LoginScreenView()),

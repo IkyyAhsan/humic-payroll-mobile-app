@@ -10,26 +10,25 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/uil.dart';
 import 'package:random_color/random_color.dart';
 
-class PlanningPieChart extends StatelessWidget {
-  PlanningPieChart({super.key});
+class RealizationPieChart extends StatelessWidget {
+  const RealizationPieChart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Warna untuk setiap label
     RandomColor randomColor = RandomColor();
 
     final controller = Get.put(HomeScreenController());
 
     return Obx(() {
       // Ambil data dari controller
-      var pieChartData = controller.dashboardData.value.data?.pieChart;
-      if (pieChartData == null) {
+      var realizationChartData = controller.dashboardData.value.data?.pieChart;
+      if (realizationChartData == null) {
         return const Center(child: CircularProgressIndicator());
       }
 
       // Konversi data untuk digunakan pada Pie Chart
-      List<Map<String, dynamic>> planningData =
-          pieChartData.planningData!.asMap().entries.map((entry) {
+      List<Map<String, dynamic>> realizationData =
+          realizationChartData.realizationData!.asMap().entries.map((entry) {
         Color random = randomColor.randomColor();
         return {
           'label': entry.value.name,
@@ -38,8 +37,9 @@ class PlanningPieChart extends StatelessWidget {
         };
       }).toList();
 
-      // Total planning
-      double totalPlanning = pieChartData.totalPlanning?.toDouble() ?? 0;
+      // Total Realization
+      double totalRealization =
+          realizationChartData.totalRealization?.toDouble() ?? 0;
 
       return Container(
         decoration: BoxDecoration(
@@ -69,7 +69,7 @@ class PlanningPieChart extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        formatRupiah(totalPlanning.toInt()),
+                        formatRupiah(totalRealization.toInt()),
                         style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
                             fontSize: 15,
@@ -166,7 +166,7 @@ class PlanningPieChart extends StatelessWidget {
                           PieChartData(
                             sectionsSpace: 0,
                             centerSpaceRadius: 0,
-                            sections: planningData.map((data) {
+                            sections: realizationData.map((data) {
                               final valueInMillions = data['value'] / 1000000;
                               return PieChartSectionData(
                                 color: data['color'],
@@ -185,7 +185,7 @@ class PlanningPieChart extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: planningData.map((data) {
+                          children: realizationData.map((data) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 4),
                               child: Row(

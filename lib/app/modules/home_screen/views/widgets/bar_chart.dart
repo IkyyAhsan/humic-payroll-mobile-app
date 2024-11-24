@@ -52,63 +52,51 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                 // Data Tahun
                 child: // Widget Tahun
                     Container(
-                  width: 100,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: HumiColors
-                        .humicBackgroundColor, // Warna latar belakang dropdown
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<int>(
-                      value: controller.selectedBarChartYear.value,
-                      icon: const Icon(
-                        Icons.arrow_drop_down,
-                        size: 1,
-                        color: HumiColors
-                            .humicBackgroundColor, // Sesuaikan warna ikon
-                      ),
-                      onChanged: (int? newValue) {
-                        if (newValue != null &&
-                            newValue != controller.selectedBarChartYear.value) {
-                          controller.updateBarChartYear(newValue);
-                        }
-                      },
-                      isExpanded: true,
-                      alignment: Alignment.center,
-                      items: List.generate(
-                        5,
-                        (index) => DateTime.now().year - index,
-                      ).map<DropdownMenuItem<int>>((int year) {
-                        return DropdownMenuItem<int>(
-                          value: year,
-                          child: Center(
-                            child: Row(
-                              children: [
-                                horizontalSpace(10),
-                                Iconify(
-                                  Uil.calender,
-                                  size: 16,
-                                ),
-                                horizontalSpace(5),
-                                Text(
-                                  "$year",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: HumiColors.humicBlackColor,
-                                    ),
+                        width: 100,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: HumiColors
+                              .humicBackgroundColor, // Warna latar belakang dropdown
+                        ),
+                        child: DropdownButton<int>(
+                          value: controller.selectedBarChartYear.value,
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            size: 1,
+                            color: HumiColors.humicTransparencyColor,
+                          ),
+                          onChanged: (int? newValue) {
+                            if (newValue != null &&
+                                newValue !=
+                                    controller.selectedBarChartYear.value) {
+                              controller.updateBarChartYear(newValue);
+
+                              // Fetch data dengan format ISO string
+                              controller.fetchDataForYear(newValue);
+                            }
+                          },
+                          isExpanded: true,
+                          alignment: Alignment.center,
+                          items: List.generate(
+                            5,
+                            (index) => DateTime.now().year - index,
+                          ).map<DropdownMenuItem<int>>((int year) {
+                            return DropdownMenuItem<int>(
+                              value: year,
+                              child: Text(
+                                "$year",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicBlackColor,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
+                              ),
+                            );
+                          }).toList(),
+                        )),
               ),
             ],
           ),
@@ -120,18 +108,20 @@ class HumicIncomeExpenseChart extends StatelessWidget {
               child: SizedBox(
                 height: 250,
                 child: AspectRatio(
-                  aspectRatio: 2.0,
+                  aspectRatio: 2.0, // Atur rasio aspek untuk bar chart
                   child: BarChart(
                     BarChartData(
                       alignment: BarChartAlignment.spaceBetween,
-                      maxY: 280000,
+                      maxY: 300000, // Disesuaikan dengan skala data
                       barGroups: monthlyData.asMap().entries.map((entry) {
                         int index = entry.key;
                         var income = entry.value.income?.toDouble() ?? 0;
                         var expense = entry.value.expense?.toDouble() ?? 0;
+
                         return BarChartGroupData(
                           x: index,
                           barRods: [
+                            // Bar untuk income
                             BarChartRodData(
                               toY: income,
                               color: Colors.green,
@@ -141,6 +131,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                                 topRight: Radius.circular(3),
                               ),
                             ),
+                            // Bar untuk expense
                             BarChartRodData(
                               toY: expense,
                               color: Colors.red,
@@ -157,36 +148,19 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            reservedSize: 90,
+                            reservedSize: 50, // Ukuran ruang untuk label
                             getTitlesWidget: (value, meta) {
-                              switch (value.toInt()) {
-                                case 0:
-                                  return const Text('0',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 10));
-                                case 50000:
-                                  return const Text('50.000',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 10));
-                                case 100000:
-                                  return const Text('100.000',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 10));
-                                case 150000:
-                                  return const Text('150.000',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 10));
-                                case 200000:
-                                  return const Text('200.000',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 10));
-                                case 250000:
-                                  return const Text('250.000',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 10));
-                                default:
-                                  return const Text('');
+                              if (value % 50000 == 0) {
+                                // Hanya tampilkan nilai tertentu
+                                return Text(
+                                  value.toInt().toString(),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                  ),
+                                );
                               }
+                              return const Text('');
                             },
                           ),
                         ),
@@ -194,28 +168,59 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                           sideTitles: SideTitles(
                             showTitles: true,
                             getTitlesWidget: (value, meta) {
-                              if (value.toInt() >= monthlyData.length) {
-                                return const Text('');
+                              if (value.toInt() < monthlyData.length) {
+                                return Text(
+                                  controller.formatMonth(
+                                      monthlyData[value.toInt()].name ?? ''),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                  ),
+                                );
                               }
-                              return Text(
-                                controller.formatMonth(
-                                    monthlyData[value.toInt()].name ?? ''),
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 10),
-                              );
+                              return const Text('');
                             },
                           ),
                         ),
                         rightTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
+                          sideTitles:
+                              SideTitles(showTitles: false), // Tidak tampilkan
                         ),
                         topTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
+                          sideTitles:
+                              SideTitles(showTitles: false), // Tidak tampilkan
                         ),
                       ),
-                      gridData: const FlGridData(show: false),
-                      borderData: FlBorderData(show: false),
-                      barTouchData: BarTouchData(enabled: false),
+                      gridData: FlGridData(
+                        show: true,
+                        drawHorizontalLine: true, // Garis horizontal
+                        horizontalInterval: 50000, // Interval garis
+                        getDrawingHorizontalLine: (value) {
+                          return FlLine(
+                            color: Colors.grey.withOpacity(0.5),
+                            strokeWidth: 0.5,
+                          );
+                        },
+                      ),
+                      borderData: FlBorderData(
+                        show: true,
+                        border: const Border.symmetric(
+                          horizontal:
+                              BorderSide(color: Colors.black, width: 0.5),
+                        ),
+                      ),
+                      barTouchData: BarTouchData(
+                        enabled: true, // Aktifkan interaksi
+                        touchTooltipData: BarTouchTooltipData(
+                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                            final label = rodIndex == 0 ? "Income" : "Expense";
+                            return BarTooltipItem(
+                              '$label\n${rod.toY.toInt()}',
+                              const TextStyle(color: Colors.white),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),

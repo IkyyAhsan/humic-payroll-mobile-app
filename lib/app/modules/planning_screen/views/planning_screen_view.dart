@@ -2,7 +2,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/planning_add_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_screen/views/widgets/planning_data.dart';
@@ -18,8 +17,6 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
   const PlanningScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    final HomeScreenController homeController =
-        Get.find<HomeScreenController>();
     Get.put(PlanningScreenController());
 
     return Obx(

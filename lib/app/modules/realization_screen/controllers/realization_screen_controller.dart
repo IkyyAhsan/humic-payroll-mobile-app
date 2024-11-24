@@ -51,4 +51,6 @@ class RealizationScreenController extends GetxController {
       isEditMode.value = false;
     }
   }
+
+  var pageData = <Datum>[].obs;
 }

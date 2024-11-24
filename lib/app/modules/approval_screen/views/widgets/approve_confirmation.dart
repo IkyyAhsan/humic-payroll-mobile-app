@@ -8,7 +8,7 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart'
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:lottie/lottie.dart';
 
-void approveConfirmation({int? id}) {
+void approveConfirmation({int? id, Function()? onConfirm}) {
   print("Approve confirmation dialog should appear");
   Get.defaultDialog(
     title: '',
@@ -72,7 +72,7 @@ void approveConfirmation({int? id}) {
                 width: 140,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () async {
+                  onPressed: onConfirm ?? () async {
                     var controller = Get.put(ApprovalScreenController());
                     controller.updateFinance(id ?? 0);
                     Get.back();

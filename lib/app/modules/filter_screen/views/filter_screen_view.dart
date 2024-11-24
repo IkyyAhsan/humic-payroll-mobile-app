@@ -57,7 +57,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           controller.updateType('All');
                         },
                         child: Container(
-                          width: 114,
+                          width: 105,
                           height: 48,
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
@@ -92,7 +92,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           controller.updateType('Income');
                         },
                         child: Container(
-                          width: 114,
+                          width: 105,
                           height: 48,
                           decoration: BoxDecoration(
                             color: controller.selectedType.value == 'Income'
@@ -125,7 +125,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           controller.updateType('Expense');
                         },
                         child: Container(
-                          width: 114,
+                          width: 105,
                           height: 48,
                           decoration: BoxDecoration(
                             color: controller.selectedType.value == 'Expense'
@@ -204,7 +204,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                                 const Icon(
                                   Icons.calendar_today,
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 8),
                                 Text(
                                   controller.startDate.value == DateTime.now()
                                       ? "Start Date"
@@ -253,7 +253,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                                 const Icon(
                                   Icons.calendar_today,
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 8),
                                 Text(
                                   controller.endDate.value == DateTime.now()
                                       ? "End Date"

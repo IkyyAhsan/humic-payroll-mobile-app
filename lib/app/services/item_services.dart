@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
+import 'package:humic_payroll_mobile_app/app/shared/constant.dart';
 
 class AddItemServices {
   String? _message;
@@ -26,6 +27,19 @@ class AddItemServices {
       }
     } catch (e) {
       _message = "Error: $e";
+      return false;
+    }
+  }
+
+  Future<bool> deleteItem({int? id}) async {
+    try {
+      var response = await dio.delete('/item/$id');
+      print(response.data);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
       return false;
     }
   }

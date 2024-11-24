@@ -7,6 +7,7 @@ import 'package:humic_payroll_mobile_app/app/data/models/approve.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/compare.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/income_expense.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/expense.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/income.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/planning_compare.dart';
 import 'package:humic_payroll_mobile_app/app/shared/constant.dart';
 import 'package:path_provider/path_provider.dart';
@@ -157,7 +158,7 @@ class ApprovalServices {
     try {
       dio.options.headers['Authorization'] =
           'Bearer ${GetStorage().read('token')}';
-      final response = await dio.get('/pending');
+      final response = await dio.get('/expense');
       print(response.data);
       if (response.statusCode == 200) {
         return IncomeExpense.fromJson(response.data);
@@ -174,7 +175,8 @@ class ApprovalServices {
     try {
       Map<String, dynamic> data = {
         "activity_name": expense.name,
-        "transaction_type": expense.date.toIso8601String(),
+        "transaction_type": expense.transactionType,
+        "date": expense.date.toIso8601String(),
         "amount": expense.amount,
         "tax_amount": expense.taxAmount,
         'document_evidence': await MultipartFile.fromFile(
@@ -185,7 +187,40 @@ class ApprovalServices {
             filename: 'image evidence ${expense.name}'),
       };
       var formData = FormData.fromMap(data);
+      dio.options.headers['Authorization'] =
+          'Bearer ${GetStorage().read('token')}';
       final response = await dio.post('/finance', data: formData);
+      print(response.data);
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> postIncomeData(Income income) async {
+    try {
+      Map<String, dynamic> data = {
+        "activity_name": income.name,
+        "transaction_type": income.transactionType,
+        "date": income.date.toIso8601String(),
+        "amount": income.amount,
+        "tax_amount": income.taxAmount,
+        'document_evidence': await MultipartFile.fromFile(
+            income.documentEvidence?.path ?? "",
+            filename: 'document evidence ${income.name}'),
+        'image_evidence': await MultipartFile.fromFile(
+            income.imageEvidence?.path ?? "",
+            filename: 'image evidence ${income.name}'),
+      };
+      var formData = FormData.fromMap(data);
+      dio.options.headers['Authorization'] =
+          'Bearer ${GetStorage().read('token')}';
+      final response = await dio.post('/finance', data: formData);
+      print(response.data);
       if (response.statusCode == 200) {
         return true;
       }

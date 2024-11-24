@@ -6,13 +6,15 @@ class UserIncomeServices {
   String? _message;
   String? get message => _message;
 
-  Future<UserIncome?> getUserIncome() async {
+  Future<UserIncome?> getUserIncome({int? index}) async {
     try {
       dio.options.headers['Authorization'] =
           'Bearer ${GetStorage().read('token')}';
 
       // Permintaan GET ke API user profile
-      final response = await dio.get('/income');
+      final response = await dio.get('/income', queryParameters: {
+        "page" : index
+      });
 
       if (response.statusCode == 200) {
         // Jika berhasil, parsing JSON menjadi UserProfile

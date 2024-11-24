@@ -12,7 +12,7 @@ class ExpensesScreenController extends GetxController {
         await ApprovalServices().getExpenseData() ?? IncomeExpense();
     isLoading.value = false;
     update();
-}
+  }
 
   @override
   void onInit() {

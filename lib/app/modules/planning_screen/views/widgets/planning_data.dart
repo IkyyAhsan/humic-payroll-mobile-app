@@ -196,7 +196,8 @@ class HumicPlanningData extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: GestureDetector(
                   onTap: () {
-                    controller.getPlanningData(i); // Pindah ke halaman tertentu
+                    controller.getPlanningData(
+                        index: i); // Pindah ke halaman tertentu
                     controller.currentPage.value = i; // Atur currentPage
                   },
                   child: controller.currentPage.value == i

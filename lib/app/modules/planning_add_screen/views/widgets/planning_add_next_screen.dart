@@ -57,7 +57,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         IconButton(
-                            onPressed: () => Get.back(),
+                            onPressed: () {
+                              Get.back();
+                            },
                             icon: const Icon(
                               FluentIcons.ios_arrow_ltr_24_regular,
                               color: HumiColors.humicBlackColor,
@@ -214,7 +216,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                                 3: FixedColumnWidth(130),
                                 4: FixedColumnWidth(130),
                                 5: FixedColumnWidth(130),
-                                6: FixedColumnWidth(100),
+                                6: FixedColumnWidth(120),
                               },
                               children: [
                                 // Header Setiap Row
@@ -287,13 +289,19 @@ class PlanningAddNextScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: 8, right: 8, bottom: 8, left: 20),
-                                    child: Text(
-                                      "Action",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color:
-                                            HumiColors.humicTransparencyColor,
+                                      top: 8,
+                                      right: 8,
+                                      bottom: 8,
+                                      left: 8,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Action",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color:
+                                              HumiColors.humicTransparencyColor,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -393,7 +401,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              horizontalSpace(12),
+                                              horizontalSpace(8),
                                               GestureDetector(
                                                 onTap: () {},
                                                 child: Container(

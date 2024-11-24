@@ -7,17 +7,36 @@ class IncomeScreenController extends GetxController {
   var incomeTransactions = <Datum>[].obs;
   var isLoading = true.obs;
 
-  void getUserIncomeData() async {
+  // Pagination variables
+  var currentPage = 1.obs;
+  final int itemsPerPage = 10;
+
+  void getUserIncomeData({bool reset = false}) async {
     isLoading.value = true;
-    userIncomeData.value = (await UserIncomeServices().getUserIncome())!;
-    print(userIncomeData.value.data?.data);
+
+    if (reset) {
+      currentPage.value = 1; // Reset pagination
+      incomeTransactions.clear(); // Clear existing data
+    }
+
+    // Fetch data for the current page
+    var newUserIncomeData =
+        await UserIncomeServices().getUserIncome(index: currentPage.value);
+    if (newUserIncomeData != null && newUserIncomeData.data != null) {
+      userIncomeData.value = newUserIncomeData;
+
+      // Replace data to show only 10 items per page
+      incomeTransactions.value =
+          newUserIncomeData.data!.data!.take(itemsPerPage).toList();
+    }
+
     isLoading.value = false;
     update();
   }
 
   @override
   void onInit() {
-    getUserIncomeData();
+    getUserIncomeData(reset: true);
     super.onInit();
   }
 }

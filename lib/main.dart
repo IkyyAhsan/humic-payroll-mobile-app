@@ -9,7 +9,7 @@ void main() async {
   await initializeDateFormatting('id_ID', null);
   runApp(
     GetMaterialApp(
-      title: "HUMIC Engineering Payroll Mobile App",
+      title: "HUMIC Payroll Mobile App",
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

@@ -176,7 +176,8 @@ class RealizationDetailScreenView
                             Visibility(
                               visible: controller.realizationDetailData?.data !=
                                   null,
-                              child: SingleChildScrollView(
+                              child: // Realization Table
+                                  SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -201,6 +202,7 @@ class RealizationDetailScreenView
                                       5: FixedColumnWidth(130),
                                     },
                                     children: [
+                                      //Header setiap Row
                                       const TableRow(children: [
                                         Padding(
                                           padding: EdgeInsets.all(8),
@@ -263,104 +265,103 @@ class RealizationDetailScreenView
                                           ),
                                         ),
                                       ]),
+
+                                      // Row of Value
                                       ...?controller
-                                              .realizationDetailData?.data?.item
-                                              ?.map(
-                                            (data) {
-                                              return TableRow(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: Text(
-                                                      tableDateFormat(
-                                                        data.createdAt ??
-                                                            DateTime.now(),
-                                                      ),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: HumiColors
-                                                            .humicBlackColor,
-                                                      ),
-                                                    ),
+                                          .realizationDetailData?.data?.item
+                                          ?.asMap()
+                                          .entries
+                                          .map(
+                                        (entry) {
+                                          int index = entry.key;
+                                          var data = entry.value;
+                                          return TableRow(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Text(
+                                                  tableDateFormat(
+                                                      data.createdAt),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: Text(
-                                                      data.information ?? "",
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: HumiColors
-                                                            .humicBlackColor,
-                                                      ),
-                                                    ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Text(
+                                                  data.information ?? "",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: Text(
-                                                      formatRupiah(
-                                                        data.brutoAmount ?? 0,
-                                                      ),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: HumiColors
-                                                            .humicBlackColor,
-                                                      ),
-                                                    ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Text(
+                                                  formatRupiah(int.parse(data
+                                                      .brutoAmount
+                                                      .toString())),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: Text(
-                                                      formatRupiah(
-                                                        data.taxAmount ?? 0,
-                                                      ),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: HumiColors
-                                                            .humicBlackColor,
-                                                      ),
-                                                    ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Text(
+                                                  formatRupiah(int.parse(data
+                                                      .taxAmount
+                                                      .toString())),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: Text(
-                                                      formatRupiah(
-                                                        data.nettoAmount ?? 0,
-                                                      ),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: HumiColors
-                                                            .humicBlackColor,
-                                                      ),
-                                                    ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Text(
+                                                  formatRupiah(int.parse(data
+                                                      .nettoAmount
+                                                      .toString())),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: Text(
-                                                      data.category ?? "",
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: HumiColors
-                                                            .humicBlackColor,
-                                                      ),
-                                                    ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Text(
+                                                  data.category ?? "",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
-                                                ],
-                                              );
-                                            },
-                                          ) ??
-                                          [],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+
+                                      // Value Total
                                       TableRow(
                                         children: [
                                           const Padding(
@@ -376,7 +377,14 @@ class RealizationDetailScreenView
                                           ),
                                           const Padding(
                                             padding: EdgeInsets.all(8),
-                                            child: Text(""),
+                                            child: Text(
+                                              "",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: HumiColors
+                                                    .humicPrimaryColor,
+                                              ),
+                                            ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(8),
@@ -413,7 +421,14 @@ class RealizationDetailScreenView
                                           ),
                                           const Padding(
                                             padding: EdgeInsets.all(8),
-                                            child: Text(""),
+                                            child: Text(
+                                              "",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: HumiColors
+                                                    .humicPrimaryColor,
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),

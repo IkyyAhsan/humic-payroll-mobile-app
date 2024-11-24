@@ -11,6 +11,6 @@ String formatDate(dynamic createdAt) {
     return ''; // Return empty string if createdAt is null or invalid
   }
 
-  DateFormat formatter = DateFormat("dd MMM yyyy", "id_ID");
+  DateFormat formatter = DateFormat("dd/MM/yyyy", "id_ID");
   return formatter.format(parsedDate);
 }

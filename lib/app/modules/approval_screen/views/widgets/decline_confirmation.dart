@@ -9,7 +9,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../routes/app_pages.dart';
 import '../../controllers/approval_screen_controller.dart';
 
-void declineConfirmation({int? id}) {
+void declineConfirmation({int? id,  Function()? onConfirm}) {
   print("Decline confirmation dialog should appear");
   Get.defaultDialog(
     title: '',
@@ -46,7 +46,7 @@ void declineConfirmation({int? id}) {
           Row(
             children: [
               SizedBox(
-                width: 150,
+                width: 140,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () => Get.back(),
@@ -73,11 +73,12 @@ void declineConfirmation({int? id}) {
               ),
               horizontalSpace(6),
               SizedBox(
-                width: 150,
+                width: 140,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: onConfirm ??  () {
                     var controller = Get.put(ApprovalScreenController());
+                    print("ID to be deleted: $id");
                     controller.deletedFinance(id ?? 0);
                     Get.back();
                     Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);

@@ -6,6 +6,7 @@ import 'package:humic_payroll_mobile_app/app/modules/approval_screen/controllers
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/widgets/approval_row_card.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/widgets/approve_confirmation.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/widgets/decline_confirmation.dart';
+import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/views/planning_detail_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
@@ -41,10 +42,12 @@ class HumicApprovePlanningScreen extends StatelessWidget {
                     "${tableDateFormat(data?.createdAt)} - ${tableDateFormat(data?.endDate)}",
                 amount: formatRupiah(
                     int.tryParse(data?.itemSumNettoAmount ?? '0') ?? 0),
-                onTap: () {
-                  Get.to(const ApprovalDetailScreenView(),
-                      arguments: {'id': data?.id});
-                },
+                onTap: () => Get.to(
+                  () => const PlanningDetailScreenView(),
+                  arguments: {
+                    "id": data?.id,
+                  },
+                ),
                 onApprove: () {
                   // print("id : ${data?.id}");
                   approveConfirmation(id: data?.id ?? 0);

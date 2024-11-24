@@ -67,7 +67,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
 
                         // Nama Kegiatan
                         TextFormField(
-                          //controller: loginController.emailController,
+                          controller: controller.name,
                           decoration: InputDecoration(
                               hintText: "Masukkan nama kegiatan..",
                               hintStyle: GoogleFonts.plusJakartaSans(
@@ -86,34 +86,37 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         ),
                         verticalSpace(14),
 
+                        // Tanggal
                         Text(
                           "Tanggal",
                           style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor)),
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
                         ),
                         verticalSpace(12),
-
-                        // Tanggal
-                        TextFormField(
-                          //controller: loginController.emailController,
-                          decoration: InputDecoration(
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: TextFormField(
+                            readOnly: true,
+                            controller: controller.date,
+                            decoration: InputDecoration(
                               hintText: "DD/MM/YYYY",
-                              hintStyle: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: HumiColors.humicTransparencyColor,
-                                ),
+                              hintStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: HumiColors.humicTransparencyColor,
                               ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: HumiColors.humicBlackColor))),
+                            ),
+                            onTap: controller.selectDate,
+                          ),
                         ),
                         verticalSpace(14),
 
@@ -129,7 +132,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
 
                         // Pemasukan
                         TextFormField(
-                          //controller: loginController.emailController,
+                          controller: controller.amount,
                           decoration: InputDecoration(
                               hintText: "Masukkan jumlah pengeluaran..",
                               hintStyle: GoogleFonts.plusJakartaSans(
@@ -160,7 +163,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
 
                         // Pajak
                         TextFormField(
-                          //controller: loginController.emailController,
+                          controller: controller.taxAmount,
                           decoration: InputDecoration(
                               hintText: "Masukkan jumlah pajak..",
                               hintStyle: GoogleFonts.plusJakartaSans(
@@ -201,8 +204,25 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: controller.uploadFile != null
-                                ? Image.file(
-                                    File(controller.uploadFile?.path ?? ""))
+                                ? ['png', 'jpg', 'jpeg'].contains(controller
+                                        .uploadFile!.path
+                                        .split('.')
+                                        .last
+                                        .toLowerCase())
+                                    ? Image.file(
+                                        File(controller.uploadFile!.path),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Center(
+                                        child: Text(
+                                          "Invalid File Format",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: HumiColors.humicBlackColor,
+                                          ),
+                                        ),
+                                      )
                                 : const Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -212,7 +232,8 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                         image: AssetImage(
                                             HumicImages.humicUploadImageIcon),
                                       ),
-                                      Text("Upload File Keuangan (PDF/xlsx)")
+                                      Text(
+                                          "Upload Image File (.png/.jpg/.jpeg)")
                                     ],
                                   ),
                           ),
@@ -242,8 +263,22 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: controller.evidence != null
-                                ? Image.file(
-                                    File(controller.evidence?.path ?? ""))
+                                ? controller.evidence!.path
+                                        .endsWith('.pdf') // Ubah kode ini
+                                    ? const Center(
+                                        child: Text(
+                                          "PDF File Uploaded",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: HumiColors.humicBlackColor,
+                                          ),
+                                        ),
+                                      )
+                                    : Image.file(
+                                        File(controller.evidence!.path),
+                                        fit: BoxFit.cover,
+                                      )
                                 : const Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -284,7 +319,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                               width: 128,
                               height: 43,
                               child: ElevatedButton(
-                                onPressed: () => Get.back(),
+                                onPressed: controller.addExpense,
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
                                         HumiColors.humicPrimaryColor,

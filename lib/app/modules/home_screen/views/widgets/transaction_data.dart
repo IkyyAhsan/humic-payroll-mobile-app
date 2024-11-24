@@ -21,7 +21,7 @@ class HumicTransactionData extends StatefulWidget {
 class _HumicTransactionDataState extends State<HumicTransactionData> {
   final controller = Get.find<HomeScreenController>();
   int currentPage = 0;
-  final int itemsPerPage = 4;
+  final int itemsPerPage = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                 data.transactionType == "Income"
                             ? "Pemasukan"
                             : "Pengeluaran",
+                        status: '${data.status}',
                       )),
                   child: Column(
                     children: [
@@ -181,8 +182,11 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                     color: data.status == 'approve'
                                         ? HumiColors.humicSecondaryColor
                                             .withOpacity(0.12)
-                                        : HumiColors.humicPrimaryColor
-                                            .withOpacity(0.12),
+                                        : data.status == 'pending'
+                                            ? HumiColors
+                                                .humicThirdSecondaryColor
+                                                .withOpacity(0.12)
+                                            : HumiColors.humicPrimaryColor,
                                   ),
                                   child: Center(
                                     child: Text(
@@ -193,7 +197,11 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                           fontWeight: FontWeight.w600,
                                           color: data.status == 'approve'
                                               ? HumiColors.humicSecondaryColor
-                                              : HumiColors.humicPrimaryColor,
+                                              : data.status == 'pending'
+                                                  ? HumiColors
+                                                      .humicThirdSecondaryColor
+                                                  : HumiColors
+                                                      .humicPrimaryColor,
                                         ),
                                       ),
                                     ),

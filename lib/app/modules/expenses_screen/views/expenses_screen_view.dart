@@ -32,6 +32,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -96,27 +97,21 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                               onRefresh: () async =>
                                   controller.getExpensesData(),
                               child: filteredData.isEmpty
-                                  ? SingleChildScrollView(
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
-                                      child: Center(
-                                        child: Column(
-                                          children: [
-                                            verticalSpace(150),
-                                            Lottie.asset(
-                                              HumicImages.humicDataNotFound,
-                                              height: 230,
-                                            ),
-                                          ],
-                                        ),
+                                  ? Center(
+                                      child: Column(
+                                        children: [
+                                          verticalSpace(150),
+                                          Lottie.asset(
+                                            HumicImages.humicDataNotFound,
+                                            height: 230,
+                                          ),
+                                        ],
                                       ),
                                     )
                                   : ListView.builder(
                                       itemCount: filteredData.length,
                                       shrinkWrap: true,
                                       primary: false,
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
                                       itemBuilder: (context, index) {
                                         var data = filteredData[index];
                                         return GestureDetector(
@@ -197,7 +192,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
 
                                                     // Date, Activity Name, Amount
                                                     SizedBox(
-                                                      width: 150,
+                                                      width: 130,
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -206,6 +201,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                                           Text(
                                                             formatDate(
                                                                 data.createdAt),
+                                                            maxLines: 2,
                                                             style: GoogleFonts.plusJakartaSans(
                                                                 textStyle: const TextStyle(
                                                                     fontSize:

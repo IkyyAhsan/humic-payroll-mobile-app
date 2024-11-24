@@ -1,6 +1,6 @@
 import 'dart:io';
 
-class Expense {
+class Income {
   String name;
   DateTime date;
   int amount;
@@ -9,7 +9,7 @@ class Expense {
   File? imageEvidence;
   String? transactionType;
 
-  Expense({
+  Income({
     required this.name,
     required this.date,
     required this.amount,
