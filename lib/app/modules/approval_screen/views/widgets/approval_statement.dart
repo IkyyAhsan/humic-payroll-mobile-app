@@ -24,7 +24,7 @@ void approvalStatement() {
               height: 222,
               child: Lottie.asset(HumicImages.humicLogoutAnimation)),
           Text(
-            'Apakah anda yakin untuk menyetujui laporan keuangan ini?',
+            'Are you sure you want to approve this financial report?',
             textAlign: TextAlign.center,
             style: GoogleFonts.plusJakartaSans(
               fontSize: 16,
@@ -67,9 +67,9 @@ void approvalStatement() {
                 child: ElevatedButton(
                   onPressed: () {
                     Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
-                    Get.snackbar("Persetujuan Laporan",
-                        "Laporan yang diajukan telah berhasil disetujui",
-                        backgroundColor: HumiColors.humicPrimaryColor,
+                    Get.snackbar("Approval Report",
+                        "The submitted report has been successfully approved",
+                        backgroundColor: HumiColors.humicSecondaryColor,
                         colorText: HumiColors.humicWhiteColor);
                   },
                   style: ElevatedButton.styleFrom(

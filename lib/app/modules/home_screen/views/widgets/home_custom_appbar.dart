@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/profile_screen/views/profile_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 
 class HumicCustomAppBar extends StatelessWidget {

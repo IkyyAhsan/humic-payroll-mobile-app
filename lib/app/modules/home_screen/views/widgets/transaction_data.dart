@@ -186,7 +186,8 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                             ? HumiColors
                                                 .humicThirdSecondaryColor
                                                 .withOpacity(0.12)
-                                            : HumiColors.humicPrimaryColor,
+                                            : HumiColors.humicPrimaryColor
+                                                .withOpacity(0.12),
                                   ),
                                   child: Center(
                                     child: Text(
@@ -231,7 +232,8 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                       : null,
                   icon: const Icon(
                     FluentIcons.chevron_left_24_regular,
-                    color: Colors.black, // Warna ikon chevron menjadi hitam
+                    color: HumiColors
+                        .humicBlackColor, // Warna ikon chevron menjadi hitam
                   ),
                 ),
                 for (int i = 0;
@@ -250,11 +252,11 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                       child: currentPage == i
                           ? CircleAvatar(
                               radius: 12,
-                              backgroundColor: Colors.red,
+                              backgroundColor: HumiColors.humicPrimaryColor,
                               child: Text(
                                 '${i + 1}',
                                 style: const TextStyle(
-                                  color: Colors.white,
+                                  color: HumiColors.humicWhiteColor,
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -263,7 +265,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                           : Text(
                               '${i + 1}',
                               style: const TextStyle(
-                                color: Colors.black,
+                                color: HumiColors.humicBlackColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -281,7 +283,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                       : null,
                   icon: const Icon(
                     FluentIcons.chevron_right_24_regular,
-                    color: Colors.black,
+                    color: HumiColors.humicBlackColor,
                   ),
                 ),
               ],

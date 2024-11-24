@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +97,8 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                                 child: IconButton(
                                                   icon: const Icon(
                                                     FluentIcons.edit_24_filled,
-                                                    color: Colors.white,
+                                                    color: HumiColors
+                                                        .humicWhiteColor,
                                                   ),
                                                   onPressed:
                                                       controller.getImage,
@@ -158,7 +161,8 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                                 child: IconButton(
                                                   icon: const Icon(
                                                     FluentIcons.edit_24_filled,
-                                                    color: Colors.white,
+                                                    color: HumiColors
+                                                        .humicWhiteColor,
                                                   ),
                                                   onPressed:
                                                       controller.getImage,
@@ -284,13 +288,14 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                                         .passwordController) {
                                                   Get.snackbar(
                                                     "Something went wrong",
-                                                    "Password yang anda masukkan tidak sama dengan password anda sebelumnya",
+                                                    "The password you entered does not match your current password. Please try again.",
                                                     backgroundColor: HumiColors
                                                         .humicPrimaryColor,
                                                     colorText: HumiColors
                                                         .humicWhiteColor,
                                                   );
                                                 }
+                                                return null;
                                               },
                                               controller: controller
                                                   .oldPasswordController,

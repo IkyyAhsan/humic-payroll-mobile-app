@@ -12,9 +12,8 @@ class UserIncomeServices {
           'Bearer ${GetStorage().read('token')}';
 
       // Permintaan GET ke API user profile
-      final response = await dio.get('/income', queryParameters: {
-        "page" : index
-      });
+      final response =
+          await dio.get('/income', queryParameters: {"page": index});
 
       if (response.statusCode == 200) {
         // Jika berhasil, parsing JSON menjadi UserProfile

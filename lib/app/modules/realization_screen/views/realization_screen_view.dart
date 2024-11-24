@@ -75,12 +75,13 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                                                 colorScheme: Theme.of(context)
                                                     .colorScheme
                                                     .copyWith(
-                                                      primary: Colors
-                                                          .red, // Ubah warna menjadi merah
+                                                      primary: HumiColors
+                                                          .humicPrimaryColor, // Ubah warna menjadi merah
                                                     ),
                                                 textTheme: const TextTheme(
                                                   bodyMedium: TextStyle(
-                                                    color: Colors.black87,
+                                                    color: HumiColors
+                                                        .humicBlackColor,
                                                   ),
                                                 ),
                                               ),

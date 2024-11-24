@@ -64,7 +64,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           decoration: BoxDecoration(
                             color: controller.selectedType.value == 'All'
                                 ? HumiColors.humicPrimaryColor
-                                : Colors.white,
+                                : HumiColors.humicWhiteColor,
                             border: Border.all(
                               color: controller.selectedType.value == 'All'
                                   ? HumiColors.humicPrimaryColor
@@ -177,6 +177,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
               verticalSpace(20),
 
               Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Start Date Picker
                       Expanded(
@@ -194,7 +195,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 8),
+                                vertical: 12, horizontal: 7),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
@@ -213,7 +214,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                                     color: controller.startDate.value ==
                                             DateTime.now()
                                         ? Colors.grey
-                                        : Colors.black,
+                                        : HumiColors.humicBlackColor,
                                   ),
                                 ),
                                 const Spacer(),
@@ -262,7 +263,7 @@ class FilterScreenView extends GetView<FilterScreenController> {
                                     color: controller.endDate.value ==
                                             DateTime.now()
                                         ? Colors.grey
-                                        : Colors.black,
+                                        : HumiColors.humicBlackColor,
                                   ),
                                 ),
                                 const Spacer(),

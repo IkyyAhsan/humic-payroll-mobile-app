@@ -16,7 +16,7 @@ class HumicExportItemScreen extends StatefulWidget {
 
 class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
   String selectedFileType = "PDF(.pdf)";
-  String selectedDateRange = "03 Okt - 03 Okt 2024";
+  String selectedDateRange = "30 Des - 31 Des 2099";
   String selectedCategory = "internal";
 
   DateTime? startDate; // Menyimpan tanggal awal
@@ -123,7 +123,7 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
                     ),
                     textButtonTheme: TextButtonThemeData(
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.red,
+                        foregroundColor: HumiColors.humicPrimaryColor,
                       ),
                     ),
                   ),
@@ -149,7 +149,7 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
                       ),
                       textButtonTheme: TextButtonThemeData(
                         style: TextButton.styleFrom(
-                          foregroundColor: Colors.red,
+                          foregroundColor: HumiColors.humicPrimaryColor,
                         ),
                       ),
                     ),
@@ -261,14 +261,14 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.download, color: Colors.white),
+                Icon(Icons.download, color: HumiColors.humicWhiteColor),
                 SizedBox(width: 12),
                 Text(
                   "Download",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: HumiColors.humicWhiteColor,
                   ),
                 ),
               ],

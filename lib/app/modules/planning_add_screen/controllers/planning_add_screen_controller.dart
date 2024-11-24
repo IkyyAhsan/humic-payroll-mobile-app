@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
@@ -103,6 +105,7 @@ class PlanningAddScreenController extends GetxController {
             startDate: selectedDate.value,
             endDate: selectedDate2.value));
     print(data);
+    // ignore: unnecessary_null_comparison
     isSuccessAddPlanning.value = data != null;
     if (isSuccessAddPlanning.value) {
       Get.to(

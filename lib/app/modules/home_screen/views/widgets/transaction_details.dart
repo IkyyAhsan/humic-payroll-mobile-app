@@ -292,6 +292,28 @@ class HumicTransactionDetails extends StatelessWidget {
                             ),
                           ),
                         ),
+                    SizedBox(
+                      height: 45,
+                      width: 45,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.deleteTransaction(
+                              id: int.parse(transactionId));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(),
+                          backgroundColor: HumiColors.humicPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Icon(
+                          FluentIcons.delete_24_regular,
+                          size: 20,
+                          color: HumiColors.humicWhiteColor,
+                        ),
+                      ),
+                    ),
                     horizontalSpace(16),
 
                     // Tombol Close selalu ditampilkan

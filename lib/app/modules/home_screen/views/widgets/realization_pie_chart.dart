@@ -74,7 +74,7 @@ class RealizationPieChart extends StatelessWidget {
                           textStyle: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: HumiColors.humicBlackColor,
                           ),
                         ),
                       )

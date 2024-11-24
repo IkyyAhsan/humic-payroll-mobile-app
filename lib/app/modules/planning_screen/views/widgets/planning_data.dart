@@ -188,7 +188,7 @@ class HumicPlanningData extends StatelessWidget {
                   : null,
               icon: const Icon(
                 FluentIcons.chevron_left_24_regular,
-                color: Colors.black,
+                color: HumiColors.humicBlackColor,
               ),
             ),
             for (int i = 1; i <= controller.totalPages.value; i++)
@@ -203,11 +203,11 @@ class HumicPlanningData extends StatelessWidget {
                   child: controller.currentPage.value == i
                       ? CircleAvatar(
                           radius: 12,
-                          backgroundColor: Colors.red,
+                          backgroundColor: HumiColors.humicPrimaryColor,
                           child: Text(
                             '$i',
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: HumiColors.humicWhiteColor,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -216,7 +216,7 @@ class HumicPlanningData extends StatelessWidget {
                       : Text(
                           '$i',
                           style: const TextStyle(
-                            color: Colors.black,
+                            color: HumiColors.humicBlackColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -232,7 +232,7 @@ class HumicPlanningData extends StatelessWidget {
                       : null,
               icon: const Icon(
                 FluentIcons.chevron_right_24_regular,
-                color: Colors.black,
+                color: HumiColors.humicBlackColor,
               ),
             ),
           ],

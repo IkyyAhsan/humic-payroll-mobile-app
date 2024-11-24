@@ -89,7 +89,8 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                                             ),
                                                     textTheme: const TextTheme(
                                                       bodyMedium: TextStyle(
-                                                        color: Colors.black87,
+                                                        color: HumiColors
+                                                            .humicBlackColor,
                                                       ),
                                                     ),
                                                   ),

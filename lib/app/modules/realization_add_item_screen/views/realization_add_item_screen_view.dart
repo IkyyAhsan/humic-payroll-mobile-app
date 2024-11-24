@@ -261,7 +261,7 @@ class RealizationAddItemScreenView
                       DropdownMenuItem(
                         value: "rka",
                         child: Text(
-                          "Rencana Kerja Anggaran",
+                          "rka",
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,

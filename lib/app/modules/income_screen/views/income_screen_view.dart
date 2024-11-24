@@ -82,9 +82,9 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                 onTap: () =>
                                     Get.to(() => HumicTransactionDetails(
                                           transactionId: '${data.id}',
-                                          eventName: '${data.activityName}',
+                                          eventName: data.activityName,
                                           date: formatDate(data.createdAt),
-                                          type: formatRupiah(data.amount!),
+                                          type: formatRupiah(data.amount),
                                           tax: '${data.taxAmount}',
                                           transactionTypeName:
                                               data.transactionType ==
@@ -93,7 +93,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                           "Income"
                                                   ? "Pemasukan"
                                                   : "Pengeluaran",
-                                          status: '${data.status}',
+                                          status: data.status,
                                         )),
                                 child: Column(
                                   children: [
@@ -144,7 +144,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   width: 32,
                                                 ),
                                                 Text(
-                                                  "${data.transactionType}",
+                                                  data.transactionType,
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: TextStyle(
@@ -188,7 +188,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "${data.activityName}",
+                                                  data.activityName,
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: const TextStyle(
@@ -201,8 +201,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  formatRupiah(
-                                                      data.amount ?? 0),
+                                                  formatRupiah(data.amount),
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: const TextStyle(
@@ -240,7 +239,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                "${data.status}",
+                                                data.status,
                                                 style:
                                                     GoogleFonts.plusJakartaSans(
                                                   textStyle: TextStyle(
@@ -289,7 +288,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                 : null, // Nonaktifkan tombol jika halaman saat ini adalah 1
                             icon: const Icon(
                               FluentIcons.chevron_left_24_regular,
-                              color: Colors.black,
+                              color: HumiColors.humicBlackColor,
                             ),
                           ),
                           Obx(() {
@@ -317,12 +316,13 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                       backgroundColor:
                                           controller.currentPage.value ==
                                                   (index + 1)
-                                              ? Colors.red
+                                              ? HumiColors.humicPrimaryColor
                                               : Colors.grey,
                                       child: Text(
                                         '${index + 1}',
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                          color: HumiColors.humicWhiteColor,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -344,7 +344,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                 : null,
                             icon: const Icon(
                               FluentIcons.chevron_right_24_regular,
-                              color: Colors.black,
+                              color: HumiColors.humicBlackColor,
                             ),
                           ),
                         ],

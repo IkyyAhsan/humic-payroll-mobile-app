@@ -273,7 +273,6 @@ class RealizationDetailScreenView
                                           .entries
                                           .map(
                                         (entry) {
-                                          int index = entry.key;
                                           var data = entry.value;
                                           return TableRow(
                                             children: [

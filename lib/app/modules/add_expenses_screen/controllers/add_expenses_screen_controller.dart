@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/expense.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
 
 class AddExpensesScreenController extends GetxController {
@@ -46,10 +47,13 @@ class AddExpensesScreenController extends GetxController {
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
-        icon: const Icon(Icons.info_outline, color: Colors.white),
+        icon: const Icon(
+          Icons.info_outline,
+          color: HumiColors.humicWhiteColor,
+        ),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black87,
-        colorText: Colors.white,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
         margin: const EdgeInsets.all(16),
         borderRadius: 8,
         duration: const Duration(seconds: 3),
@@ -72,10 +76,11 @@ class AddExpensesScreenController extends GetxController {
         Get.snackbar(
           "Invalid File Format",
           "Only PDF and XLSX file types are allowed. Please try again.",
-          icon: const Icon(Icons.error_outline, color: Colors.white),
+          icon: const Icon(Icons.error_outline,
+              color: HumiColors.humicWhiteColor),
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.black87,
-          colorText: Colors.white,
+          backgroundColor: HumiColors.humicPrimaryColor,
+          colorText: HumiColors.humicWhiteColor,
           margin: const EdgeInsets.all(16),
           borderRadius: 8,
           duration: const Duration(seconds: 3),
@@ -88,10 +93,10 @@ class AddExpensesScreenController extends GetxController {
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
-        icon: const Icon(Icons.info_outline, color: Colors.white),
+        icon: const Icon(Icons.info_outline, color: HumiColors.humicWhiteColor),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black87,
-        colorText: Colors.white,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
         margin: const EdgeInsets.all(16),
         borderRadius: 8,
         duration: const Duration(seconds: 3),

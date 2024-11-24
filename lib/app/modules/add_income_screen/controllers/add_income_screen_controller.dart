@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/income.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
 
 class AddIncomeScreenController extends GetxController {
@@ -33,23 +36,20 @@ class AddIncomeScreenController extends GetxController {
 
   void addUploadFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType
-          .image, // Ubah ke FileType.image untuk menangkap semua file gambar
+      type: FileType.image,
     );
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      // Ekstensi otomatis valid karena FileType.image sudah membatasi file ke gambar
       uploadFile = file;
     } else {
-      // User canceled the picker
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
-        icon: const Icon(Icons.info_outline, color: Colors.white),
+        icon: const Icon(Icons.info_outline, color: HumiColors.humicWhiteColor),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black87,
-        colorText: Colors.white,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
         margin: const EdgeInsets.all(16),
         borderRadius: 8,
         duration: const Duration(seconds: 3),
@@ -72,10 +72,11 @@ class AddIncomeScreenController extends GetxController {
         Get.snackbar(
           "Invalid File Format",
           "Only PDF and XLSX file types are allowed. Please try again.",
-          icon: const Icon(Icons.error_outline, color: Colors.white),
+          icon: const Icon(Icons.error_outline,
+              color: HumiColors.humicWhiteColor),
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.black87,
-          colorText: Colors.white,
+          backgroundColor: HumiColors.humicPrimaryColor,
+          colorText: HumiColors.humicWhiteColor,
           margin: const EdgeInsets.all(16),
           borderRadius: 8,
           duration: const Duration(seconds: 3),
@@ -88,10 +89,10 @@ class AddIncomeScreenController extends GetxController {
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
-        icon: const Icon(Icons.info_outline, color: Colors.white),
+        icon: const Icon(Icons.info_outline, color: HumiColors.humicWhiteColor),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black87,
-        colorText: Colors.white,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
         margin: const EdgeInsets.all(16),
         borderRadius: 8,
         duration: const Duration(seconds: 3),

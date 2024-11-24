@@ -120,7 +120,7 @@ class _HumicExportTransactionScreenState
                     ),
                     textButtonTheme: TextButtonThemeData(
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.red,
+                        foregroundColor: HumiColors.humicPrimaryColor,
                       ),
                     ),
                   ),
@@ -146,7 +146,7 @@ class _HumicExportTransactionScreenState
                       ),
                       textButtonTheme: TextButtonThemeData(
                         style: TextButton.styleFrom(
-                          foregroundColor: Colors.red,
+                          foregroundColor: HumiColors.humicPrimaryColor,
                         ),
                       ),
                     ),
@@ -188,14 +188,14 @@ class _HumicExportTransactionScreenState
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.download, color: Colors.white),
+                Icon(Icons.download, color: HumiColors.humicWhiteColor),
                 SizedBox(width: 12),
                 Text(
                   "Download",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: HumiColors.humicWhiteColor,
                   ),
                 ),
               ],

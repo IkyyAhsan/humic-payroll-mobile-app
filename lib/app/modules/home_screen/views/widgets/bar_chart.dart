@@ -42,61 +42,63 @@ class HumicIncomeExpenseChart extends StatelessWidget {
 
               // Widget Tahun
               Container(
-                width: 80,
+                width: 100, // Sesuaikan lebar dropdown
                 height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: HumiColors.humicDividerColor),
+                  color: HumiColors
+                      .humicBackgroundColor, // Warna latar belakang dropdown
                 ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<int>(
+                    value: controller.selectedBarChartYear.value,
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      size: 1,
+                      color: HumiColors.humicBackgroundColor,
+                    ),
+                    onChanged: (int? newValue) {
+                      if (newValue != null &&
+                          newValue != controller.selectedBarChartYear.value) {
+                        controller.updateBarChartYear(newValue);
 
-                // Data Tahun
-                child: // Widget Tahun
-                    Container(
-                        width: 100,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: HumiColors
-                              .humicBackgroundColor, // Warna latar belakang dropdown
-                        ),
-                        child: DropdownButton<int>(
-                          value: controller.selectedBarChartYear.value,
-                          icon: const Icon(
-                            Icons.arrow_drop_down,
-                            size: 1,
-                            color: HumiColors.humicTransparencyColor,
-                          ),
-                          onChanged: (int? newValue) {
-                            if (newValue != null &&
-                                newValue !=
-                                    controller.selectedBarChartYear.value) {
-                              controller.updateBarChartYear(newValue);
-
-                              // Fetch data dengan format ISO string
-                              controller.fetchDataForYear(newValue);
-                            }
-                          },
-                          isExpanded: true,
-                          alignment: Alignment.center,
-                          items: List.generate(
-                            5,
-                            (index) => DateTime.now().year - index,
-                          ).map<DropdownMenuItem<int>>((int year) {
-                            return DropdownMenuItem<int>(
-                              value: year,
-                              child: Text(
-                                "$year",
-                                style: GoogleFonts.plusJakartaSans(
-                                  textStyle: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: HumiColors.humicBlackColor,
-                                  ),
+                        // Fetch data dengan format ISO string
+                        controller.fetchDataForYear(newValue);
+                      }
+                    },
+                    isExpanded: true,
+                    alignment: Alignment.center,
+                    items: List.generate(
+                      5,
+                      (index) => DateTime.now().year - index,
+                    ).map<DropdownMenuItem<int>>((int year) {
+                      return DropdownMenuItem<int>(
+                        value: year,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            horizontalSpace(10),
+                            const Iconify(
+                              Uil.calender,
+                              size: 16,
+                            ),
+                            horizontalSpace(5),
+                            Text(
+                              "$year",
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: HumiColors.humicBlackColor,
                                 ),
                               ),
-                            );
-                          }).toList(),
-                        )),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
             ],
           ),
@@ -108,11 +110,11 @@ class HumicIncomeExpenseChart extends StatelessWidget {
               child: SizedBox(
                 height: 250,
                 child: AspectRatio(
-                  aspectRatio: 2.0, // Atur rasio aspek untuk bar chart
+                  aspectRatio: 2.0,
                   child: BarChart(
                     BarChartData(
                       alignment: BarChartAlignment.spaceBetween,
-                      maxY: 300000, // Disesuaikan dengan skala data
+                      maxY: 440000,
                       barGroups: monthlyData.asMap().entries.map((entry) {
                         int index = entry.key;
                         var income = entry.value.income?.toDouble() ?? 0;
@@ -124,7 +126,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                             // Bar untuk income
                             BarChartRodData(
                               toY: income,
-                              color: Colors.green,
+                              color: HumiColors.humicSecondaryColor,
                               width: 15,
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(3),
@@ -134,7 +136,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                             // Bar untuk expense
                             BarChartRodData(
                               toY: expense,
-                              color: Colors.red,
+                              color: HumiColors.humicPrimaryColor,
                               width: 15,
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(3),
@@ -148,14 +150,13 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            reservedSize: 50, // Ukuran ruang untuk label
+                            reservedSize: 90,
                             getTitlesWidget: (value, meta) {
                               if (value % 50000 == 0) {
-                                // Hanya tampilkan nilai tertentu
                                 return Text(
                                   value.toInt().toString(),
                                   style: const TextStyle(
-                                    color: Colors.black,
+                                    color: HumiColors.humicBlackColor,
                                     fontSize: 10,
                                   ),
                                 );
@@ -173,7 +174,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                                   controller.formatMonth(
                                       monthlyData[value.toInt()].name ?? ''),
                                   style: const TextStyle(
-                                    color: Colors.black,
+                                    color: HumiColors.humicBlackColor,
                                     fontSize: 10,
                                   ),
                                 );
@@ -205,8 +206,8 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                       borderData: FlBorderData(
                         show: true,
                         border: const Border.symmetric(
-                          horizontal:
-                              BorderSide(color: Colors.black, width: 0.5),
+                          horizontal: BorderSide(
+                              color: HumiColors.humicBlackColor, width: 0.5),
                         ),
                       ),
                       barTouchData: BarTouchData(
@@ -216,7 +217,8 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                             final label = rodIndex == 0 ? "Income" : "Expense";
                             return BarTooltipItem(
                               '$label\n${rod.toY.toInt()}',
-                              const TextStyle(color: Colors.white),
+                              const TextStyle(
+                                  color: HumiColors.humicWhiteColor),
                             );
                           },
                         ),
