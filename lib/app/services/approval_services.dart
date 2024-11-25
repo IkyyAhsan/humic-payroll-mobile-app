@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -10,6 +12,7 @@ import 'package:humic_payroll_mobile_app/app/data/models/input/expense.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/income.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/planning_compare.dart';
 import 'package:humic_payroll_mobile_app/app/shared/constant.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -65,7 +68,17 @@ class ApprovalServices {
       final status = await Permission.storage.request();
       if (!status.isGranted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Storage permission denied')),
+          const SnackBar(
+            content: Text(
+              'Storage permission denied.',
+              style: TextStyle(
+                color: HumiColors.humicWhiteColor,
+              ),
+            ),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 3),
+          ),
         );
         return;
       }
@@ -88,7 +101,17 @@ class ApprovalServices {
 
       if (externalDir == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Unable to access download directory')),
+          const SnackBar(
+            content: Text(
+              'Unable to access download directory.',
+              style: TextStyle(
+                color: HumiColors.humicWhiteColor,
+              ),
+            ),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 3),
+          ),
         );
         return;
       }
@@ -107,15 +130,31 @@ class ApprovalServices {
       );
 
       if (response.statusCode == 200) {
+        // Menampilkan notifikasi sukses
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$fileName downloaded to $savePath')),
+          SnackBar(
+            content: Text('$fileName downloaded to $savePath'),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 3),
+          ),
         );
       } else {
         throw Exception('Failed to download file');
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
+        SnackBar(
+          content: Text(
+            'Error: $e',
+            style: const TextStyle(
+              color: HumiColors.humicWhiteColor,
+            ),
+          ),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+        ),
       );
     }
   }

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -198,7 +197,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   verticalSpace(14),
 
                   Text(
-                    "Upload",
+                    "Image Evidence",
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: const TextStyle(
                         fontSize: 16,
@@ -234,7 +233,7 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                                 )
                               : const Center(
                                   child: Text(
-                                    "Invalid File Format",
+                                    "Invalid Image Format",
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -258,14 +257,16 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   ),
                   verticalSpace(14),
 
-                  // Evidence
+                  // Document Evidence
                   Text(
-                    "Evidence",
+                    "Document Evidence",
                     style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HumiColors.humicBlackColor)),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: HumiColors.humicBlackColor,
+                      ),
+                    ),
                   ),
                   verticalSpace(12),
 
@@ -277,12 +278,13 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: HumiColors.humicBlackColor, width: 1),
+                          color: HumiColors.humicBlackColor,
+                          width: 1,
+                        ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: controller.evidence != null
-                          ? controller.evidence!.path
-                                  .endsWith('.pdf') // Ubah kode ini
+                          ? controller.evidence!.path.endsWith('.pdf')
                               ? const Center(
                                   child: Text(
                                     "PDF File Uploaded",
@@ -305,7 +307,9 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                                   image: AssetImage(
                                       HumicImages.humicUploadImageIcon),
                                 ),
-                                Text("Upload File Evidence (.pdf/.xlsx)")
+                                Text(
+                                  "Upload File Evidence (.pdf/.xlsx)",
+                                ),
                               ],
                             ),
                     ),
@@ -323,11 +327,15 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: HumiColors.humicCancelColor,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
-                          child: const Text('Cancel',
-                              style: TextStyle(
-                                  color: HumiColors.humicCancelTextColor)),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: HumiColors.humicCancelTextColor,
+                            ),
+                          ),
                         ),
                       ),
                       horizontalSpace(10),
@@ -337,15 +345,18 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                         child: ElevatedButton(
                           onPressed: () => controller.addIncome(),
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: HumiColors.humicPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
+                            backgroundColor: HumiColors.humicPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           child: const Text(
                             'Apply',
                             style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicWhiteColor),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicWhiteColor,
+                            ),
                           ),
                         ),
                       ),

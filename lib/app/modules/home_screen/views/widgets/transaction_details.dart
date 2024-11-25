@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:open_filex/open_filex.dart';
@@ -185,7 +186,7 @@ class HumicTransactionDetails extends StatelessWidget {
                               color: HumiColors.humicTransparencyColor)),
                     ),
                     Text(
-                      tax,
+                      formatRupiah(int.parse(tax)),
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
                               fontSize: 16,
@@ -201,7 +202,7 @@ class HumicTransactionDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Upload",
+                      "Document Evidence",
                       style: GoogleFonts.plusJakartaSans(
                         textStyle: const TextStyle(
                           fontSize: 16,
@@ -260,7 +261,7 @@ class HumicTransactionDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Evidence",
+                      "Image Evidence",
                       style: GoogleFonts.plusJakartaSans(
                         textStyle: const TextStyle(
                           fontSize: 16,

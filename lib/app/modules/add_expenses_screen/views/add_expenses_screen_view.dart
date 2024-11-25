@@ -183,7 +183,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         verticalSpace(14),
 
                         Text(
-                          "Upload",
+                          "Image Evidence",
                           style: GoogleFonts.plusJakartaSans(
                               textStyle: const TextStyle(
                                   fontSize: 16,
@@ -192,7 +192,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         ),
                         verticalSpace(12),
 
-                        // Upload
+                        // Image Evidence
                         GestureDetector(
                           onTap: controller.addUploadFile,
                           child: Container(
@@ -215,7 +215,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                       )
                                     : const Center(
                                         child: Text(
-                                          "Invalid File Format",
+                                          "Invalid Image Format",
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -240,9 +240,9 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         ),
                         verticalSpace(14),
 
-                        // Evidence
+                        // Document Evidence
                         Text(
-                          "Evidence",
+                          "Document Evidence",
                           style: GoogleFonts.plusJakartaSans(
                               textStyle: const TextStyle(
                                   fontSize: 16,
@@ -251,7 +251,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         ),
                         verticalSpace(12),
 
-                        // Evidence
+                        // Document Evidence
                         GestureDetector(
                           onTap: controller.addEvidence,
                           child: Container(
@@ -263,8 +263,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: controller.evidence != null
-                                ? controller.evidence!.path
-                                        .endsWith('.pdf') // Ubah kode ini
+                                ? controller.evidence!.path.endsWith('.pdf')
                                     ? const Center(
                                         child: Text(
                                           "PDF File Uploaded",
@@ -288,7 +287,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                         image: AssetImage(
                                             HumicImages.humicUploadImageIcon),
                                       ),
-                                      Text("Upload File Evidence (PDF/PNG/JPG)")
+                                      Text("Upload File Evidence (PDF)")
                                     ],
                                   ),
                           ),

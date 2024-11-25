@@ -250,7 +250,7 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
                 // Panggil ApprovalServices untuk mendownload file
                 await ApprovalServices().downloadFile(
                   url: "/export",
-                  fileType: fileType, // pdf atau excel
+                  fileType: fileType,
                   startDate: formatDate(startDate!),
                   endDate: formatDate(endDate!),
                   context: context,

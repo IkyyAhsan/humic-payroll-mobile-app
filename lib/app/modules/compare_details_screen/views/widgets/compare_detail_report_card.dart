@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/planning_compare.dart';
-import 'package:humic_payroll_mobile_app/app/modules/compare_details_screen/controllers/compare_details_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 
@@ -14,28 +14,22 @@ class HumicDetailCompareReport extends StatelessWidget {
     required this.startDate,
     required this.endDate,
     required this.data,
-    // this.eventDate,
-    // this.eventDescription,
-    // this.brutoValue,
-    // this.taxValue,
-    // this.nettoValue,
-    // this.category,
   });
 
   final String eventName;
   final String startDate;
   final String endDate;
   final List<Item> data;
-  // final String? eventDate;
-  // final String? eventDescription;
-  // final String? brutoValue;
-  // final String? taxValue;
-  // final String? nettoValue;
-  // final String? category;
 
   @override
   Widget build(BuildContext context) {
-    Get.put(CompareDetailsScreenController());
+    // Hitung total secara langsung menggunakan `data`
+    final totalBruto =
+        data.fold(0, (sum, item) => sum + (item.brutoAmount ?? 0));
+    final totalTax = data.fold(0, (sum, item) => sum + (item.taxAmount ?? 0));
+    final totalNetto =
+        data.fold(0, (sum, item) => sum + (item.nettoAmount ?? 0));
+
     return Column(
       children: [
         // Kegiatan
@@ -56,9 +50,10 @@ class HumicDetailCompareReport extends StatelessWidget {
               eventName,
               style: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: HumiColors.humicBlackColor),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: HumiColors.humicBlackColor,
+                ),
               ),
             ),
           ],
@@ -73,18 +68,20 @@ class HumicDetailCompareReport extends StatelessWidget {
               "Start date",
               style: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: HumiColors.humicTransparencyColor),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: HumiColors.humicTransparencyColor,
+                ),
               ),
             ),
             Text(
               startDate,
               style: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: HumiColors.humicBlackColor),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: HumiColors.humicBlackColor,
+                ),
               ),
             ),
           ],
@@ -99,18 +96,20 @@ class HumicDetailCompareReport extends StatelessWidget {
               "End date",
               style: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: HumiColors.humicTransparencyColor),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: HumiColors.humicTransparencyColor,
+                ),
               ),
             ),
             Text(
               endDate,
               style: GoogleFonts.plusJakartaSans(
                 textStyle: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: HumiColors.humicBlackColor),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: HumiColors.humicBlackColor,
+                ),
               ),
             ),
           ],
@@ -128,7 +127,7 @@ class HumicDetailCompareReport extends StatelessWidget {
         ),
         verticalSpace(10),
 
-        //Planning Table
+        // Planning Table
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Container(
@@ -217,76 +216,73 @@ class HumicDetailCompareReport extends StatelessWidget {
                   ),
                 ]),
                 ...data
-                    .map(
-                      (e) => // Value Row 1
-                          TableRow(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            "${e.information}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
+                    .map((e) => TableRow(children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              formatDate(e.createdAt),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: Text(
-                            formatRupiah(e.brutoAmount ?? 0),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
+                          Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Text(
+                              '${e.information}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            formatRupiah(e.taxAmount ?? 0),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              formatRupiah(e.brutoAmount ?? 0),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            formatRupiah(e.brutoAmount ?? 0),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              formatRupiah(e.taxAmount ?? 0),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            formatRupiah(e.nettoAmount ?? 0),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              formatRupiah(e.nettoAmount ?? 0),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            "${e.category}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              "${e.category}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: HumiColors.humicBlackColor,
+                              ),
                             ),
                           ),
-                        )
-                      ]),
-                    )
+                        ]))
                     .toList(),
 
-                // Value Hasil
-                const TableRow(children: [
-                  Padding(
+                // Total
+                TableRow(children: [
+                  const Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
                       "Total",
@@ -296,57 +292,45 @@ class HumicDetailCompareReport extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(6),
+                    child: Text(""),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
                     child: Text(
-                      "",
-                      style: TextStyle(
+                      formatRupiah(totalBruto),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         color: HumiColors.humicPrimaryColor,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Text(
-                      "Rp200.000.000",
-                      style: TextStyle(
+                      formatRupiah(totalTax),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         color: HumiColors.humicPrimaryColor,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Text(
-                      "Rp20.000.000",
-                      style: TextStyle(
+                      formatRupiah(totalNetto),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         color: HumiColors.humicPrimaryColor,
                       ),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(
-                      "Rp20.000.000",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicPrimaryColor,
-                      ),
-                    ),
+                    child: Text(""),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      "",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicPrimaryColor,
-                      ),
-                    ),
-                  )
-                ])
+                ]),
               ],
             ),
           ),
@@ -360,7 +344,8 @@ class HumicDetailCompareReport extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: HumiColors.humicCancelColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
             child: const Text(
               'Close',
