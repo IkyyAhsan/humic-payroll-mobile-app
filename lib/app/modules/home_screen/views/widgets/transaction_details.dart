@@ -1,21 +1,28 @@
+import 'dart:io';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
+import 'package:open_filex/open_filex.dart';
 
 class HumicTransactionDetails extends StatelessWidget {
-  const HumicTransactionDetails(
-      {super.key,
-      required this.transactionId,
-      required this.eventName,
-      required this.date,
-      required this.type,
-      required this.tax,
-      required this.transactionTypeName,
-      required this.status});
+  const HumicTransactionDetails({
+    super.key,
+    required this.transactionId,
+    required this.eventName,
+    required this.date,
+    required this.type,
+    required this.tax,
+    required this.transactionTypeName,
+    required this.status,
+    this.uploadFile,
+    this.evidence,
+  });
 
   final String transactionTypeName;
   final String transactionId;
@@ -24,6 +31,8 @@ class HumicTransactionDetails extends StatelessWidget {
   final String type;
   final String tax;
   final String status;
+  final String? uploadFile;
+  final String? evidence;
 
   @override
   Widget build(BuildContext context) {
@@ -201,26 +210,47 @@ class HumicTransactionDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        const Icon(
-                          FluentIcons.document_table_24_regular,
-                          weight: 4,
-                        ),
-                        horizontalSpace(8),
-                        Text(
-                          "Laporan.xlsx",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
-                              decoration: TextDecoration.underline,
-                            ),
+                    GestureDetector(
+                      onTap: () async {
+                        if (uploadFile != null) {
+                          final result = await OpenFilex.open(uploadFile!);
+                          if (result.type != ResultType.done) {
+                            // Tampilkan pesan jika tidak bisa membuka file
+                            Get.snackbar("Error",
+                                "Unable to open the file. Please ensure a viewer application is installed.",
+                                backgroundColor: HumiColors.humicPrimaryColor,
+                                colorText: HumiColors.humicWhiteColor);
+                            print("File path: $uploadFile");
+                          }
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FluentIcons.document_table_24_regular,
+                            weight: 4,
                           ),
-                        )
-                      ],
-                    )
+                          horizontalSpace(8),
+                          Row(
+                            children: [
+                              Text(
+                                uploadFile != null
+                                    ? shortenFileName(uploadFile!)
+                                    : 'No File Attached',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicBlackColor,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 verticalSpace(42),
@@ -239,26 +269,47 @@ class HumicTransactionDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        const Icon(
-                          FluentIcons.document_pdf_24_regular,
-                          weight: 4,
-                        ),
-                        horizontalSpace(8),
-                        Text(
-                          "Bukti.pdf",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
-                              decoration: TextDecoration.underline,
-                            ),
+                    GestureDetector(
+                      onTap: () async {
+                        if (evidence != null) {
+                          final result = await OpenFilex.open(evidence!);
+                          if (result.type != ResultType.done) {
+                            // Tampilkan pesan jika tidak bisa membuka file
+                            Get.snackbar("Error",
+                                "Unable to open the file. Please ensure a viewer application is installed.",
+                                backgroundColor: HumiColors.humicPrimaryColor,
+                                colorText: HumiColors.humicWhiteColor);
+                            print("File path: $evidence");
+                          }
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FluentIcons.document_table_24_regular,
+                            weight: 4,
                           ),
-                        )
-                      ],
-                    )
+                          horizontalSpace(8),
+                          Row(
+                            children: [
+                              Text(
+                                evidence != null
+                                    ? shortenFileName(evidence!)
+                                    : 'No File Attached',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicBlackColor,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 verticalSpace(80),
@@ -267,53 +318,57 @@ class HumicTransactionDetails extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // Tombol Remove hanya ditampilkan jika role adalah admin dan status adalah approve
-                    if (controller.userProfileData?.role == 'admin')
-                      if (status == 'decline' || status == 'pending')
-                        SizedBox(
-                          height: 45,
-                          width: 45,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              controller.deleteTransaction(
-                                  id: int.parse(transactionId));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(),
-                              backgroundColor: HumiColors.humicPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: const Icon(
-                              FluentIcons.delete_24_regular,
-                              size: 20,
-                              color: HumiColors.humicWhiteColor,
+                    if (controller.userProfileData?.role == 'admin' &&
+                        (status == 'decline' || status == 'pending'))
+                      SizedBox(
+                        height: 45,
+                        width: 45,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            controller.deleteTransaction(
+                              id: int.parse(transactionId),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(),
+                            backgroundColor: HumiColors.humicPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                        ),
-                    SizedBox(
-                      height: 45,
-                      width: 45,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          controller.deleteTransaction(
-                              id: int.parse(transactionId));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(),
-                          backgroundColor: HumiColors.humicPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                          child: const Icon(
+                            FluentIcons.delete_24_regular,
+                            size: 20,
+                            color: HumiColors.humicWhiteColor,
                           ),
-                        ),
-                        child: const Icon(
-                          FluentIcons.delete_24_regular,
-                          size: 20,
-                          color: HumiColors.humicWhiteColor,
                         ),
                       ),
-                    ),
+
+                    // Kondisi: Jika bukan admin, maka dapat menghapus untuk semua status
+                    if (controller.userProfileData?.role != 'admin')
+                      SizedBox(
+                        height: 45,
+                        width: 45,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            controller.deleteTransaction(
+                              id: int.parse(transactionId),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(),
+                            backgroundColor: HumiColors.humicPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Icon(
+                            FluentIcons.delete_24_regular,
+                            size: 20,
+                            color: HumiColors.humicWhiteColor,
+                          ),
+                        ),
+                      ),
                     horizontalSpace(16),
 
                     // Tombol Close selalu ditampilkan

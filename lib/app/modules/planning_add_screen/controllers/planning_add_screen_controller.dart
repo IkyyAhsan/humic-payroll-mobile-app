@@ -16,6 +16,7 @@ class PlanningAddScreenController extends GetxController {
   var planningData = <AddItem>[].obs;
   var rows = <TableRow>[].obs;
   var isLoading = true.obs;
+  bool isPlanningItem = false;
   var i = 5;
   final selectedDate = DateTime.now().obs;
   final selectedDate2 = DateTime.now().obs;
@@ -23,6 +24,7 @@ class PlanningAddScreenController extends GetxController {
 
   final isSuccessAddPlanning = false.obs;
   final data = Rxn<PlanningDetail>();
+
   // Add Planning
   final TextEditingController namePlan = TextEditingController();
   final TextEditingController startDate = TextEditingController();
@@ -49,7 +51,6 @@ class PlanningAddScreenController extends GetxController {
     kategoriItem.clear();
 
     super.dispose();
-    update();
   }
 
   void removeItem(int index) {
@@ -146,5 +147,25 @@ class PlanningAddScreenController extends GetxController {
     } else {
       print("AddItem failed");
     }
+  }
+
+  void deleteItem(int itemId) async {
+    isLoading.value = true; // Tampilkan loading
+    bool isDeleted = await PlanningServices().deleteItem(itemId);
+
+    if (isDeleted) {
+      // Refresh data setelah item berhasil dihapus
+      final planningDetailController =
+          Get.find<PlanningDetailScreenController>();
+      planningDetailController.getPlanningDetailData();
+    } else {
+      Get.snackbar(
+        "Error",
+        "Failed to delete the item",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+    isLoading.value = false;
+    update();
   }
 }

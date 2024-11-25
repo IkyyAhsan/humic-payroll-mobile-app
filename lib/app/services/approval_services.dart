@@ -154,19 +154,24 @@ class ApprovalServices {
     }
   }
 
-  Future<IncomeExpense?> getExpenseData() async {
+  Future<IncomeExpense?> getExpenseData({int? index}) async {
     try {
       dio.options.headers['Authorization'] =
           'Bearer ${GetStorage().read('token')}';
-      final response = await dio.get('/expense');
-      print(response.data);
+
+      // Permintaan GET ke API expense dengan query parameters
+      final response =
+          await dio.get('/expense', queryParameters: {"page": index});
+
       if (response.statusCode == 200) {
+        // Jika berhasil, parsing JSON menjadi IncomeExpense
         return IncomeExpense.fromJson(response.data);
+      } else {
+        _message = "Failed to load expenses: ${response.statusCode}";
+        return null;
       }
-      return null;
     } catch (e) {
-      _message = "$e";
-      print("error : $e");
+      _message = "Error: $e";
       return null;
     }
   }

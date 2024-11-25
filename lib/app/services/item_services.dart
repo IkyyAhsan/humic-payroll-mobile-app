@@ -30,17 +30,4 @@ class AddItemServices {
       return false;
     }
   }
-
-  Future<bool> deleteItem({int? id}) async {
-    try {
-      var response = await dio.delete('/item/$id');
-      print(response.data);
-      if (response.statusCode == 200) {
-        return true;
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
-  }
 }

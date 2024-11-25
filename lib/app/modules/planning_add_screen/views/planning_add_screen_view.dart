@@ -11,7 +11,6 @@ class PlanningAddScreenView extends GetView<PlanningAddScreenController> {
   const PlanningAddScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(PlanningAddScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(

@@ -42,61 +42,68 @@ class HumicIncomeExpenseChart extends StatelessWidget {
 
               // Widget Tahun
               Container(
-                width: 100, // Sesuaikan lebar dropdown
+                width: 80,
                 height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: HumiColors
-                      .humicBackgroundColor, // Warna latar belakang dropdown
+                  border: Border.all(color: HumiColors.humicDividerColor),
                 ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<int>(
-                    value: controller.selectedBarChartYear.value,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      size: 1,
-                      color: HumiColors.humicBackgroundColor,
-                    ),
-                    onChanged: (int? newValue) {
-                      if (newValue != null &&
-                          newValue != controller.selectedBarChartYear.value) {
-                        controller.updateBarChartYear(newValue);
+                child: Container(
+                  width: 100,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: HumiColors.humicBackgroundColor,
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<int>(
+                      value: controller.selectedBarChartYear.value,
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        size: 1,
+                        color: HumiColors.humicBackgroundColor,
+                      ),
+                      onChanged: (int? newValue) {
+                        if (newValue != null &&
+                            newValue != controller.selectedBarChartYear.value) {
+                          controller.updateBarChartYear(newValue);
 
-                        // Fetch data dengan format ISO string
-                        controller.fetchDataForYear(newValue);
-                      }
-                    },
-                    isExpanded: true,
-                    alignment: Alignment.center,
-                    items: List.generate(
-                      5,
-                      (index) => DateTime.now().year - index,
-                    ).map<DropdownMenuItem<int>>((int year) {
-                      return DropdownMenuItem<int>(
-                        value: year,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            horizontalSpace(10),
-                            const Iconify(
-                              Uil.calender,
-                              size: 16,
-                            ),
-                            horizontalSpace(5),
-                            Text(
-                              "$year",
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor,
+                          // Fetch data dengan format ISO string
+                          controller.fetchDataForYear(newValue);
+                        }
+                      },
+                      isExpanded: true,
+                      alignment: Alignment.center,
+                      items: List.generate(
+                        5,
+                        (index) => DateTime.now().year - index,
+                      ).map<DropdownMenuItem<int>>((int year) {
+                        return DropdownMenuItem<int>(
+                          value: year,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              horizontalSpace(10),
+                              const Iconify(
+                                Uil.calender,
+                                size: 16,
+                              ),
+                              horizontalSpace(5),
+                              Text(
+                                "$year",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicBlackColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
               ),

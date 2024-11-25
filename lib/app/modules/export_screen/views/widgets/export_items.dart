@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:humic_payroll_mobile_app/app/modules/export_screen/views/widgets/export_row_card.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
@@ -41,7 +42,10 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
       children: [
         // Select File Type
         HumicExportRowCard(
-          icon: const Icon(Icons.picture_as_pdf, size: 32),
+          icon: const Icon(
+            FluentIcons.document_copy_24_regular,
+            size: 32,
+          ),
           horizontalSizedBox: horizontalSpace(106),
           title: "Select File Type",
           subtitle: selectedFileType,
@@ -240,9 +244,13 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
           child: ElevatedButton(
             onPressed: () async {
               if (startDate != null && endDate != null) {
+                final fileType =
+                    selectedFileType.contains("PDF") ? "pdf" : "excel";
+
+                // Panggil ApprovalServices untuk mendownload file
                 await ApprovalServices().downloadFile(
                   url: "/export",
-                  fileType: selectedFileType.contains("PDF") ? "pdf" : "excel",
+                  fileType: fileType, // pdf atau excel
                   startDate: formatDate(startDate!),
                   endDate: formatDate(endDate!),
                   context: context,
@@ -254,10 +262,11 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
               }
             },
             style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                backgroundColor: HumiColors.humicPrimaryColor),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              backgroundColor: HumiColors.humicPrimaryColor,
+            ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

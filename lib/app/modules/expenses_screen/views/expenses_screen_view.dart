@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/add_expenses_screen/views/add_expenses_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_details.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -115,7 +116,26 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                       itemBuilder: (context, index) {
                                         var data = filteredData[index];
                                         return GestureDetector(
-                                          onTap: () => Get.back(),
+                                          onTap: () => Get.to(() =>
+                                              HumicTransactionDetails(
+                                                transactionId: '${data.id}',
+                                                eventName:
+                                                    data.activityName ?? '',
+                                                date:
+                                                    formatDate(data.createdAt),
+                                                type: formatRupiah(
+                                                    data.amount ?? 0),
+                                                tax: formatRupiah(
+                                                    data.taxAmount ?? 0),
+                                                transactionTypeName:
+                                                    data.transactionType ==
+                                                                'income' ||
+                                                            data.transactionType ==
+                                                                "Income"
+                                                        ? "Pemasukan"
+                                                        : "Pengeluaran",
+                                                status: data.status ?? '',
+                                              )),
                                           child: Column(
                                             children: [
                                               Container(
@@ -306,6 +326,84 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                             );
                           }
                         }),
+
+                        // Pagination Controls
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // Tombol "Previous"
+                            IconButton(
+                              onPressed: controller.currentPage.value > 1
+                                  ? () {
+                                      controller.currentPage
+                                          .value--; // Kurangi halaman saat ini
+                                      controller
+                                          .getExpensesData(); // Panggil data untuk halaman baru
+                                    }
+                                  : null, // Nonaktifkan tombol jika halaman saat ini adalah 1
+                              icon: const Icon(
+                                FluentIcons.chevron_left_24_regular,
+                                color: HumiColors.humicBlackColor,
+                              ),
+                            ),
+                            Obx(() {
+                              int totalPages = ((controller.userExpensesData
+                                              .value.data?.total ??
+                                          0) +
+                                      controller.itemsPerPage -
+                                      1) ~/
+                                  controller
+                                      .itemsPerPage; // Hitung total halaman (dibulatkan ke atas)
+                              return Row(
+                                children: List.generate(totalPages, (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0), // Menambahkan jarak
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.currentPage.value = index +
+                                            1; // Ubah ke halaman yang dipilih
+                                        controller
+                                            .getExpensesData(); // Panggil data untuk halaman baru
+                                      },
+                                      child: CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor:
+                                            controller.currentPage.value ==
+                                                    (index + 1)
+                                                ? HumiColors.humicPrimaryColor
+                                                : Colors.grey,
+                                        child: Text(
+                                          '${index + 1}',
+                                          style: const TextStyle(
+                                            color: HumiColors.humicWhiteColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              );
+                            }),
+                            // Tombol "Next"
+                            IconButton(
+                              onPressed: (controller.currentPage.value *
+                                          controller.itemsPerPage) <
+                                      (controller.userExpensesData.value.data
+                                              ?.total ??
+                                          0)
+                                  ? () {
+                                      controller.currentPage.value++;
+                                      controller.getExpensesData();
+                                    }
+                                  : null,
+                              icon: const Icon(
+                                FluentIcons.chevron_right_24_regular,
+                                color: HumiColors.humicBlackColor,
+                              ),
+                            ),
+                          ],
+                        ),
                         verticalSpace(12),
                       ],
                     ),

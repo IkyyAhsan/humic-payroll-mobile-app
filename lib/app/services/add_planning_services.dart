@@ -58,4 +58,22 @@ class AddItemServices {
       return false;
     }
   }
+
+  Future<bool> deleteItem(int index) async {
+    try {
+      dio.options.headers['Authorization'] =
+          'Bearer ${GetStorage().read('token')}';
+      final response = await dio.delete(
+        '/item/$index',
+      );
+      print(response.data);
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
 }

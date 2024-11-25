@@ -85,7 +85,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                           eventName: data.activityName,
                                           date: formatDate(data.createdAt),
                                           type: formatRupiah(data.amount),
-                                          tax: '${data.taxAmount}',
+                                          tax: formatRupiah(data.taxAmount),
                                           transactionTypeName:
                                               data.transactionType ==
                                                           'income' ||
@@ -94,6 +94,8 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   ? "Pemasukan"
                                                   : "Pengeluaran",
                                           status: data.status,
+                                          uploadFile:
+                                              data.documentEvidence ?? 'empty',
                                         )),
                                 child: Column(
                                   children: [
