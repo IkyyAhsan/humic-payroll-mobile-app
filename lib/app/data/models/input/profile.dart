@@ -11,7 +11,7 @@ String userProfileToJson(UserProfile data) => json.encode(data.toJson());
 
 class UserProfile {
   int id;
-  String name;
+  String? name;
   String email;
   String role;
   DateTime? createdAt;
@@ -20,7 +20,7 @@ class UserProfile {
 
   UserProfile({
     required this.id,
-    required this.name,
+    this.name,
     required this.email,
     required this.role,
     required this.createdAt,

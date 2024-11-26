@@ -38,7 +38,7 @@ class LoginScreenController extends GetxController {
     } catch (e) {
       Get.snackbar(
         "Error",
-        "Something went wrong. Please try again later.",
+        "Something went wrong. Please try again later. ${e}",
         backgroundColor: HumiColors.humicPrimaryColor,
         colorText: HumiColors.humicWhiteColor,
       );

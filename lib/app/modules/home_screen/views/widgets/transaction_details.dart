@@ -186,7 +186,7 @@ class HumicTransactionDetails extends StatelessWidget {
                               color: HumiColors.humicTransparencyColor)),
                     ),
                     Text(
-                      formatRupiah(int.parse(tax)),
+                      tax,
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
                               fontSize: 16,
