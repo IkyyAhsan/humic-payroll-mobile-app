@@ -18,8 +18,9 @@ class ApprovalScreenView extends GetView<ApprovalScreenController> {
           return controller.isLoading
               ? const Material(
                   child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                      child: CircularProgressIndicator(
+                    color: HumiColors.humicPrimaryColor,
+                  )),
                 )
               : Scaffold(
                   backgroundColor: HumiColors.humicBackgroundColor,

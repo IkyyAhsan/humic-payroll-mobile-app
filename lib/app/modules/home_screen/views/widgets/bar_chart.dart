@@ -21,7 +21,10 @@ class HumicIncomeExpenseChart extends StatelessWidget {
 
       // Jika data tidak tersedia, tampilkan indikator loading// Fungsi untuk memformat nama bulan menjadi singkatan tiga huruf
       if (monthlyData == null) {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(
+            child: CircularProgressIndicator(
+          color: HumiColors.humicPrimaryColor,
+        ));
       }
 
       return Column(

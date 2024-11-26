@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/add_income_screen/views/add_income_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_details.dart';
+import 'package:humic_payroll_mobile_app/app/modules/profile_screen/controllers/profile_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -18,6 +19,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(IncomeScreenController());
+    final profileController = Get.put(ProfileScreenController());
     return Obx(() {
       return controller.isLoading.value
           ? const Material(
@@ -357,35 +359,47 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                   ),
                 ),
               ),
-              floatingActionButton: SizedBox(
-                width: 138,
-                height: 51,
-                child: FloatingActionButton(
-                  onPressed: () => Get.to(() => const AddIncomeScreenView()),
-                  backgroundColor: HumiColors.humicPrimaryColor,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          FluentIcons.add_24_regular,
-                          color: HumiColors.humicWhiteColor,
-                          size: 20,
+              floatingActionButton: GetBuilder<IncomeScreenController>(
+                builder: (controller) {
+                  bool isAdmin =
+                      profileController.userProfileData?.role == 'admin';
+
+                  if (!isAdmin) {
+                    return const SizedBox();
+                  }
+
+                  return SizedBox(
+                    width: 138,
+                    height: 51,
+                    child: FloatingActionButton(
+                      onPressed: () =>
+                          Get.to(() => const AddIncomeScreenView()),
+                      backgroundColor: HumiColors.humicPrimaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              FluentIcons.add_24_regular,
+                              color: HumiColors.humicWhiteColor,
+                              size: 20,
+                            ),
+                            horizontalSpace(6),
+                            Text(
+                              "Add Income",
+                              style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: HumiColors.humicWhiteColor)),
+                            )
+                          ],
                         ),
-                        horizontalSpace(6),
-                        Text(
-                          "Add Income",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicWhiteColor)),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             );
     });

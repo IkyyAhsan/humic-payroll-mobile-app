@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/realization.dart';
 import 'package:humic_payroll_mobile_app/app/services/realization_services.dart';
 
@@ -6,6 +7,7 @@ class RealizationScreenController extends GetxController {
   var realizationData = Realization();
   var isLoading = true;
   var isEditMode = false.obs;
+  UserProfile? userProfileData;
 
   var selectedRealizationYear = DateTime.now().year.obs;
 

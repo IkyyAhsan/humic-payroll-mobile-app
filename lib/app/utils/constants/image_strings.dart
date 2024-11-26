@@ -30,6 +30,8 @@ class HumicImages {
   static const String humicApproveAnimation =
       "assets/animations/approve-animation.json";
   static const String humicDataNotFound = "assets/animations/dataNotFound.json";
+  static const String humicDeclineConfirmation =
+      "assets/animations/decline-confirmation.json";
 
   // Navbar
   static const String humicUnselectedHomeNavbar =

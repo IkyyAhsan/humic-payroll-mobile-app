@@ -25,20 +25,22 @@ class LoginScreenController extends GetxController {
         Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
         Get.snackbar(
           "Login Successful",
-          "Welcome to HUMIC Payroll Mobile",
-          backgroundColor: HumiColors.humicPrimaryColor,
+          "You have successfully logged in to HUMIC Payroll Mobile.",
+          backgroundColor: HumiColors.humicSecondaryColor,
           colorText: HumiColors.humicWhiteColor,
         );
       } else {
-        Get.snackbar("There is an error",
-            "The email or password you entered is incorrect.",
-            backgroundColor: HumiColors.humicPrimaryColor,
-            colorText: HumiColors.humicWhiteColor);
+        Get.snackbar(
+          "Error",
+          "The email and password you entered are incorrect.",
+          backgroundColor: HumiColors.humicPrimaryColor,
+          colorText: HumiColors.humicWhiteColor,
+        );
       }
     } catch (e) {
       Get.snackbar(
-        "Error",
-        "Something went wrong. Please try again later. ${e}",
+        "Unexpected Error",
+        "An error occurred while processing your request. Please try again later. Error details: ${e}",
         backgroundColor: HumiColors.humicPrimaryColor,
         colorText: HumiColors.humicWhiteColor,
       );

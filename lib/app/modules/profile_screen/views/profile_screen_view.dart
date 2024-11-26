@@ -191,7 +191,14 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                           ),
                                           verticalSpace(5),
                                           Text(
-                                            "${controller.userProfileData?.role}",
+                                            controller.userProfileData?.role ==
+                                                    'superAdmin'
+                                                ? 'Super Admin'
+                                                : controller.userProfileData
+                                                            ?.role ==
+                                                        'admin'
+                                                    ? 'Admin'
+                                                    : 'Role not assigned', // Tambahkan fallback jika role tidak sesuai
                                             style: GoogleFonts.plusJakartaSans(
                                               textStyle: const TextStyle(
                                                 fontSize: 18,
@@ -669,7 +676,15 @@ void logoutConfirmation() {
                 width: 140,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () => Get.offAll(const LoginScreenView()),
+                  onPressed: () {
+                    Get.offAll(const LoginScreenView());
+                    Get.snackbar(
+                      "Logout Successful",
+                      "You have successfully logged out from HUMIC Payroll Mobile.",
+                      backgroundColor: HumiColors.humicSecondaryColor,
+                      colorText: HumiColors.humicWhiteColor,
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(

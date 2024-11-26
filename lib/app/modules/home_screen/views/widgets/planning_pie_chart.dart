@@ -24,7 +24,10 @@ class PlanningPieChart extends StatelessWidget {
       // Ambil data dari controller
       var pieChartData = controller.dashboardData.value.data?.pieChart;
       if (pieChartData == null) {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(
+            child: CircularProgressIndicator(
+          color: HumiColors.humicPrimaryColor,
+        ));
       }
 
       // Konversi data untuk digunakan pada Pie Chart

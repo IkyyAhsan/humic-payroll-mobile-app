@@ -5,9 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
+import 'package:lottie/lottie.dart';
 
 class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
   const PlanningDetailScreenView({
@@ -426,10 +428,153 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                     height: 45,
                                     width: 45,
                                     child: ElevatedButton(
-                                      onPressed: () =>
+                                      onPressed: () async {
+                                        bool? confirm = await showDialog(
+                                          context: Get.context!,
+                                          builder: (context) {
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(24),
+                                              ),
+                                              child: SizedBox(
+                                                width: 330,
+                                                height: 410,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      16.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Lottie.asset(
+                                                          HumicImages
+                                                              .humicDeclineConfirmation,
+                                                          width: 250), //288),
+                                                      const SizedBox(
+                                                          height: 16),
+                                                      const Text(
+                                                        'Apakah Anda yakin untuk menghapus?',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: HumiColors
+                                                              .humicBlackColor,
+                                                        ),
+                                                      ),
+                                                      verticalSpace(32),
+                                                      Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 128,
+                                                            height: 43,
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(
+                                                                        false); // Tidak setuju
+                                                              },
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                backgroundColor:
+                                                                    HumiColors
+                                                                        .humicCancelColor,
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10)),
+                                                              ),
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: GoogleFonts
+                                                                    .plusJakartaSans(
+                                                                  textStyle:
+                                                                      const TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: HumiColors
+                                                                        .humicPrimaryColor,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          horizontalSpace(10),
+                                                          SizedBox(
+                                                            width: 128,
+                                                            height: 43,
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(false);
+
+                                                                Get.snackbar(
+                                                                  'Success',
+                                                                  'Data has been successfully deleted!',
+                                                                  backgroundColor:
+                                                                      HumiColors
+                                                                          .humicSecondaryColor,
+                                                                  colorText:
+                                                                      HumiColors
+                                                                          .humicWhiteColor,
+                                                                );
+                                                              },
+                                                              style: ElevatedButton.styleFrom(
+                                                                  backgroundColor:
+                                                                      HumiColors
+                                                                          .humicPrimaryColor,
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10))),
+                                                              child: const Text(
+                                                                'Delete',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: HumiColors
+                                                                        .humicWhiteColor),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        if (confirm == true) {
                                           controller.deletePlanning(
-                                              id: controller.planningDetailData
-                                                  ?.data?.id),
+                                            id: controller
+                                                .planningDetailData?.data?.id,
+                                          );
+                                        }
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(),
                                         backgroundColor:
@@ -456,8 +601,9 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                         backgroundColor:
                                             HumiColors.humicPrimaryColor,
                                         shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
                                       ),
                                       child: const Text(
                                         'Close',

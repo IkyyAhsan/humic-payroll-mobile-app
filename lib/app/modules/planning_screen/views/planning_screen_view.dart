@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/planning_add_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_screen/views/widgets/planning_data.dart';
+import 'package:humic_payroll_mobile_app/app/modules/profile_screen/controllers/profile_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -18,6 +19,7 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(PlanningScreenController());
+    final profileController = Get.put(ProfileScreenController());
 
     return Obx(
       () {
@@ -129,7 +131,8 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border: Border.all(
-                                          color: HumiColors.humicDividerColor),
+                                        color: HumiColors.humicDividerColor,
+                                      ),
                                     ),
 
                                     // Data Tahun
@@ -227,36 +230,47 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                     ),
                   ),
                 ),
-                floatingActionButton: SizedBox(
-                  width: 138,
-                  height: 51,
-                  child: FloatingActionButton(
-                    onPressed: () => Get.to(
-                      const PlanningAddScreenView(),
-                    ),
-                    backgroundColor: HumiColors.humicPrimaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          FluentIcons.add_24_regular,
-                          color: HumiColors.humicWhiteColor,
+                floatingActionButton: GetBuilder<PlanningScreenController>(
+                  builder: (controller) {
+                    bool isAdmin =
+                        profileController.userProfileData?.role == 'admin';
+
+                    if (!isAdmin) {
+                      return const SizedBox();
+                    }
+
+                    return SizedBox(
+                      width: 138,
+                      height: 51,
+                      child: FloatingActionButton(
+                        onPressed: () => Get.to(
+                          const PlanningAddScreenView(),
                         ),
-                        horizontalSpace(4),
-                        Text(
-                          "Add Plan",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicWhiteColor)),
-                        )
-                      ],
-                    ),
-                  ),
+                        backgroundColor: HumiColors.humicPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              FluentIcons.add_24_regular,
+                              color: HumiColors.humicWhiteColor,
+                            ),
+                            horizontalSpace(4),
+                            Text(
+                              "Add Plan",
+                              style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: HumiColors.humicWhiteColor)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               );
       },

@@ -17,7 +17,9 @@ class CompareScreenView extends GetView<CompareScreenController> {
         return controller.isLoading
             ? const Material(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: HumiColors.humicPrimaryColor,
+                  ),
                 ),
               )
             : Scaffold(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/home_custom_appbar.dart';
+import 'package:humic_payroll_mobile_app/app/modules/profile_screen/controllers/profile_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_detail_screen/views/realization_detail_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/controllers/realization_edit_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/views/realization_edit_screen_view.dart';
@@ -19,6 +20,7 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(RealizationScreenController());
+    final profileController = Get.put(ProfileScreenController());
 
     return GetBuilder<RealizationScreenController>(
       init: RealizationScreenController(),
@@ -452,46 +454,62 @@ class RealizationScreenView extends GetView<RealizationScreenController> {
                     ),
                   ),
                 ),
-                // Add Plan
-                floatingActionButton: Obx(
-                  () => SizedBox(
-                    width: 138,
-                    height: 51,
-                    child: FloatingActionButton(
-                      onPressed: controller.toggleEditMode,
-                      backgroundColor: HumiColors.humicPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          controller.isEditMode.value
-                              ? const Iconify(
-                                  Bx.x_circle,
-                                  color: HumiColors.humicWhiteColor,
-                                  size: 16,
-                                )
-                              : const Iconify(
-                                  Bx.edit,
-                                  color: HumiColors.humicWhiteColor,
-                                  size: 16,
+
+                // Edit Realization
+                floatingActionButton: GetBuilder<RealizationScreenController>(
+                  builder: (controller) {
+                    bool isAdmin =
+                        profileController.userProfileData?.role == 'admin';
+
+                    if (!isAdmin) {
+                      return const SizedBox();
+                    }
+
+                    return SizedBox(
+                      width: 138,
+                      height: 51,
+                      child: FloatingActionButton(
+                        onPressed: controller.toggleEditMode,
+                        backgroundColor: HumiColors.humicPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11),
+                        ),
+                        child: Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              controller.isEditMode.value
+                                  ? const Iconify(
+                                      Bx.x_circle,
+                                      color: HumiColors.humicWhiteColor,
+                                      size: 16,
+                                    )
+                                  : const Iconify(
+                                      Bx.edit,
+                                      color: HumiColors.humicWhiteColor,
+                                      size: 16,
+                                    ),
+                              horizontalSpace(4),
+                              Obx(
+                                () => Text(
+                                  controller.isEditMode.value
+                                      ? "Close"
+                                      : "Edit",
+                                  style: GoogleFonts.plusJakartaSans(
+                                    textStyle: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: HumiColors.humicWhiteColor,
+                                    ),
+                                  ),
                                 ),
-                          horizontalSpace(4),
-                          Text(
-                            controller.isEditMode.value ? "Close" : "Edit",
-                            style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: HumiColors.humicWhiteColor,
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               );
       },

@@ -275,7 +275,6 @@ class HumicTransactionDetails extends StatelessWidget {
                         if (evidence != null) {
                           final result = await OpenFilex.open(evidence!);
                           if (result.type != ResultType.done) {
-                            // Tampilkan pesan jika tidak bisa membuka file
                             Get.snackbar("Error",
                                 "Unable to open the file. Please ensure a viewer application is installed.",
                                 backgroundColor: HumiColors.humicPrimaryColor,

@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/add_expenses_screen/views/add_expenses_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_details.dart';
+import 'package:humic_payroll_mobile_app/app/modules/profile_screen/controllers/profile_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:lottie/lottie.dart';
-
 import '../controllers/expenses_screen_controller.dart';
 
 class ExpensesScreenView extends GetView<ExpensesScreenController> {
@@ -19,6 +19,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ExpensesScreenController());
+    final profileController = Get.put(ProfileScreenController());
     return Obx(() {
       return controller.isLoading.value
           ? const Material(
@@ -410,35 +411,47 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                   ),
                 ),
               ),
-              floatingActionButton: SizedBox(
-                width: 138,
-                height: 51,
-                child: FloatingActionButton(
-                  onPressed: () => Get.to(() => const AddExpensesScreenView()),
-                  backgroundColor: HumiColors.humicPrimaryColor,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          FluentIcons.add_24_regular,
-                          color: HumiColors.humicWhiteColor,
-                          size: 20,
+              floatingActionButton: GetBuilder<ExpensesScreenController>(
+                builder: (controller) {
+                  bool isAdmin =
+                      profileController.userProfileData?.role == 'admin';
+
+                  if (!isAdmin) {
+                    return const SizedBox();
+                  }
+
+                  return SizedBox(
+                    width: 145,
+                    height: 51,
+                    child: FloatingActionButton(
+                      onPressed: () =>
+                          Get.to(() => const AddExpensesScreenView()),
+                      backgroundColor: HumiColors.humicPrimaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              FluentIcons.add_24_regular,
+                              color: HumiColors.humicWhiteColor,
+                              size: 20,
+                            ),
+                            horizontalSpace(6),
+                            Text(
+                              "Add Expense",
+                              style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: HumiColors.humicWhiteColor)),
+                            )
+                          ],
                         ),
-                        horizontalSpace(6),
-                        Text(
-                          "Add Income",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicWhiteColor)),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             );
     });
