@@ -12,7 +12,6 @@ class ApprovalScreenView extends GetView<ApprovalScreenController> {
   const ApprovalScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(ApprovalScreenController());
     return GetBuilder<ApprovalScreenController>(
         init: ApprovalScreenController(),
         builder: (context) {

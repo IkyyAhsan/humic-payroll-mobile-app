@@ -89,7 +89,9 @@ class ApprovalServices {
         'type': fileType,
         'startDate': startDate,
         'endDate': endDate,
+        "category": "internal"
       };
+      print(queryParams['category']);
 
       // Tentukan lokasi penyimpanan di direktori unduhan
       Directory? externalDir;
@@ -128,6 +130,7 @@ class ApprovalServices {
           print("Progress: ${((count / total) * 100).toStringAsFixed(0)}%");
         },
       );
+      print("Data approval: ${response.data}");
 
       if (response.statusCode == 200) {
         // Menampilkan notifikasi sukses
@@ -265,7 +268,7 @@ class ApprovalServices {
           'Bearer ${GetStorage().read('token')}';
       final response = await dio.post('/finance', data: formData);
       print(response.data);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return true;
       }
 

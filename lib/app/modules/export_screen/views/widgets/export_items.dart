@@ -243,13 +243,16 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
           height: 60,
           child: ElevatedButton(
             onPressed: () async {
+              print(startDate);
+              print(endDate);
+
               if (startDate != null && endDate != null) {
                 final fileType =
                     selectedFileType.contains("PDF") ? "pdf" : "excel";
 
                 // Panggil ApprovalServices untuk mendownload file
                 await ApprovalServices().downloadFile(
-                  url: "/export",
+                  url: "/export-item",
                   fileType: fileType,
                   startDate: formatDate(startDate!),
                   endDate: formatDate(endDate!),

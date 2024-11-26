@@ -19,7 +19,9 @@ class _HumicExportTransactionScreenState
     extends State<HumicExportTransactionScreen> {
   String selectedFileType = "PDF(.pdf)";
   String selectedDateRange = "03 Okt - 03 Okt 2024";
-  String selectedCategory = "internal";
+
+  DateTime? startDate; // Menyimpan tanggal awal
+  DateTime? endDate; // Menyimpan tanggal akhir
 
   final List<String> fileTypes = ["PDF(.pdf)", "Excel(.xlsx)"];
 
@@ -104,7 +106,7 @@ class _HumicExportTransactionScreenState
           title: "Select Date Range",
           subtitle: selectedDateRange,
           onTap: () async {
-            DateTime? startDate = await showDatePicker(
+            DateTime? selectedStartDate = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
               firstDate: DateTime(2000),
@@ -129,11 +131,11 @@ class _HumicExportTransactionScreenState
               },
             );
 
-            if (startDate != null) {
-              DateTime? endDate = await showDatePicker(
+            if (selectedStartDate != null) {
+              DateTime? selectedEndDate = await showDatePicker(
                 context: context,
-                initialDate: startDate.add(const Duration(days: 1)),
-                firstDate: startDate,
+                initialDate: selectedStartDate.add(const Duration(days: 1)),
+                firstDate: selectedStartDate,
                 lastDate: DateTime(2101),
                 helpText: 'End Date',
                 builder: (BuildContext context, Widget? child) {
@@ -155,36 +157,50 @@ class _HumicExportTransactionScreenState
                 },
               );
 
-              if (endDate != null) {
+              if (selectedEndDate != null) {
                 setState(() {
-                  selectedDateRange = formatDateRange(startDate, endDate);
+                  startDate = selectedStartDate;
+                  endDate = selectedEndDate;
+                  selectedDateRange =
+                      formatDateRange(selectedStartDate, selectedEndDate);
                 });
               }
             }
           },
         ),
+
         verticalSpace(60),
 
-// Download Button
+        // Download Button
         SizedBox(
           width: double.infinity,
           height: 60,
           child: ElevatedButton(
             onPressed: () async {
-              // Handle download with selected parameters
-              await ApprovalServices().downloadFile(
-                url: "/export",
-                fileType: selectedFileType.contains("PDF") ? "pdf" : "excel",
-                startDate: "2024-01-01", // Parse from selectedDateRange
-                endDate: "2024-12-09", // Parse from selectedDateRange
-                context: context,
-              );
+              if (startDate != null && endDate != null) {
+                final fileType =
+                    selectedFileType.contains("PDF") ? "pdf" : "excel";
+
+                // Panggil ApprovalServices untuk mendownload file
+                await ApprovalServices().downloadFile(
+                  url: "/export",
+                  fileType: fileType,
+                  startDate: formatDate(startDate!),
+                  endDate: formatDate(endDate!),
+                  context: context,
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Please select a date range")),
+                );
+              }
             },
             style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                backgroundColor: HumiColors.humicPrimaryColor),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              backgroundColor: HumiColors.humicPrimaryColor,
+            ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

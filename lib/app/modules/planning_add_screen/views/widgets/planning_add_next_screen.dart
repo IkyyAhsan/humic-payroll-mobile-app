@@ -404,8 +404,14 @@ class PlanningAddNextScreen extends StatelessWidget {
                                               ),
                                               horizontalSpace(8),
                                               GestureDetector(
-                                                onTap: () => PlanningServices()
-                                                    .deleteItem(data.id!),
+                                                onTap: () {
+                                                  PlanningServices()
+                                                      .deleteItem(data.id!);
+                                                  planningDetailController
+                                                      .getPlanningDetailData();
+                                                  planningDetailController
+                                                      .update();
+                                                },
                                                 child: Container(
                                                   width: 40,
                                                   height: 35,

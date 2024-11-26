@@ -1,11 +1,10 @@
-// ignore_for_file: avoid_print
-
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/income.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +17,7 @@ class AddIncomeScreenController extends GetxController {
   final TextEditingController pajakKegiatan = TextEditingController();
   File? uploadFile;
   File? evidence;
+  final bottomNavbarController = Get.put(BottomNavigationBarController());
 
   void selectDate() async {
     DateTime? selectedDate = await showDatePicker(
@@ -112,5 +112,7 @@ class AddIncomeScreenController extends GetxController {
       transactionType: "income",
     );
     print(await ApprovalServices().postIncomeData(income));
+    bottomNavbarController.changeIndex(1);
+    Get.to(() => const BottomNavigationBarView());
   }
 }

@@ -41,7 +41,7 @@ class HumicApproveTransactionScreen extends StatelessWidget {
                 dateColor: HumiColors.humicPrimaryColor,
                 label: "${data?.transactionType}",
                 title: "${data?.activityName}",
-                date: "${tableDateFormat(data?.createdAt)}",
+                date: tableDateFormat(data?.createdAt),
                 amount: formatRupiah(data?.amount ?? 0),
                 onTap: () => Get.to(() => HumicTransactionDetails(
                       transactionId: '${data?.id}',
