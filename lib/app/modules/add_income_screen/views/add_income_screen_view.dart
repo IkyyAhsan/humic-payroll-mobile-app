@@ -196,8 +196,9 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   ),
                   verticalSpace(14),
 
+                  // Document Evidence
                   Text(
-                    "Image Evidence",
+                    "Document Evidence",
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: const TextStyle(
                         fontSize: 16,
@@ -208,27 +209,79 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                   ),
                   verticalSpace(12),
 
-                  // Upload
+                  // Document Evidence
                   GestureDetector(
-                    onTap: controller.addUploadFile,
+                    onTap: controller.addUploadDocumentEvidence,
                     child: Container(
                       height: 150,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: HumiColors.humicBlackColor,
-                          width: 1,
-                        ),
+                            color: HumiColors.humicBlackColor, width: 1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: controller.uploadFile != null
+                      child: controller.documentEvidence != null
+                          ? controller.documentEvidence!.path.endsWith('.pdf')
+                              ? Center(
+                                  child: Text(
+                                    "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Menampilkan nama file
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: HumiColors.humicBlackColor,
+                                    ),
+                                  ),
+                                )
+                              : Image.file(
+                                  File(controller.documentEvidence!.path),
+                                  fit: BoxFit.cover,
+                                )
+                          : const Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image(
+                                  image: AssetImage(
+                                    HumicImages.humicUploadImageIcon,
+                                  ),
+                                ),
+                                Text("Upload File Evidence (PDF)"),
+                              ],
+                            ),
+                    ),
+                  ),
+                  verticalSpace(14),
+
+                  // Image Evidence
+                  Text(
+                    "Image Evidence",
+                    style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: HumiColors.humicBlackColor)),
+                  ),
+                  verticalSpace(12),
+
+                  // Image Evidence
+                  GestureDetector(
+                    onTap: controller.addUploadImageEvidence,
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: HumiColors.humicBlackColor, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: controller.imageEvidence != null
                           ? ['png', 'jpg', 'jpeg'].contains(controller
-                                  .uploadFile!.path
+                                  .imageEvidence!.path
                                   .split('.')
                                   .last
                                   .toLowerCase())
                               ? Image.file(
-                                  File(controller.uploadFile!.path),
+                                  File(controller.imageEvidence!.path),
                                   fit: BoxFit.cover,
                                 )
                               : const Center(
@@ -246,70 +299,9 @@ class AddIncomeScreenView extends GetView<AddIncomeScreenController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image(
-                                  image: AssetImage(
-                                    HumicImages.humicUploadImageIcon,
-                                  ),
-                                ),
-                                Text("Upload Image File (.png/.jpg/.jpeg)")
-                              ],
-                            ),
-                    ),
-                  ),
-                  verticalSpace(14),
-
-                  // Document Evidence
-                  Text(
-                    "Document Evidence",
-                    style: GoogleFonts.plusJakartaSans(
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: HumiColors.humicBlackColor,
-                      ),
-                    ),
-                  ),
-                  verticalSpace(12),
-
-                  // Evidence
-                  GestureDetector(
-                    onTap: controller.addEvidence,
-                    child: Container(
-                      height: 150,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: HumiColors.humicBlackColor,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: controller.evidence != null
-                          ? controller.evidence!.path.endsWith('.pdf')
-                              ? const Center(
-                                  child: Text(
-                                    "PDF File Uploaded",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: HumiColors.humicBlackColor,
-                                    ),
-                                  ),
-                                )
-                              : Image.file(
-                                  File(controller.evidence!.path),
-                                  fit: BoxFit.cover,
-                                )
-                          : const Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image(
-                                  image: AssetImage(
-                                      HumicImages.humicUploadImageIcon),
-                                ),
-                                Text(
-                                  "Upload File Evidence (.pdf/.xlsx)",
-                                ),
+                                    image: AssetImage(
+                                        HumicImages.humicUploadImageIcon)),
+                                Text("Upload Image File (.png/.jpg/.jpeg)"),
                               ],
                             ),
                     ),

@@ -4,6 +4,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -182,6 +183,65 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         ),
                         verticalSpace(14),
 
+                        // Document Evidence
+                        Text(
+                          "Document Evidence",
+                          style: GoogleFonts.plusJakartaSans(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        verticalSpace(12),
+
+                        // Document Evidence
+                        GestureDetector(
+                          onTap: controller.addUploadDocumentEvidence,
+                          child: Container(
+                            height: 150,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: HumiColors.humicBlackColor, width: 1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: controller.documentEvidence != null
+                                ? controller.documentEvidence!.path
+                                        .endsWith('.pdf')
+                                    ? Center(
+                                        child: Text(
+                                          "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Menampilkan nama file
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: HumiColors.humicBlackColor,
+                                          ),
+                                        ),
+                                      )
+                                    : Image.file(
+                                        File(controller.documentEvidence!.path),
+                                        fit: BoxFit.cover,
+                                      )
+                                : const Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image(
+                                        image: AssetImage(
+                                          HumicImages.humicUploadImageIcon,
+                                        ),
+                                      ),
+                                      Text("Upload File Evidence (PDF)"),
+                                    ],
+                                  ),
+                          ),
+                        ),
+                        verticalSpace(14),
+
+                        // Image Evidence
                         Text(
                           "Image Evidence",
                           style: GoogleFonts.plusJakartaSans(
@@ -194,7 +254,7 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
 
                         // Image Evidence
                         GestureDetector(
-                          onTap: controller.addUploadFile,
+                          onTap: controller.addUploadImageEvidence,
                           child: Container(
                             height: 150,
                             width: double.infinity,
@@ -203,14 +263,14 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                   color: HumiColors.humicBlackColor, width: 1),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: controller.uploadFile != null
+                            child: controller.imageEvidence != null
                                 ? ['png', 'jpg', 'jpeg'].contains(controller
-                                        .uploadFile!.path
+                                        .imageEvidence!.path
                                         .split('.')
                                         .last
                                         .toLowerCase())
                                     ? Image.file(
-                                        File(controller.uploadFile!.path),
+                                        File(controller.imageEvidence!.path),
                                         fit: BoxFit.cover,
                                       )
                                     : const Center(
@@ -229,65 +289,10 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image(
-                                        image: AssetImage(
-                                            HumicImages.humicUploadImageIcon),
-                                      ),
+                                          image: AssetImage(HumicImages
+                                              .humicUploadImageIcon)),
                                       Text(
-                                          "Upload Image File (.png/.jpg/.jpeg)")
-                                    ],
-                                  ),
-                          ),
-                        ),
-                        verticalSpace(14),
-
-                        // Document Evidence
-                        Text(
-                          "Document Evidence",
-                          style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicBlackColor)),
-                        ),
-                        verticalSpace(12),
-
-                        // Document Evidence
-                        GestureDetector(
-                          onTap: controller.addEvidence,
-                          child: Container(
-                            height: 150,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: HumiColors.humicBlackColor, width: 1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: controller.evidence != null
-                                ? controller.evidence!.path.endsWith('.pdf')
-                                    ? const Center(
-                                        child: Text(
-                                          "PDF File Uploaded",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: HumiColors.humicBlackColor,
-                                          ),
-                                        ),
-                                      )
-                                    : Image.file(
-                                        File(controller.evidence!.path),
-                                        fit: BoxFit.cover,
-                                      )
-                                : const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image(
-                                        image: AssetImage(
-                                            HumicImages.humicUploadImageIcon),
-                                      ),
-                                      Text("Upload File Evidence (PDF)")
+                                          "Upload Image File (.png/.jpg/.jpeg)"),
                                     ],
                                   ),
                           ),
@@ -305,12 +310,15 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: HumiColors.humicCancelColor,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
-                                child: const Text('Cancel',
-                                    style: TextStyle(
-                                        color:
-                                            HumiColors.humicCancelTextColor)),
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: HumiColors.humicCancelTextColor,
+                                  ),
+                                ),
                               ),
                             ),
                             horizontalSpace(10),
@@ -320,17 +328,18 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                               child: ElevatedButton(
                                 onPressed: controller.addExpense,
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        HumiColors.humicPrimaryColor,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10))),
+                                  backgroundColor: HumiColors.humicPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                                 child: const Text(
                                   'Apply',
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: HumiColors.humicWhiteColor),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicWhiteColor,
+                                  ),
                                 ),
                               ),
                             ),

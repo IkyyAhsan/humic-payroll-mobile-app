@@ -168,7 +168,6 @@ class HumicPlanningData extends StatelessWidget {
                             _dateBox("Start", data.startDate),
                             horizontalSpace(5),
                             _dateBox("End", data.endDate),
-                            // Cek apakah status adalah 'pending'
                             if (data.status == "pending") ...[
                               horizontalSpace(12),
                               GestureDetector(
@@ -176,11 +175,8 @@ class HumicPlanningData extends StatelessWidget {
                                   print(
                                       "Sending ID: ${data.id} to next screen");
 
-                                  Get.to(
-                                      () => PlanningAddNextScreen(
-                                            id: data.id,
-                                          ),
-                                      arguments: data.id);
+                                  Get.to(() => PlanningAddNextScreen(),
+                                      arguments: {"id": data.id});
                                 },
                                 child: Container(
                                   width: 24,

@@ -237,13 +237,11 @@ class MonthlyIncomeExpenseDatum {
   String? name;
   int? income;
   int? expense;
-  int? year;
 
   MonthlyIncomeExpenseDatum({
     this.name,
     this.income,
     this.expense,
-    this.year,
   });
 
   factory MonthlyIncomeExpenseDatum.fromJson(Map<String, dynamic> json) =>
@@ -251,14 +249,12 @@ class MonthlyIncomeExpenseDatum {
         name: json["name"],
         income: json["income"],
         expense: json["expense"],
-        year: json["year"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "income": income,
         "expense": expense,
-        "year": year,
       };
 }
 

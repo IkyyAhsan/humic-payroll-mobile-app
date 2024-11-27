@@ -4,6 +4,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/expense.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
+import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
@@ -14,8 +16,8 @@ class AddExpensesScreenController extends GetxController {
   TextEditingController amount = TextEditingController();
   TextEditingController taxAmount = TextEditingController();
   final TextEditingController date = TextEditingController();
-  File? uploadFile;
-  File? evidence;
+  File? documentEvidence;
+  File? imageEvidence;
 
   void selectDate() async {
     DateTime? selectedDate = await showDatePicker(
@@ -32,18 +34,15 @@ class AddExpensesScreenController extends GetxController {
     }
   }
 
-  void addUploadFile() async {
+  void addUploadImageEvidence() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType
-          .image, // Ubah ke FileType.image untuk menangkap semua file gambar
+      type: FileType.image,
     );
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      // Ekstensi otomatis valid karena FileType.image sudah membatasi file ke gambar
-      uploadFile = file;
+      imageEvidence = file;
     } else {
-      // User canceled the picker
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
@@ -62,7 +61,7 @@ class AddExpensesScreenController extends GetxController {
     update();
   }
 
-  void addEvidence() async {
+  void addUploadDocumentEvidence() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['pdf', 'xlsx'],
       type: FileType.custom,
@@ -70,7 +69,6 @@ class AddExpensesScreenController extends GetxController {
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      // Validate file extension
       if (!['pdf', 'xlsx']
           .contains(result.files.single.extension?.toLowerCase())) {
         Get.snackbar(
@@ -87,7 +85,7 @@ class AddExpensesScreenController extends GetxController {
         );
         return;
       }
-      evidence = file;
+      documentEvidence = file;
     } else {
       // User canceled the picker
       Get.snackbar(
@@ -111,10 +109,13 @@ class AddExpensesScreenController extends GetxController {
       date: currentDate,
       amount: int.parse(amount.text),
       taxAmount: int.parse(taxAmount.text),
-      documentEvidence: evidence,
-      imageEvidence: uploadFile,
+      documentEvidence: documentEvidence,
+      imageEvidence: imageEvidence,
       transactionType: "expense",
     );
     print(await ApprovalServices().postExpenseData(expense));
+    Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
+    final controller = Get.put(BottomNavigationBarController());
+    controller.selectedIndex.value = 3;
   }
 }

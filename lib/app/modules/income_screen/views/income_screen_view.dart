@@ -96,7 +96,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   ? "Pemasukan"
                                                   : "Pengeluaran",
                                           status: data.status,
-                                          uploadFile:
+                                          documentEvidence:
                                               data.documentEvidence ?? 'empty',
                                         )),
                                 child: Column(

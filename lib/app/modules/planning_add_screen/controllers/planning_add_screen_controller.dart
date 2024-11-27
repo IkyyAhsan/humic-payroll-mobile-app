@@ -1,5 +1,8 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
@@ -8,6 +11,7 @@ import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/w
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import '../../../data/models/input/planning.dart';
 import '../../../utils/constants/date_format.dart';
 
@@ -37,6 +41,8 @@ class PlanningAddScreenController extends GetxController {
   final TextEditingController nilaiPajakItem = TextEditingController();
   final TextEditingController nilaiNettoItem = TextEditingController();
   final TextEditingController kategoriItem = TextEditingController();
+  File? documentEvidence;
+  File? imageEvidence;
 
   @override
   Future<void> dispose() async {
@@ -49,6 +55,8 @@ class PlanningAddScreenController extends GetxController {
     nilaiPajakItem.clear();
     nilaiNettoItem.clear();
     kategoriItem.clear();
+    documentEvidence = null;
+    imageEvidence = null;
 
     super.dispose();
   }
@@ -124,15 +132,16 @@ class PlanningAddScreenController extends GetxController {
   void addItem() async {
     bool result = await AddItemServices().addItemPlanning(
       item: AddItem(
-        planningId: data.value?.id ?? 0,
-        date: selectedDate3.value,
-        information: keteranganItem.text,
-        brutoAmount: int.parse(nilaiBrutoItem.text),
-        taxAmount: int.parse(nilaiPajakItem.text),
-        nettoAmount: int.parse(nilaiNettoItem.text),
-        category: kategoriItem.text,
-        isAddition: 0,
-      ),
+          planningId: data.value?.id ?? 0,
+          date: selectedDate3.value,
+          information: keteranganItem.text,
+          brutoAmount: int.parse(nilaiBrutoItem.text),
+          taxAmount: int.parse(nilaiPajakItem.text),
+          nettoAmount: int.parse(nilaiNettoItem.text),
+          category: kategoriItem.text,
+          isAddition: 0,
+          documentEvidence: documentEvidence,
+          imageEvidence: imageEvidence),
     );
     print("AddItem Result: $result"); // Debugging
     if (result) {
@@ -159,13 +168,54 @@ class PlanningAddScreenController extends GetxController {
           Get.find<PlanningDetailScreenController>();
       planningDetailController.getPlanningDetailData();
     } else {
+      Get.snackbar("Error", "Failed to delete the item",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: HumiColors.humicPrimaryColor,
+          colorText: HumiColors.humicWhiteColor);
+    }
+    isLoading.value = false;
+    update();
+  }
+
+  // Method to pick document file
+  void addDocumentEvidence() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['pdf', 'xlsx'],
+      type: FileType.custom,
+    );
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      documentEvidence = file;
+      print("Document file selected: ${file.path}");
+    } else {
       Get.snackbar(
-        "Error",
-        "Failed to delete the item",
+        "No File Selected",
+        "You did not select any file. Please try again.",
         snackPosition: SnackPosition.BOTTOM,
       );
     }
-    isLoading.value = false;
+    update();
+  }
+
+  // Method to pick image file
+  void addImageEvidence() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['jpg', 'jpeg', 'png'],
+      type: FileType.custom,
+    );
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      imageEvidence = file;
+      print("Image file selected: ${file.path}");
+    } else {
+      Get.snackbar(
+        "No File Selected",
+        "You did not select any image. Please try again.",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
     update();
   }
 }

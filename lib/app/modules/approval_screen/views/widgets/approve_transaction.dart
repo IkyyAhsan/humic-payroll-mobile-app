@@ -53,7 +53,7 @@ class HumicApproveTransactionScreen extends StatelessWidget {
                               data?.transactionType == "Income"
                           ? "Pemasukan"
                           : "Pengeluaran",
-                      status: '${data?.status}',
+                      status: '${data?.status}', documentEvidence: '',
                     )),
                 onApprove: () {
                   // print("id : ${data?.id}");

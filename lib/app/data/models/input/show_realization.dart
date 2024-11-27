@@ -111,6 +111,8 @@ class Item {
   int? taxAmount;
   int? nettoAmount;
   String? category;
+  String? documentEvidence;
+  String? imageEvidence;
   int? isAddition;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -124,6 +126,8 @@ class Item {
     this.taxAmount,
     this.nettoAmount,
     this.category,
+    this.documentEvidence,
+    this.imageEvidence,
     this.isAddition,
     this.createdAt,
     this.updatedAt,
@@ -132,30 +136,35 @@ class Item {
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json["id"],
         planningId: json["planning_id"],
-        date: json["date"] != null ? DateTime.parse(json["date"]) : null,
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
         information: json["information"],
         brutoAmount: json["bruto_amount"],
         taxAmount: json["tax_amount"],
         nettoAmount: json["netto_amount"],
         category: json["category"],
+        documentEvidence: json["document_evidence"],
+        imageEvidence: json["image_evidence"],
         isAddition: json["isAddition"],
-        createdAt: json["created_at"] != null
-            ? DateTime.parse(json["created_at"])
-            : null,
-        updatedAt: json["updated_at"] != null
-            ? DateTime.parse(json["updated_at"])
-            : null,
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "planning_id": planningId,
-        "date": date?.toIso8601String(),
+        "date":
+            "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
         "information": information,
         "bruto_amount": brutoAmount,
         "tax_amount": taxAmount,
         "netto_amount": nettoAmount,
         "category": category,
+        "document_evidence": documentEvidence,
+        "image_evidence": imageEvidence,
         "isAddition": isAddition,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

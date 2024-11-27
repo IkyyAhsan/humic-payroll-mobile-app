@@ -238,7 +238,7 @@ class ApprovalServices {
           'Bearer ${GetStorage().read('token')}';
       final response = await dio.post('/finance', data: formData);
       print(response.data);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return true;
       }
 

@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
-import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:open_filex/open_filex.dart';
 
@@ -21,8 +17,8 @@ class HumicTransactionDetails extends StatelessWidget {
     required this.tax,
     required this.transactionTypeName,
     required this.status,
-    this.uploadFile,
-    this.evidence,
+    this.documentEvidence,
+    this.imageEvidence,
   });
 
   final String transactionTypeName;
@@ -32,8 +28,8 @@ class HumicTransactionDetails extends StatelessWidget {
   final String type;
   final String tax;
   final String status;
-  final String? uploadFile;
-  final String? evidence;
+  final String? documentEvidence;
+  final String? imageEvidence;
 
   @override
   Widget build(BuildContext context) {
@@ -213,15 +209,16 @@ class HumicTransactionDetails extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        if (uploadFile != null) {
-                          final result = await OpenFilex.open(uploadFile!);
+                        if (documentEvidence != null) {
+                          final result =
+                              await OpenFilex.open(documentEvidence!);
                           if (result.type != ResultType.done) {
                             // Tampilkan pesan jika tidak bisa membuka file
                             Get.snackbar("Error",
                                 "Unable to open the file. Please ensure a viewer application is installed.",
                                 backgroundColor: HumiColors.humicPrimaryColor,
                                 colorText: HumiColors.humicWhiteColor);
-                            print("File path: $uploadFile");
+                            print("File path: $documentEvidence");
                           }
                         }
                       },
@@ -235,8 +232,8 @@ class HumicTransactionDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                uploadFile != null
-                                    ? shortenFileName(uploadFile!)
+                                documentEvidence != null
+                                    ? documentEvidence ?? ''
                                     : 'No File Attached',
                                 style: GoogleFonts.plusJakartaSans(
                                   textStyle: const TextStyle(
@@ -272,14 +269,15 @@ class HumicTransactionDetails extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        if (evidence != null) {
-                          final result = await OpenFilex.open(evidence!);
+                        if (imageEvidence != null) {
+                          final result = await OpenFilex.open(imageEvidence!);
                           if (result.type != ResultType.done) {
+                            // Tampilkan pesan jika tidak bisa membuka file
                             Get.snackbar("Error",
                                 "Unable to open the file. Please ensure a viewer application is installed.",
                                 backgroundColor: HumiColors.humicPrimaryColor,
                                 colorText: HumiColors.humicWhiteColor);
-                            print("File path: $evidence");
+                            print("File path: $imageEvidence");
                           }
                         }
                       },
@@ -293,9 +291,9 @@ class HumicTransactionDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                evidence != null
-                                    ? shortenFileName(evidence!)
-                                    : 'No File Attached',
+                                imageEvidence != null
+                                    ? imageEvidence ?? ''
+                                    : 'No Image Attached',
                                 style: GoogleFonts.plusJakartaSans(
                                   textStyle: const TextStyle(
                                     fontSize: 16,

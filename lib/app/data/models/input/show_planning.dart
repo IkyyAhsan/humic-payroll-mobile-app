@@ -111,6 +111,8 @@ class Item {
   int? taxAmount;
   int? nettoAmount;
   String? category;
+  dynamic documentEvidence;
+  dynamic imageEvidence;
   int? isAddition;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -124,6 +126,8 @@ class Item {
     this.taxAmount,
     this.nettoAmount,
     this.category,
+    this.documentEvidence,
+    this.imageEvidence,
     this.isAddition,
     this.createdAt,
     this.updatedAt,
@@ -138,6 +142,8 @@ class Item {
         taxAmount: json["tax_amount"],
         nettoAmount: json["netto_amount"],
         category: json["category"],
+        documentEvidence: json["document_evidence"],
+        imageEvidence: json["image_evidence"],
         isAddition: json["isAddition"],
         createdAt: json["created_at"] == null
             ? null
@@ -157,6 +163,8 @@ class Item {
         "tax_amount": taxAmount,
         "netto_amount": nettoAmount,
         "category": category,
+        "document_evidence": documentEvidence,
+        "image_evidence": imageEvidence,
         "isAddition": isAddition,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

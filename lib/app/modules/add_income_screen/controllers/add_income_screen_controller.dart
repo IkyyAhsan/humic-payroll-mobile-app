@@ -15,8 +15,8 @@ class AddIncomeScreenController extends GetxController {
   final TextEditingController tanggalKegiatan = TextEditingController();
   final TextEditingController pemasukanKegiatan = TextEditingController();
   final TextEditingController pajakKegiatan = TextEditingController();
-  File? uploadFile;
-  File? evidence;
+  File? documentEvidence;
+  File? imageEvidence;
   final bottomNavbarController = Get.put(BottomNavigationBarController());
 
   void selectDate() async {
@@ -34,19 +34,22 @@ class AddIncomeScreenController extends GetxController {
     }
   }
 
-  void addUploadFile() async {
+  void addUploadImageEvidence() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
     );
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      uploadFile = file;
+      imageEvidence = file;
     } else {
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
-        icon: const Icon(Icons.info_outline, color: HumiColors.humicWhiteColor),
+        icon: const Icon(
+          Icons.info_outline,
+          color: HumiColors.humicWhiteColor,
+        ),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: HumiColors.humicPrimaryColor,
         colorText: HumiColors.humicWhiteColor,
@@ -58,7 +61,7 @@ class AddIncomeScreenController extends GetxController {
     update();
   }
 
-  void addEvidence() async {
+  void addUploadDocumentEvidence() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['pdf', 'xlsx'],
       type: FileType.custom,
@@ -66,7 +69,6 @@ class AddIncomeScreenController extends GetxController {
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      // Validate file extension
       if (!['pdf', 'xlsx']
           .contains(result.files.single.extension?.toLowerCase())) {
         Get.snackbar(
@@ -83,7 +85,7 @@ class AddIncomeScreenController extends GetxController {
         );
         return;
       }
-      evidence = file;
+      documentEvidence = file;
     } else {
       // User canceled the picker
       Get.snackbar(
@@ -107,8 +109,8 @@ class AddIncomeScreenController extends GetxController {
       date: currentDate,
       amount: int.parse(pemasukanKegiatan.text),
       taxAmount: int.parse(pajakKegiatan.text),
-      documentEvidence: evidence,
-      imageEvidence: uploadFile,
+      documentEvidence: documentEvidence,
+      imageEvidence: imageEvidence,
       transactionType: "income",
     );
     print(await ApprovalServices().postIncomeData(income));

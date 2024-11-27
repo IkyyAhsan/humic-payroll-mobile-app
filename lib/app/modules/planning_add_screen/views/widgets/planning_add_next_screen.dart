@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/controllers/planning_add_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_item_screen.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
@@ -23,6 +24,7 @@ class PlanningAddNextScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var id = Get.arguments['id'];
     final planningDetailController = Get.put(PlanningDetailScreenController());
 
     int totalBruto = 0;
@@ -528,8 +530,12 @@ class PlanningAddNextScreen extends StatelessWidget {
                           width: 150,
                           height: 46,
                           child: ElevatedButton(
-                            onPressed: () =>
-                                Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR),
+                            onPressed: () {
+                              Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
+                              final controller =
+                                  Get.put(BottomNavigationBarController());
+                              controller.selectedIndex.value = 1;
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: HumiColors.humicCancelColor,
                                 padding: const EdgeInsets.symmetric(

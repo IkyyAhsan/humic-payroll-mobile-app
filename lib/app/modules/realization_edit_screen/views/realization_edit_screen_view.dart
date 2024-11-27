@@ -195,7 +195,9 @@ class RealizationEditScreenView
                                     3: FixedColumnWidth(130),
                                     4: FixedColumnWidth(130),
                                     5: FixedColumnWidth(130),
-                                    6: FixedColumnWidth(100),
+                                    6: FixedColumnWidth(150),
+                                    7: FixedColumnWidth(130),
+                                    8: FixedColumnWidth(100),
                                   },
                                   children: [
                                     //Header setiap Row
@@ -254,6 +256,26 @@ class RealizationEditScreenView
                                         padding: EdgeInsets.all(8),
                                         child: Text(
                                           "Kategori",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: HumiColors.humicBlackColor,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          "Document Evidence",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: HumiColors.humicBlackColor,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          "Image Evidence",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: HumiColors.humicBlackColor,
@@ -350,6 +372,28 @@ class RealizationEditScreenView
                                               padding: const EdgeInsets.all(8),
                                               child: Text(
                                                 data.category ?? "",
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicBlackColor,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Text(
+                                                data.documentEvidence ?? "",
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicBlackColor,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Text(
+                                                data.imageEvidence ?? "",
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   color: HumiColors
@@ -492,6 +536,28 @@ class RealizationEditScreenView
                                             ),
                                           ),
                                         ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8),
+                                          child: Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  HumiColors.humicPrimaryColor,
+                                            ),
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8),
+                                          child: Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  HumiColors.humicPrimaryColor,
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -500,6 +566,7 @@ class RealizationEditScreenView
                             ),
                           ],
                         ),
+                        verticalSpace(12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
