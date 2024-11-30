@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -9,7 +10,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../routes/app_pages.dart';
 import '../../controllers/approval_screen_controller.dart';
 
-void declineConfirmation({int? id,  Function()? onConfirm}) {
+void declineConfirmation({int? id, Function()? onConfirm}) {
   print("Decline confirmation dialog should appear");
   Get.defaultDialog(
     title: '',
@@ -76,13 +77,26 @@ void declineConfirmation({int? id,  Function()? onConfirm}) {
                 width: 140,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: onConfirm ??  () {
-                    var controller = Get.put(ApprovalScreenController());
-                    print("ID to be deleted: $id");
-                    controller.deletedFinance(id ?? 0);
-                    Get.back();
-                    Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
-                  },
+                  onPressed: onConfirm ??
+                      () {
+                        var controller = Get.put(ApprovalScreenController());
+                        print("ID to be deleted: $id");
+                        controller.isLoading = true;
+                        controller.deletedFinance(id ?? 0);
+                        Get.back();
+                        print("Planning $id has been deleted");
+                        Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
+                        final navbarController =
+                            Get.put(BottomNavigationBarController());
+                        navbarController.selectedIndex(3);
+                        Get.snackbar(
+                          "Planning Declined",
+                          "The planning has been successfully declined.",
+                          colorText: HumiColors.humicWhiteColor,
+                          backgroundColor: HumiColors.humicSecondaryColor,
+                          snackPosition: SnackPosition.TOP,
+                        );
+                      },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(

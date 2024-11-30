@@ -71,10 +71,12 @@ class PlanningAddNextScreen extends StatelessWidget {
                         Text(
                           "Add Plan",
                           style: GoogleFonts.plusJakartaSans(
-                              textStyle: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: HumiColors.humicBlackColor)),
+                            textStyle: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -100,6 +102,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
+                          // planningDetailController
+                          //         .planningDetailData?.data?.title ??
+                          //     '',
                           controller.namePlan.text,
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
@@ -381,7 +386,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.all(8),
+                                          padding: const EdgeInsets.all(8),
                                           child: Row(
                                             children: [
                                               GestureDetector(

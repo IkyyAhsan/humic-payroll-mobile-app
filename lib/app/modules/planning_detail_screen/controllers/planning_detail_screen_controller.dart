@@ -35,8 +35,14 @@ class PlanningDetailScreenController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
-    getPlanningDetailData();
+void onInit() {
+  super.onInit();
+  var id = Get.arguments?['id'];
+  if (id == null) {
+    print("Error: No planningId provided");
+  } else {
+    getPlanningDetailData(planningId: id);
   }
+}
+
 }

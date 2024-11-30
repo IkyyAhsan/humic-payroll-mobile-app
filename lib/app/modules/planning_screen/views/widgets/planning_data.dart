@@ -175,7 +175,10 @@ class HumicPlanningData extends StatelessWidget {
                                   print(
                                       "Sending ID: ${data.id} to next screen");
 
-                                  Get.to(() => PlanningAddNextScreen(),
+                                  Get.to(
+                                      () => PlanningAddNextScreen(
+                                            id: data.id,
+                                          ),
                                       arguments: {"id": data.id});
                                 },
                                 child: Container(

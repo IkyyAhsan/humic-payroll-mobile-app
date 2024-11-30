@@ -17,7 +17,7 @@ class HUMICPrimaryHeaderContainer extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 247,
+            height: 250,
             padding: const EdgeInsets.all(0),
             child: const Image(
               image: AssetImage(HumicImages.humicProfileBackgroundImage),

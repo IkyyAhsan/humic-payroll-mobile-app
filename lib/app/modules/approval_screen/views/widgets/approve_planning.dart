@@ -11,6 +11,7 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart'
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
+import 'package:lottie/lottie.dart';
 
 class HumicApprovePlanningScreen extends StatelessWidget {
   final Approve approve;
@@ -23,6 +24,21 @@ class HumicApprovePlanningScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final approvalController = Get.put(ApprovalScreenController());
+    var approvalData = approvalController.approvalData.data?.data;
+    if (approvalData == null || approvalData.isEmpty) {
+      return Center(
+        child: Column(
+          children: [
+            verticalSpace(200),
+            Lottie.asset(
+              HumicImages.humicDataNotFound,
+              height: 170,
+            ),
+          ],
+        ),
+      );
+    }
+
     return ListView.builder(
         primary: false,
         shrinkWrap: true,

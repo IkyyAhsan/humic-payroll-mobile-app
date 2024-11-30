@@ -20,19 +20,19 @@ class _HumicExportTransactionScreenState
   String selectedFileType = "PDF(.pdf)";
   String selectedDateRange = "03 Okt - 03 Okt 2024";
 
-  DateTime? startDate; // Menyimpan tanggal awal
-  DateTime? endDate; // Menyimpan tanggal akhir
+  DateTime? startDate;
+  DateTime? endDate;
 
   final List<String> fileTypes = ["PDF(.pdf)", "Excel(.xlsx)"];
 
   // Fungsi untuk format tanggal
   String formatDate(DateTime date) {
-    return DateFormat('dd MMM yyyy').format(date);
+    return DateFormat('dd MM yyyy').format(date);
   }
 
   // Fungsi untuk format rentang tanggal
   String formatDateRange(DateTime startDate, DateTime endDate) {
-    return "${DateFormat('dd MMM').format(startDate)} - ${DateFormat('dd MMM yyyy').format(endDate)}";
+    return "${DateFormat('dd MM').format(startDate)} - ${DateFormat('dd MM yyyy').format(endDate)}";
   }
 
   @override
@@ -187,7 +187,6 @@ class _HumicExportTransactionScreenState
                   fileType: fileType,
                   startDate: formatDate(startDate!),
                   endDate: formatDate(endDate!),
-                  
                   context: context,
                 );
               } else {

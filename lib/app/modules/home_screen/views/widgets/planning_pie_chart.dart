@@ -8,16 +8,36 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/uil.dart';
-import 'package:random_color/random_color.dart';
 
 class PlanningPieChart extends StatelessWidget {
   PlanningPieChart({super.key});
 
+  // Daftar warna yang lebih bervariasi
+  final List<Color> predefinedColors = [
+    const Color(0xFF1E88E5),
+    const Color(0xFF43A047),
+    const Color(0xFFD32F2F),
+    const Color(0xFFFB8C00),
+    const Color(0xFF8E24AA),
+    const Color(0xFF0288D1),
+    const Color(0xFF7B1FA2),
+    const Color(0xFFFBC02D),
+    const Color(0xFF0288D1),
+    const Color(0xFF009688),
+    const Color(0xFF7C4DFF),
+    const Color(0xFFAD1457),
+    const Color(0xFF9E9D24),
+    const Color(0xFF689F38),
+    const Color(0xFFB71C1C),
+    const Color(0xFF512DA8),
+    const Color(0xFF303F9F),
+    const Color(0xFF8D6E63),
+    const Color(0xFF0288D1),
+    const Color(0xFFB2FF59),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // Warna untuk setiap label
-    RandomColor randomColor = RandomColor();
-
     final controller = Get.put(HomeScreenController());
 
     return Obx(() {
@@ -33,11 +53,11 @@ class PlanningPieChart extends StatelessWidget {
       // Konversi data untuk digunakan pada Pie Chart
       List<Map<String, dynamic>> planningData =
           pieChartData.planningData!.asMap().entries.map((entry) {
-        Color random = randomColor.randomColor();
+        Color color = predefinedColors[entry.key % predefinedColors.length];
         return {
           'label': entry.value.name,
           'value': entry.value.value,
-          'color': random,
+          'color': color,
         };
       }).toList();
 

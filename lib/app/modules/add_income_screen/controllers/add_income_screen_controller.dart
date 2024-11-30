@@ -116,5 +116,13 @@ class AddIncomeScreenController extends GetxController {
     print(await ApprovalServices().postIncomeData(income));
     bottomNavbarController.changeIndex(1);
     Get.to(() => const BottomNavigationBarView());
+
+    Get.snackbar(
+      "Income Added",
+      "The income has been successfully added.",
+      colorText: HumiColors.humicWhiteColor,
+      backgroundColor: HumiColors.humicSecondaryColor,
+      snackPosition: SnackPosition.TOP,
+    );
   }
 }

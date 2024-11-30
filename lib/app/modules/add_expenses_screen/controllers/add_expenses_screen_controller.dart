@@ -117,5 +117,13 @@ class AddExpensesScreenController extends GetxController {
     Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
     final controller = Get.put(BottomNavigationBarController());
     controller.selectedIndex.value = 3;
+
+    Get.snackbar(
+      "Expense Added",
+      "The Expense has been successfully added.",
+      colorText: HumiColors.humicWhiteColor,
+      backgroundColor: HumiColors.humicSecondaryColor,
+      snackPosition: SnackPosition.TOP,
+    );
   }
 }

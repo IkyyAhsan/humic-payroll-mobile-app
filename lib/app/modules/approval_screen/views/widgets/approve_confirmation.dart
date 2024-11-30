@@ -42,6 +42,7 @@ void approveConfirmation({int? id, Function()? onConfirm}) {
           ),
           verticalSpace(20),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: 140,
@@ -72,12 +73,20 @@ void approveConfirmation({int? id, Function()? onConfirm}) {
                 width: 140,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: onConfirm ?? () async {
-                    var controller = Get.put(ApprovalScreenController());
-                    controller.updateFinance(id ?? 0);
-                    Get.back();
-                    Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
-                  },
+                  onPressed: onConfirm ??
+                      () async {
+                        var controller = Get.put(ApprovalScreenController());
+                        controller.updateFinance(id ?? 0);
+                        Get.back();
+                        Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
+                        Get.snackbar(
+                          "Approval Successful",
+                          "The Planning has been successfully approved.",
+                          colorText: HumiColors.humicWhiteColor,
+                          backgroundColor: HumiColors.humicSecondaryColor,
+                          snackPosition: SnackPosition.TOP,
+                        );
+                      },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(

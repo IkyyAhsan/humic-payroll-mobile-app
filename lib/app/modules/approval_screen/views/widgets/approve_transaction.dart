@@ -5,6 +5,7 @@ import 'package:humic_payroll_mobile_app/app/modules/approval_screen/controllers
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/widgets/approval_row_card.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/widgets/approve_confirmation.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/views/widgets/decline_confirmation.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/views/widgets/transaction_details.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
@@ -12,6 +13,7 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart'
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../routes/app_pages.dart';
 
@@ -25,6 +27,20 @@ class HumicApproveTransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final approvalController = Get.put(ApprovalScreenController());
+    var approvalData = approvalController.approvalData.data?.data;
+    if (approvalData == null || approvalData.isEmpty) {
+      return Center(
+        child: Column(
+          children: [
+            verticalSpace(200),
+            Lottie.asset(
+              HumicImages.humicDataNotFound,
+              height: 170,
+            ),
+          ],
+        ),
+      );
+    }
     return ListView.builder(
         primary: false,
         shrinkWrap: true,
@@ -53,7 +69,8 @@ class HumicApproveTransactionScreen extends StatelessWidget {
                               data?.transactionType == "Income"
                           ? "Pemasukan"
                           : "Pengeluaran",
-                      status: '${data?.status}', documentEvidence: '',
+                      status: '${data?.status}',
+                      documentEvidence: '',
                     )),
                 onApprove: () {
                   // print("id : ${data?.id}");
@@ -64,6 +81,14 @@ class HumicApproveTransactionScreen extends StatelessWidget {
                         controller.updateTransaction(data?.id ?? 0);
                         Get.back();
                         Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
+                        final navbarController =
+                            Get.put(BottomNavigationBarController());
+                        navbarController.selectedIndex(3);
+                        Get.snackbar("Approval Successful",
+                            "The Transaction has been successfully approved.",
+                            colorText: HumiColors.humicWhiteColor,
+                            backgroundColor: HumiColors.humicSecondaryColor,
+                            snackPosition: SnackPosition.TOP);
                       });
                 },
                 onDecline: () {
@@ -74,6 +99,16 @@ class HumicApproveTransactionScreen extends StatelessWidget {
                         controller.deleteTransaction(data?.id ?? 0);
                         Get.back();
                         Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
+                        final navbarController =
+                            Get.put(BottomNavigationBarController());
+                        navbarController.selectedIndex(3);
+                        Get.snackbar(
+                          "Transaction Declined",
+                          "The transaction has been successfully declined.",
+                          colorText: HumiColors.humicWhiteColor,
+                          backgroundColor: HumiColors.humicSecondaryColor,
+                          snackPosition: SnackPosition.TOP,
+                        );
                       });
                 },
               ),

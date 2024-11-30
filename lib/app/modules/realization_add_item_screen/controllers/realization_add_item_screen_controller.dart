@@ -128,6 +128,9 @@ class RealizationAddItemScreenController extends GetxController {
   }
 
   void addItem() async {
+    print('Document Evidence: $documentEvidence');
+    print('Image Evidence: $imageEvidence');
+
     if (await AddItemServices().addItemPlanning(
       item: AddItem(
         planningId: id,

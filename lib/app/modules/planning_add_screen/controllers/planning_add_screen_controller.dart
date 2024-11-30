@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_planning.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/show_planning.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
@@ -28,6 +29,7 @@ class PlanningAddScreenController extends GetxController {
 
   final isSuccessAddPlanning = false.obs;
   final data = Rxn<PlanningDetail>();
+  ShowPlanning? planningDetailData;
 
   // Add Planning
   final TextEditingController namePlan = TextEditingController();

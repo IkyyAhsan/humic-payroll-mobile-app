@@ -88,8 +88,8 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                                         Theme.of(context)
                                                             .colorScheme
                                                             .copyWith(
-                                                              primary: Colors
-                                                                  .red, // Ubah warna menjadi merah
+                                                              primary:
+                                                                  Colors.red,
                                                             ),
                                                     textTheme: const TextTheme(
                                                       bodyMedium: TextStyle(
@@ -141,8 +141,7 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                       height: 30,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
-                                        color: HumiColors
-                                            .humicBackgroundColor, // Warna latar belakang dropdown
+                                        color: HumiColors.humicBackgroundColor,
                                       ),
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton<int>(
@@ -151,8 +150,8 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
                                             size: 1,
-                                            color: HumiColors
-                                                .humicBackgroundColor, // Sesuaikan warna ikon
+                                            color:
+                                                HumiColors.humicBackgroundColor,
                                           ),
                                           onChanged: (int? newValue) {
                                             if (newValue != null &&
@@ -178,7 +177,7 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                                 child: Row(
                                                   children: [
                                                     horizontalSpace(10),
-                                                    Iconify(
+                                                    const Iconify(
                                                       Uil.calender,
                                                       size: 16,
                                                     ),
@@ -215,8 +214,9 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                     children: [
                                       verticalSpace(150),
                                       Lottie.asset(
-                                          HumicImages.humicDataNotFound,
-                                          height: 170),
+                                        HumicImages.humicDataNotFound,
+                                        height: 170,
+                                      ),
                                     ],
                                   ),
                                 )
@@ -261,10 +261,12 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                             Text(
                               "Add Plan",
                               style: GoogleFonts.plusJakartaSans(
-                                  textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: HumiColors.humicWhiteColor)),
+                                textStyle: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: HumiColors.humicWhiteColor,
+                                ),
+                              ),
                             ),
                           ],
                         ),

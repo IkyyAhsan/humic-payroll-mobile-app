@@ -127,7 +127,7 @@ class MoreScreenView extends GetView<MoreScreenController> {
                                     ),
                                   ),
                                 )
-                              : Container(),
+                              : const SizedBox(),
                           verticalSpace(12),
 
                           // Compare Fiture

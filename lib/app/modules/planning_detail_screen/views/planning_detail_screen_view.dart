@@ -2,7 +2,9 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -439,7 +441,7 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                               ),
                                               child: SizedBox(
                                                 width: 330,
-                                                height: 410,
+                                                height: 420,
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(
                                                       16.0),
@@ -458,6 +460,8 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                                           height: 16),
                                                       const Text(
                                                         'Apakah Anda yakin untuk menghapus?',
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -522,13 +526,25 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                                             child:
                                                                 ElevatedButton(
                                                               onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(false);
+                                                                controller.deletePlanning(
+                                                                    id: controller
+                                                                        .planningDetailData
+                                                                        ?.data
+                                                                        ?.id);
+
+                                                                Get.offAllNamed(
+                                                                    Routes
+                                                                        .BOTTOM_NAVIGATION_BAR);
+                                                                final navbarController =
+                                                                    Get.put(
+                                                                        BottomNavigationBarController());
+                                                                navbarController
+                                                                    .selectedIndex(
+                                                                        1);
 
                                                                 Get.snackbar(
                                                                   'Success',
-                                                                  'Data has been successfully deleted!',
+                                                                  'Planning has been successfully deleted!',
                                                                   backgroundColor:
                                                                       HumiColors
                                                                           .humicSecondaryColor,
