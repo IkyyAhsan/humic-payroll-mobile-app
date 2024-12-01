@@ -254,8 +254,8 @@ class _HumicExportRealizationScreenState extends State<HumicExportItemScreen> {
                 await ApprovalServices().downloadFile(
                   url: "/export-item",
                   fileType: fileType,
-                  startDate: formatDate(startDate!),
-                  endDate: formatDate(endDate!),
+                  startDate: startDate?.toIso8601String() ?? "",
+                  endDate: endDate?.toIso8601String() ?? "",
                   context: context,
                 );
               } else {

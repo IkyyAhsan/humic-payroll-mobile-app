@@ -1,20 +1,18 @@
-// ignore_for_file: avoid_print
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_planning.dart';
+import 'package:humic_payroll_mobile_app/app/data/models/input/planning.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/show_planning.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:intl/intl.dart';
-import '../../../data/models/input/planning.dart';
-import '../../../utils/constants/date_format.dart';
 
-class PlanningAddScreenController extends GetxController {
+class PlanningEditItemScreenController extends GetxController {
   var items = <Map<String, String>>[].obs;
   var planningData = <AddItem>[].obs;
   var rows = <TableRow>[].obs;
@@ -159,47 +157,5 @@ class PlanningAddScreenController extends GetxController {
     } else {
       print("AddItem failed");
     }
-  }
-
-  // Method to pick document file
-  void addDocumentEvidence() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['pdf', 'xlsx'],
-      type: FileType.custom,
-    );
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      documentEvidence = file;
-      print("Document file selected: ${file.path}");
-    } else {
-      Get.snackbar(
-        "No File Selected",
-        "You did not select any file. Please try again.",
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
-    update();
-  }
-
-  // Method to pick image file
-  void addImageEvidence() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['jpg', 'jpeg', 'png'],
-      type: FileType.custom,
-    );
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      imageEvidence = file;
-      print("Image file selected: ${file.path}");
-    } else {
-      Get.snackbar(
-        "No File Selected",
-        "You did not select any image. Please try again.",
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
-    update();
   }
 }

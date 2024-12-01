@@ -17,439 +17,444 @@ class RealizationAddItemScreenView
   @override
   Widget build(BuildContext context) {
     Get.put(RealizationAddItemScreenController());
-    return Scaffold(
-      backgroundColor: HumiColors.humicBackgroundColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpace(24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+    return GetBuilder<RealizationAddItemScreenController>(
+      init: RealizationAddItemScreenController(),
+      builder: (_) {
+        return Scaffold(
+          backgroundColor: HumiColors.humicBackgroundColor,
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(
-                        onPressed: () => Get.back(),
-                        icon: const Icon(
-                          FluentIcons.ios_arrow_ltr_24_regular,
-                          color: HumiColors.humicBlackColor,
-                        )),
-                    horizontalSpace(16),
-                    Text(
-                      "Add Item",
-                      style: GoogleFonts.plusJakartaSans(
-                        textStyle: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: HumiColors.humicBlackColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                verticalSpace(32),
-                const Divider(
-                  color: HumiColors.humicTransparencyColor,
-                  height: 2,
-                ),
-
-                verticalSpace(20),
-
-                // Tanggal
-                Text(
-                  "Tanggal",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: TextFormField(
-                    readOnly: true,
-                    controller: controller.tanggalItem,
-                    decoration: InputDecoration(
-                      hintText: "DD/MM/YYYY",
-                      hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onTap: controller.changeDate,
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Keterangan
-                Text(
-                  "Keterangan",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: TextFormField(
-                    controller: controller.keteranganItem,
-                    decoration: InputDecoration(
-                      hintText: "Masukkan keterangan..",
-                      hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Nilai Bruto
-                Text(
-                  "Nilai Bruto",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: TextFormField(
-                    controller: controller.nilaiBrutoItem,
-                    decoration: InputDecoration(
-                      hintText: "Masukkan nilai bruto..",
-                      hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Nilai Pajak
-                Text(
-                  "Nilai Pajak",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: TextFormField(
-                    controller: controller.nilaiPajakItem,
-                    decoration: InputDecoration(
-                      hintText: "Masukkan nilai pajak..",
-                      hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Nilai Netto
-                Text(
-                  "Nilai netto",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: TextFormField(
-                    controller: controller.nilaiNettoItem,
-                    decoration: InputDecoration(
-                      hintText: "Masukkan nilai netto..",
-                      hintStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: HumiColors.humicTransparencyColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Kategori
-                Text(
-                  "Kategori",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: DropdownButtonFormField<String>(
-                    value: controller.kategoriItem.text.isEmpty
-                        ? null
-                        : controller.kategoriItem.text,
-                    items: [
-                      DropdownMenuItem(
-                        value: "internal",
-                        child: Text(
-                          "Internal",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: HumiColors.humicBlackColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "eksternal",
-                        child: Text(
-                          "Eksternal",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: HumiColors.humicBlackColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "rka",
-                        child: Text(
-                          "rka",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: HumiColors.humicBlackColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                    decoration: InputDecoration(
-                      hintText: "Pilih kategori..",
-                      hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HumiColors.humicTransparencyColor,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      controller.kategoriItem.text = value ?? "";
-                    },
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Document Evidence
-                Text(
-                  "Document Evidence",
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: HumiColors.humicBlackColor,
-                    ),
-                  ),
-                ),
-                verticalSpace(12),
-
-                // Document Evidence
-                GestureDetector(
-                  onTap: controller.addUploadDocumentEvidence,
-                  child: Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: HumiColors.humicBlackColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: controller.documentEvidence != null
-                        ? controller.documentEvidence!.path.endsWith('.pdf')
-                            ? Center(
-                                child: Text(
-                                  "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Menampilkan nama file
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: HumiColors.humicBlackColor,
-                                  ),
-                                ),
-                              )
-                            : Image.file(
-                                File(controller.documentEvidence!.path),
-                                fit: BoxFit.cover,
-                              )
-                        : const Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                image: AssetImage(
-                                  HumicImages.humicUploadImageIcon,
-                                ),
-                              ),
-                              Text("Upload File Evidence (PDF)"),
-                            ],
-                          ),
-                  ),
-                ),
-                verticalSpace(14),
-
-                // Image Evidence
-                Text(
-                  "Image Evidence",
-                  style: GoogleFonts.plusJakartaSans(
-                      textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: HumiColors.humicBlackColor)),
-                ),
-                verticalSpace(12),
-
-                // Image Evidence
-                GestureDetector(
-                  onTap: controller.addUploadImageEvidence,
-                  child: Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: HumiColors.humicBlackColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: controller.imageEvidence != null
-                        ? ['png', 'jpg', 'jpeg'].contains(controller
-                                .imageEvidence!.path
-                                .split('.')
-                                .last
-                                .toLowerCase())
-                            ? Image.file(
-                                File(controller.imageEvidence!.path),
-                                fit: BoxFit.cover,
-                              )
-                            : const Center(
-                                child: Text(
-                                  "Invalid Image Format",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: HumiColors.humicBlackColor,
-                                  ),
-                                ),
-                              )
-                        : const Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                  image: AssetImage(
-                                      HumicImages.humicUploadImageIcon)),
-                              Text("Upload Image File (.png/.jpg/.jpeg)"),
-                            ],
-                          ),
-                  ),
-                ),
-                verticalSpace(40),
-
-                //Button Add Item
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: controller.addItem,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: HumiColors.humicPrimaryColor,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 10,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    verticalSpace(24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(
-                          FluentIcons.add_12_regular,
-                          color: HumiColors.humicWhiteColor,
-                          size: 20,
-                        ),
-                        horizontalSpace(5),
+                        IconButton(
+                            onPressed: () => Get.back(),
+                            icon: const Icon(
+                              FluentIcons.ios_arrow_ltr_24_regular,
+                              color: HumiColors.humicBlackColor,
+                            )),
+                        horizontalSpace(16),
                         Text(
-                          'Add Item',
+                          "Add Item",
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicWhiteColor,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: HumiColors.humicBlackColor,
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ),
+                    verticalSpace(32),
+                    const Divider(
+                      color: HumiColors.humicTransparencyColor,
+                      height: 2,
+                    ),
+
+                    verticalSpace(20),
+
+                    // Tanggal
+                    Text(
+                      "Tanggal",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: TextFormField(
+                        readOnly: true,
+                        controller: controller.tanggalItem,
+                        decoration: InputDecoration(
+                          hintText: "DD/MM/YYYY",
+                          hintStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: HumiColors.humicTransparencyColor),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onTap: controller.changeDate,
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Keterangan
+                    Text(
+                      "Keterangan",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: TextFormField(
+                        controller: controller.keteranganItem,
+                        decoration: InputDecoration(
+                          hintText: "Masukkan keterangan..",
+                          hintStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicTransparencyColor,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Nilai Bruto
+                    Text(
+                      "Nilai Bruto",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: TextFormField(
+                        controller: controller.nilaiBrutoItem,
+                        decoration: InputDecoration(
+                          hintText: "Masukkan nilai bruto..",
+                          hintStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: HumiColors.humicTransparencyColor),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Nilai Pajak
+                    Text(
+                      "Nilai Pajak",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: TextFormField(
+                        controller: controller.nilaiPajakItem,
+                        decoration: InputDecoration(
+                          hintText: "Masukkan nilai pajak..",
+                          hintStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: HumiColors.humicTransparencyColor),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Nilai Netto
+                    Text(
+                      "Nilai netto",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: TextFormField(
+                        controller: controller.nilaiNettoItem,
+                        decoration: InputDecoration(
+                          hintText: "Masukkan nilai netto..",
+                          hintStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: HumiColors.humicTransparencyColor),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Kategori
+                    Text(
+                      "Kategori",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: DropdownButtonFormField<String>(
+                        value: controller.kategoriItem.text.isEmpty
+                            ? null
+                            : controller.kategoriItem.text,
+                        items: [
+                          DropdownMenuItem(
+                            value: "internal",
+                            child: Text(
+                              "Internal",
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: HumiColors.humicBlackColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: "eksternal",
+                            child: Text(
+                              "Eksternal",
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: HumiColors.humicBlackColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: "rka",
+                            child: Text(
+                              "rka",
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: HumiColors.humicBlackColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                        decoration: InputDecoration(
+                          hintText: "Pilih kategori..",
+                          hintStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HumiColors.humicTransparencyColor,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          controller.kategoriItem.text = value ?? "";
+                        },
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Document Evidence
+                    Text(
+                      "Document Evidence",
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(12),
+
+                    // Document Evidence
+                    GestureDetector(
+                      onTap: controller.addUploadDocumentEvidence,
+                      child: Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: HumiColors.humicBlackColor, width: 1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: controller.documentEvidence != null
+                            ? controller.documentEvidence!.path.endsWith('.pdf')
+                                ? Center(
+                                    child: Text(
+                                      "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Menampilkan nama file
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                  )
+                                : Image.file(
+                                    File(controller.documentEvidence!.path),
+                                    fit: BoxFit.cover,
+                                  )
+                            : const Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    image: AssetImage(
+                                      HumicImages.humicUploadImageIcon,
+                                    ),
+                                  ),
+                                  Text("Upload File Evidence (PDF)"),
+                                ],
+                              ),
+                      ),
+                    ),
+                    verticalSpace(14),
+
+                    // Image Evidence
+                    Text(
+                      "Image Evidence",
+                      style: GoogleFonts.plusJakartaSans(
+                          textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor)),
+                    ),
+                    verticalSpace(12),
+
+                    // Image Evidence
+                    GestureDetector(
+                      onTap: controller.addUploadImageEvidence,
+                      child: Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: HumiColors.humicBlackColor, width: 1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: controller.imageEvidence != null
+                            ? ['png', 'jpg', 'jpeg'].contains(controller
+                                    .imageEvidence!.path
+                                    .split('.')
+                                    .last
+                                    .toLowerCase())
+                                ? Image.file(
+                                    File(controller.imageEvidence!.path),
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Center(
+                                    child: Text(
+                                      "Invalid Image Format",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                  )
+                            : const Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                      image: AssetImage(
+                                          HumicImages.humicUploadImageIcon)),
+                                  Text("Upload Image File (.png/.jpg/.jpeg)"),
+                                ],
+                              ),
+                      ),
+                    ),
+                    verticalSpace(40),
+
+                    //Button Add Item
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: ElevatedButton(
+                        onPressed: controller.addItem,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: HumiColors.humicPrimaryColor,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 10,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              FluentIcons.add_12_regular,
+                              color: HumiColors.humicWhiteColor,
+                              size: 20,
+                            ),
+                            horizontalSpace(5),
+                            Text(
+                              'Add Item',
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: HumiColors.humicWhiteColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

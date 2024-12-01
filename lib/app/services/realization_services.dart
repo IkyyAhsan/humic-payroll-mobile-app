@@ -6,13 +6,15 @@ class RealizationServices {
   String? _message;
   String? get message => _message;
 
-  Future<Realization?> getRealizationData({int? page}) async {
+  Future<Realization?> getRealizationData({int? page, int? year}) async {
     try {
       dio.options.headers['Authorization'] =
           'Bearer ${GetStorage().read('token')}';
-      final response =
-          await dio.get('/realization', queryParameters: {"page": page});
-      print(response.statusCode);
+      final response = await dio.get('/realization', queryParameters: {
+        "page": page,
+        "year": year ?? DateTime.now().year,
+      });
+      print(response.data);
       if (response.statusCode == 200) {
         return Realization.fromJson(response.data);
       }

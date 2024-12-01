@@ -31,6 +31,9 @@ abstract class Routes {
   static const REALIZATION_ADD_ITEM_SCREEN = _Paths.REALIZATION_ADD_ITEM_SCREEN;
   static const EXPENSES_SCREEN = _Paths.EXPENSES_SCREEN;
   static const APPROVAL_DETAIL_SCREEN = _Paths.APPROVAL_DETAIL_SCREEN;
+  static const REALIZATION_EDIT_ITEM_SCREEN =
+      _Paths.REALIZATION_EDIT_ITEM_SCREEN;
+  static const PLANNING_EDIT_ITEM_SCREEN = _Paths.PLANNING_EDIT_ITEM_SCREEN;
 }
 
 abstract class _Paths {
@@ -63,4 +66,6 @@ abstract class _Paths {
   static const REALIZATION_ADD_ITEM_SCREEN = '/realization-add-item-screen';
   static const EXPENSES_SCREEN = '/expenses-screen';
   static const APPROVAL_DETAIL_SCREEN = '/approval-detail-screen';
+  static const REALIZATION_EDIT_ITEM_SCREEN = '/realization-edit-item-screen';
+  static const PLANNING_EDIT_ITEM_SCREEN = '/planning-edit-item-screen';
 }

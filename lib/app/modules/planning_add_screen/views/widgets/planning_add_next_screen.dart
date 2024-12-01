@@ -6,9 +6,11 @@ import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/contr
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/controllers/planning_add_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_item_screen.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/modules/planning_edit_item_screen/views/planning_edit_item_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
@@ -105,7 +107,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                           // planningDetailController
                           //         .planningDetailData?.data?.title ??
                           //     '',
-                          controller.namePlan.text,
+                          planningDetailController
+                                  .planningDetailData?.data?.title ??
+                              controller.namePlan.text,
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -133,7 +137,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          controller.startDate.text,
+                          formatDate(planningDetailController
+                                  .planningDetailData?.data?.startDate ??
+                              controller.startDate.text),
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -159,7 +165,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          controller.endDate.text,
+                          formatDate(planningDetailController
+                                  .planningDetailData?.data?.endDate ??
+                              controller.endDate.text),
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -390,7 +398,13 @@ class PlanningAddNextScreen extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  Get.to(
+                                                    () =>
+                                                        const PlanningEditItemScreenView(),
+                                                    arguments: {'id': data.id},
+                                                  );
+                                                },
                                                 child: Container(
                                                   width: 40,
                                                   height: 35,
@@ -563,14 +577,18 @@ class PlanningAddNextScreen extends StatelessWidget {
                           width: 160,
                           height: 46,
                           child: ElevatedButton(
-                            onPressed: () => Get.to(
-                              () => PlanningAddItemScreen(
-                                id: id,
-                              ),
-                            )?.then((_) {
-                              planningDetailController.getPlanningDetailData();
-                              planningDetailController.update();
-                            }),
+                            onPressed: () {
+                              print(id);
+                              Get.to(
+                                () => PlanningAddItemScreen(
+                                  id: id,
+                                ),
+                              )?.then((_) {
+                                planningDetailController
+                                    .getPlanningDetailData();
+                                planningDetailController.update();
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: HumiColors.humicPrimaryColor,
                                 padding: const EdgeInsets.symmetric(

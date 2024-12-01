@@ -9,12 +9,12 @@ class PlanningServices {
   String? _message;
   String? get message => _message;
 
-  Future<Planning?> getPlanningData({int? page}) async {
+  Future<Planning?> getPlanningData({int? page, int? year}) async {
     try {
       dio.options.headers['Authorization'] =
           'Bearer ${GetStorage().read('token')}';
       final response =
-          await dio.get('/planning', queryParameters: {"page": page});
+          await dio.get('/planning', queryParameters: {"page": page, "year" : year});
       print(response.data);
       if (response.statusCode == 200) {
         return Planning.fromJson(response.data);

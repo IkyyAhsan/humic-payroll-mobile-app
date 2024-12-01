@@ -91,6 +91,10 @@ class ApprovalServices {
         'endDate': endDate,
         "category": "internal"
       };
+      print(queryParams['type']);
+      print(queryParams['startDate']);
+      print(queryParams['endDate']);
+
       print(queryParams['category']);
 
       // Tentukan lokasi penyimpanan di direktori unduhan

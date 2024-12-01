@@ -6,8 +6,8 @@ class AddItem {
   int taxAmount;
   int nettoAmount;
   String category;
-  dynamic documentEvidence;
-  dynamic imageEvidence;
+  dynamic? documentEvidence;
+  dynamic? imageEvidence;
   int isAddition;
 
   AddItem({
@@ -18,8 +18,8 @@ class AddItem {
     required this.taxAmount,
     required this.nettoAmount,
     required this.category,
-    required this.documentEvidence,
-    required this.imageEvidence,
+    this.documentEvidence,
+    this.imageEvidence,
     required this.isAddition,
   });
 

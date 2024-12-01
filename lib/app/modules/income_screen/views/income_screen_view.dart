@@ -98,6 +98,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                           status: data.status,
                                           documentEvidence:
                                               data.documentEvidence ?? 'empty',
+                                          imageEvidence: data.imageEvidence,
                                         )),
                                 child: Column(
                                   children: [

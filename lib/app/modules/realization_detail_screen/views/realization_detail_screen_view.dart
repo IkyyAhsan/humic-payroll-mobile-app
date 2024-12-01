@@ -200,7 +200,7 @@ class RealizationDetailScreenView
                                       3: FixedColumnWidth(130),
                                       4: FixedColumnWidth(130),
                                       5: FixedColumnWidth(130),
-                                      6: FixedColumnWidth(150),
+                                      6: FixedColumnWidth(160),
                                       7: FixedColumnWidth(130),
                                     },
                                     children: [

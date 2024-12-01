@@ -4,7 +4,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -182,6 +181,19 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                                       color: HumiColors.humicBlackColor))),
                         ),
                         verticalSpace(14),
+
+                        // Document Evidence
+                        Text(
+                          "Document Evidence",
+                          style: GoogleFonts.plusJakartaSans(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: HumiColors.humicBlackColor,
+                            ),
+                          ),
+                        ),
+                        verticalSpace(12),
 
                         // Document Evidence
                         Text(

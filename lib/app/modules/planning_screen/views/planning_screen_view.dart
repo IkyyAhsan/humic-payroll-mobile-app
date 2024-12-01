@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +15,7 @@ import '../controllers/planning_screen_controller.dart';
 
 class PlanningScreenView extends GetView<PlanningScreenController> {
   const PlanningScreenView({super.key});
+
   @override
   Widget build(BuildContext context) {
     Get.put(PlanningScreenController());
@@ -106,8 +106,9 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                                                     selectedDate:
                                                         DateTime(tempYear),
                                                     onChanged: (DateTime date) {
-                                                      Navigator.pop(
-                                                          context, date.year);
+                                                      controller
+                                                          .fetchDataForYear(
+                                                              date);
                                                     },
                                                   ),
                                                 ),
@@ -236,40 +237,17 @@ class PlanningScreenView extends GetView<PlanningScreenController> {
                         profileController.userProfileData?.role == 'admin';
 
                     if (!isAdmin) {
-                      return const SizedBox();
+                      return Container();
                     }
 
-                    return SizedBox(
-                      width: 138,
-                      height: 51,
-                      child: FloatingActionButton(
-                        onPressed: () => Get.to(
-                          const PlanningAddScreenView(),
-                        ),
-                        backgroundColor: HumiColors.humicPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              FluentIcons.add_24_regular,
-                              color: HumiColors.humicWhiteColor,
-                            ),
-                            horizontalSpace(4),
-                            Text(
-                              "Add Plan",
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicWhiteColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                    return FloatingActionButton(
+                      backgroundColor: HumiColors.humicPrimaryColor,
+                      onPressed: () {
+                        Get.to(() => const PlanningAddScreenView());
+                      },
+                      child: const Icon(
+                        Icons.add,
+                        color: HumiColors.humicWhiteColor,
                       ),
                     );
                   },

@@ -2,17 +2,16 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/controllers/planning_add_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/modules/planning_edit_item_screen/controllers/planning_edit_item_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 
-class PlanningAddItemScreen extends StatelessWidget {
-  final int? id;
-  const PlanningAddItemScreen({super.key, this.id});
-
+class PlanningEditItemScreenView
+    extends GetView<PlanningEditItemScreenController> {
+  const PlanningEditItemScreenView({super.key});
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(PlanningAddScreenController());
+    Get.put(PlanningEditItemScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
@@ -36,7 +35,7 @@ class PlanningAddItemScreen extends StatelessWidget {
                         )),
                     horizontalSpace(16),
                     Text(
-                      "Add Item",
+                      "Edit Planning Item",
                       style: GoogleFonts.plusJakartaSans(
                         textStyle: const TextStyle(
                           fontSize: 24,
@@ -47,13 +46,13 @@ class PlanningAddItemScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                verticalSpace(32),
+                verticalSpace(16),
                 const Divider(
-                  color: HumiColors.humicBackgroundColor,
+                  color: HumiColors.humicDividerColor,
                   height: 2,
                 ),
 
-                verticalSpace(20),
+                verticalSpace(12),
 
                 // Tanggal
                 Text(
@@ -303,7 +302,7 @@ class PlanningAddItemScreen extends StatelessWidget {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () async {
-                      controller.addItem(id: id);
+                      controller.addItem();
                       await controller.dispose();
                     },
                     style: ElevatedButton.styleFrom(

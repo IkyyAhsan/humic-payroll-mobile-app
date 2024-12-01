@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/launch_url.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HumicTransactionDetails extends StatelessWidget {
   const HumicTransactionDetails({
@@ -38,9 +41,7 @@ class HumicTransactionDetails extends StatelessWidget {
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,7 @@ class HumicTransactionDetails extends StatelessWidget {
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: HumiColors.humicBlackColor)),
-                    )
+                    ),
                   ],
                 ),
                 verticalSpace(20),
@@ -73,7 +74,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(43),
 
-                // Row 1
+                // Row 1: No Kegiatan
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -97,7 +98,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(42),
 
-                // Row 2
+                // Row 2: Kegiatan
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -121,7 +122,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(42),
 
-                // Row 3
+                // Row 3: Tanggal
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -145,7 +146,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(42),
 
-                // Row 4
+                // Row 4: Transaction Type
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -169,7 +170,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(42),
 
-                // Row 5
+                // Row 5: Pajak
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -193,7 +194,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(42),
 
-                // Row 6
+                // Row 6: Document Evidence
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -210,15 +211,23 @@ class HumicTransactionDetails extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         if (documentEvidence != null) {
-                          final result =
-                              await OpenFilex.open(documentEvidence!);
-                          if (result.type != ResultType.done) {
-                            // Tampilkan pesan jika tidak bisa membuka file
-                            Get.snackbar("Error",
+                          // If the document evidence is a PDF, open it via launch
+                          if (documentEvidence!.endsWith('.pdf')) {
+                            launchURL(
+                                "https://payroll.humicprototyping.com/storage/app/public/$documentEvidence");
+                          } else {
+                            // Otherwise, open the file with OpenFilex
+                            final result =
+                                await OpenFilex.open(documentEvidence!);
+                            if (result.type != ResultType.done) {
+                              Get.snackbar(
+                                "Error",
                                 "Unable to open the file. Please ensure a viewer application is installed.",
                                 backgroundColor: HumiColors.humicPrimaryColor,
-                                colorText: HumiColors.humicWhiteColor);
-                            print("File path: $documentEvidence");
+                                colorText: HumiColors.humicWhiteColor,
+                              );
+                              print("File path: $documentEvidence");
+                            }
                           }
                         }
                       },
@@ -233,7 +242,7 @@ class HumicTransactionDetails extends StatelessWidget {
                             children: [
                               Text(
                                 documentEvidence != null
-                                    ? documentEvidence ?? ''
+                                    ? shortenFileName(documentEvidence ?? '')
                                     : 'No File Attached',
                                 style: GoogleFonts.plusJakartaSans(
                                   textStyle: const TextStyle(
@@ -253,7 +262,7 @@ class HumicTransactionDetails extends StatelessWidget {
                 ),
                 verticalSpace(42),
 
-                // Row 7
+                // Row 7: Image Evidence
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -270,49 +279,22 @@ class HumicTransactionDetails extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         if (imageEvidence != null) {
-                          final result = await OpenFilex.open(imageEvidence!);
-                          if (result.type != ResultType.done) {
-                            // Tampilkan pesan jika tidak bisa membuka file
-                            Get.snackbar("Error",
-                                "Unable to open the file. Please ensure a viewer application is installed.",
-                                backgroundColor: HumiColors.humicPrimaryColor,
-                                colorText: HumiColors.humicWhiteColor);
-                            print("File path: $imageEvidence");
-                          }
+                          // Check if imageEvidence is a URL
+                          launchURL(
+                              "https://payroll.humicprototyping.com/storage/app/public/$imageEvidence");
                         }
                       },
-                      child: Row(
-                        children: [
-                          const Icon(
-                            FluentIcons.document_table_24_regular,
-                            weight: 4,
-                          ),
-                          horizontalSpace(8),
-                          Row(
-                            children: [
-                              Text(
-                                imageEvidence != null
-                                    ? imageEvidence ?? ''
-                                    : 'No Image Attached',
-                                style: GoogleFonts.plusJakartaSans(
-                                  textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: HumiColors.humicBlackColor,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      child: Image.network(
+                        'https://payroll.humicprototyping.com/storage/app/public/$imageEvidence',
+                        width: 40,
+                        height: 40,
                       ),
                     ),
                   ],
                 ),
                 verticalSpace(80),
 
-                // Button For Delete
+                // Button For Delete and Close
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -341,8 +323,6 @@ class HumicTransactionDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-
-                    // Kondisi: Jika bukan admin, maka dapat menghapus untuk semua status
                     if (controller.userProfileData?.role != 'admin')
                       SizedBox(
                         height: 45,
@@ -368,8 +348,6 @@ class HumicTransactionDetails extends StatelessWidget {
                         ),
                       ),
                     horizontalSpace(16),
-
-                    // Tombol Close selalu ditampilkan
                     SizedBox(
                       width: 173,
                       height: 46,

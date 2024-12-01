@@ -136,6 +136,10 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                                         ? "Pemasukan"
                                                         : "Pengeluaran",
                                                 status: data.status ?? '',
+                                                imageEvidence:
+                                                    data.imageEvidence,
+                                                documentEvidence:
+                                                    data.documentEvidence,
                                               )),
                                           child: Column(
                                             children: [

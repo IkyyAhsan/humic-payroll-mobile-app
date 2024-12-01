@@ -11,47 +11,49 @@ class PlanningScreenController extends GetxController {
 
   var selectedPlanningYear = DateTime.now().year.obs;
 
-  // Fungsi memuat data berdasarkan tahun
-  void fetchDataForYear(int year) {
-    // Implementasi untuk memuat data dashboard berdasarkan tahun
-    // Contoh:
-    // dashboardData.value = await DashboardServices().getDashboardData(year: year);
+  DateTime convertYearToDateTime(int year) {
+    return DateTime(year, 1, 1);
   }
 
-  // Fungsi untuk memperbarui data berdasarkan tahun
+  void fetchDataForYear(DateTime selectedDate) {
+    int selectedYear = selectedDate.year;
+
+    getPlanningData(year: selectedYear, index: currentPage.value);
+  }
+
   void updatePlanningYear(int year) {
     selectedPlanningYear.value = year;
-    fetchDataForYear(year);
+    DateTime selectedDate = convertYearToDateTime(year);
+    fetchDataForYear(selectedDate);
   }
 
   void addPagination() {
     if (currentPage.value < totalPages.value) {
       currentPage.value++;
-      getPlanningData(index: currentPage.value);
+      fetchDataForYear(convertYearToDateTime(selectedPlanningYear.value));
     }
   }
 
   void decrementPagination() {
     if (currentPage.value > 1) {
       currentPage.value--;
-      getPlanningData(index: currentPage.value);
+      fetchDataForYear(convertYearToDateTime(selectedPlanningYear.value));
     }
   }
 
-  void getPlanningData({int? index = 0}) async {
+  void getPlanningData({int? index = 0, int? year}) async {
     isLoading.value = true;
 
     final planningResponse =
-        await PlanningServices().getPlanningData(page: index);
-
+        await PlanningServices().getPlanningData(page: index, year: year);
+    print(planningResponse?.data);
     if (planningResponse != null) {
       planningData.value = planningResponse.data.data;
-
       totalPages.value = planningResponse.data.lastPage;
-
       pageData.value = planningData;
+      print(pageData);
     } else {
-      print('No data received from API');
+      pageData.value = [];
     }
 
     isLoading.value = false;
@@ -59,7 +61,7 @@ class PlanningScreenController extends GetxController {
 
   @override
   void onInit() {
-    getPlanningData(index: currentPage.value);
+    fetchDataForYear(convertYearToDateTime(selectedPlanningYear.value));
     super.onInit();
   }
 }

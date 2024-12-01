@@ -185,8 +185,8 @@ class _HumicExportTransactionScreenState
                 await ApprovalServices().downloadFile(
                   url: "/export",
                   fileType: fileType,
-                  startDate: formatDate(startDate!),
-                  endDate: formatDate(endDate!),
+                  startDate: startDate?.toIso8601String() ?? "",
+                  endDate: endDate?.toIso8601String() ?? "",
                   context: context,
                 );
               } else {

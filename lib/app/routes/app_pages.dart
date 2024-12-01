@@ -27,6 +27,8 @@ import '../modules/planning_add_screen/bindings/planning_add_screen_binding.dart
 import '../modules/planning_add_screen/views/planning_add_screen_view.dart';
 import '../modules/planning_detail_screen/bindings/planning_detail_screen_binding.dart';
 import '../modules/planning_detail_screen/views/planning_detail_screen_view.dart';
+import '../modules/planning_edit_item_screen/bindings/planning_edit_item_screen_binding.dart';
+import '../modules/planning_edit_item_screen/views/planning_edit_item_screen_view.dart';
 import '../modules/planning_edit_screen/bindings/planning_edit_screen_binding.dart';
 import '../modules/planning_edit_screen/views/planning_edit_screen_view.dart';
 import '../modules/planning_screen/bindings/planning_screen_binding.dart';
@@ -37,6 +39,8 @@ import '../modules/realization_add_item_screen/bindings/realization_add_item_scr
 import '../modules/realization_add_item_screen/views/realization_add_item_screen_view.dart';
 import '../modules/realization_detail_screen/bindings/realization_detail_screen_binding.dart';
 import '../modules/realization_detail_screen/views/realization_detail_screen_view.dart';
+import '../modules/realization_edit_item_screen/bindings/realization_edit_item_screen_binding.dart';
+import '../modules/realization_edit_item_screen/views/realization_edit_item_screen_view.dart';
 import '../modules/realization_edit_screen/bindings/realization_edit_screen_binding.dart';
 import '../modules/realization_edit_screen/views/realization_edit_screen_view.dart';
 import '../modules/realization_screen/bindings/realization_screen_binding.dart';
@@ -171,6 +175,16 @@ class AppPages {
       name: _Paths.APPROVAL_DETAIL_SCREEN,
       page: () => const ApprovalDetailScreenView(),
       binding: ApprovalDetailScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.REALIZATION_EDIT_ITEM_SCREEN,
+      page: () => const RealizationEditItemScreenView(),
+      binding: RealizationEditItemScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANNING_EDIT_ITEM_SCREEN,
+      page: () => const PlanningEditItemScreenView(),
+      binding: PlanningEditItemScreenBinding(),
     ),
   ];
 }

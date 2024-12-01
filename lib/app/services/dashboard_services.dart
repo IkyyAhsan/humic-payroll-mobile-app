@@ -11,8 +11,9 @@ class DashboardServices {
       //     'Bearer ${GetStorage().read('token')}';
       dio.options.headers['Authorization'] =
           'Bearer ${GetStorage().read('token')}';
-      final response = await dio.get('/dashboard', queryParameters:  {
-        "start_date" : year?.toIso8601String(),
+      final response = await dio.get('/dashboard', queryParameters: {
+        "incomeExpenseYear": year?.toIso8601String(),
+        "planningRealizationYear": year?.toIso8601String(),
       });
       print(response.data);
       if (response.statusCode == 200) {

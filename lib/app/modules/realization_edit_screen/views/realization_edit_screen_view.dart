@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_add_item_screen/views/realization_add_item_screen_view.dart';
+import 'package:humic_payroll_mobile_app/app/modules/realization_edit_item_screen/views/realization_edit_item_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/controllers/realization_edit_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
@@ -61,7 +62,7 @@ class RealizationEditScreenView
                                 )),
                             horizontalSpace(16),
                             Text(
-                              "Realization Details",
+                              "Edit Realization",
                               style: GoogleFonts.plusJakartaSans(
                                   textStyle: const TextStyle(
                                       fontSize: 24,
@@ -195,7 +196,7 @@ class RealizationEditScreenView
                                     3: FixedColumnWidth(130),
                                     4: FixedColumnWidth(130),
                                     5: FixedColumnWidth(130),
-                                    6: FixedColumnWidth(150),
+                                    6: FixedColumnWidth(160),
                                     7: FixedColumnWidth(130),
                                     8: FixedColumnWidth(100),
                                   },
@@ -404,7 +405,15 @@ class RealizationEditScreenView
                                             Row(
                                               children: [
                                                 GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    Get.to(
+                                                      () =>
+                                                          const RealizationEditItemScreenView(),
+                                                      arguments: {
+                                                        'id': data.id
+                                                      },
+                                                    );
+                                                  },
                                                   child: Container(
                                                     width: 40,
                                                     height: 35,
