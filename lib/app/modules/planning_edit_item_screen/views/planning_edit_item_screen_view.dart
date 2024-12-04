@@ -302,8 +302,7 @@ class PlanningEditItemScreenView
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () async {
-                      controller.addItem();
-                      await controller.dispose();
+                      controller.editItemPlanning();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
@@ -319,14 +318,8 @@ class PlanningEditItemScreenView
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(
-                          FluentIcons.add_12_regular,
-                          color: HumiColors.humicWhiteColor,
-                          size: 20,
-                        ),
-                        horizontalSpace(5),
                         Text(
-                          'Add Item',
+                          'Save Changes',
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,

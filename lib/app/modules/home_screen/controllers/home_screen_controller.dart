@@ -7,6 +7,8 @@ import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
 
 class HomeScreenController extends GetxController {
   var dashboardData = Dashboard().obs;
+  var barChartData = Dashboard().obs;
+  var pieChartData = Dashboard().obs;
   var filteredTransactions = <Transaction>[].obs;
   var isLoading = true.obs;
 
@@ -24,25 +26,25 @@ class HomeScreenController extends GetxController {
     if (data) {
       Get.back();
       update();
+      getDashboardData();
+      isLoading.value = false;
     }
   }
 
   // Fungsi untuk memperbarui tahun
   void updateBarChartYear(int year) {
     selectedBarChartYear.value = year;
-    selectedPieChartYear.value = year;
-    fetchDataForYear(year);
+    fetchDataBarChartForYear(year);
   }
 
   // Fungsi untuk memperbarui tahun
   void updatePieChartYear(int year) {
-    selectedBarChartYear.value = year;
     selectedPieChartYear.value = year;
-    fetchDataForYear(year);
+    fetchDataPieChartForYear(year);
   }
 
   // Fungsi memuat data berdasarkan tahun
-  void fetchDataForYear(int year) async {
+  void fetchDataBarChartForYear(int year) async {
     // Konversi tahun ke ISO format
     DateTime isoDate = convertYearToIsoString(year);
 
@@ -51,7 +53,20 @@ class HomeScreenController extends GetxController {
 
     // Update data jika diperlukan
     if (response != null) {
-      dashboardData.value = response;
+      barChartData.value = response;
+    }
+  }
+
+  void fetchDataPieChartForYear(int year) async {
+    // Konversi tahun ke ISO format
+    DateTime isoDate = convertYearToIsoString(year);
+
+    // Panggil service backend dengan parameter ISO string
+    var response = await DashboardServices().getDashboardData(year: isoDate);
+
+    // Update data jika diperlukan
+    if (response != null) {
+      pieChartData.value = response;
     }
   }
 
@@ -61,8 +76,6 @@ class HomeScreenController extends GetxController {
     dashboardData.value = (await DashboardServices().getDashboardData())!;
 
     applyFilter();
-
-    isLoading.value = false;
   }
 
   // Fungsi untuk filter transaksi
@@ -97,6 +110,8 @@ class HomeScreenController extends GetxController {
   void onInit() {
     getDashboardData();
     getUserProfileData();
+    isLoading.value = false;
+
     super.onInit();
   }
 

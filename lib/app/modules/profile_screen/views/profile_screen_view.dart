@@ -509,7 +509,7 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                       onTap: logoutConfirmation,
                                       child: Container(
                                         width: double.infinity,
-                                        height: 50,
+                                        height: 60,
                                         decoration: BoxDecoration(
                                           color: HumiColors.humicPrimaryColor
                                               .withOpacity(0.12),
@@ -546,7 +546,7 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                         ),
                                       ),
                                     ),
-                                    verticalSpace(12),
+                                    verticalSpace(32),
                                   ],
                                 ),
                               ),

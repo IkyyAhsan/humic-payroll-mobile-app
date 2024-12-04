@@ -9,9 +9,12 @@ import 'package:humic_payroll_mobile_app/app/modules/realization_edit_screen/con
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/launch_url.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
+import 'package:open_filex/open_filex.dart';
 
 class RealizationEditScreenView
     extends GetView<RealizationEditScreenController> {
@@ -382,35 +385,126 @@ class RealizationEditScreenView
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.all(8),
-                                              child: Text(
-                                                data.documentEvidence ?? "",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  if (data.documentEvidence !=
+                                                      null) {
+                                                    // Cek apakah documentEvidence adalah PDF atau jenis file lain
+                                                    if (data.documentEvidence!
+                                                        .endsWith('.pdf')) {
+                                                      // Jika file adalah PDF, buka menggunakan launchURL
+                                                      launchURL(
+                                                          "https://payroll.humicprototyping.com/storage/app/public/${data.documentEvidence}");
+                                                    } else {
+                                                      // Jika bukan PDF, buka menggunakan OpenFilex
+                                                      final result =
+                                                          await OpenFilex.open(data
+                                                              .documentEvidence!);
+                                                      if (result.type !=
+                                                          ResultType.done) {
+                                                        Get.snackbar(
+                                                          "Error",
+                                                          "Unable to open the file. Please ensure a viewer application is installed.",
+                                                          backgroundColor:
+                                                              HumiColors
+                                                                  .humicPrimaryColor,
+                                                          colorText: HumiColors
+                                                              .humicWhiteColor,
+                                                        );
+                                                        print(
+                                                            "File path: ${data.documentEvidence}");
+                                                      }
+                                                    }
+                                                  } else {
+                                                    print(
+                                                        "No document evidence found.");
+                                                  }
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(
+                                                      FluentIcons
+                                                          .document_table_24_regular,
+                                                      weight: 4,
+                                                    ),
+                                                    horizontalSpace(8),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          data.documentEvidence !=
+                                                                  null
+                                                              ? shortenFileName(
+                                                                  data.documentEvidence ??
+                                                                      '')
+                                                              : 'No File Attached',
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: HumiColors
+                                                                  .humicBlackColor,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.all(8),
-                                              child: Text(
-                                                data.imageEvidence ?? "",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: HumiColors
-                                                      .humicBlackColor,
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  if (data.imageEvidence !=
+                                                      null) {
+                                                    // Check if imageEvidence is a URL
+                                                    launchURL(
+                                                        "https://payroll.humicprototyping.com/storage/app/public/${data.imageEvidence}");
+                                                  }
+                                                },
+                                                child: Text(
+                                                  data.imageEvidence != null
+                                                      ? shortenFileName(
+                                                          data.imageEvidence ??
+                                                              '')
+                                                      : 'No File Attached',
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    ),
+                                                  ),
                                                 ),
+                                                // child: Text(
+                                                //   'https://payroll.humicprototyping.com/storage/app/public/${data.imageEvidence}',
+                                                // ),
                                               ),
                                             ),
                                             Row(
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
+                                                    print(data.planningId);
                                                     Get.to(
                                                       () =>
                                                           const RealizationEditItemScreenView(),
                                                       arguments: {
-                                                        'id': data.id
+                                                        'id': data.planningId,
+                                                        "data": data,
                                                       },
                                                     );
                                                   },

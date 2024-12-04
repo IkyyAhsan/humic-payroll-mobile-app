@@ -65,6 +65,8 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                             ? "Pemasukan"
                             : "Pengeluaran",
                         status: '${data.status}',
+                        documentEvidence: data.documentEvidence,
+                        imageEvidence: data.imageEvidence,
                       )),
                   child: Column(
                     children: [

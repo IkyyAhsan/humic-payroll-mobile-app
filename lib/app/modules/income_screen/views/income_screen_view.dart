@@ -85,7 +85,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                     Get.to(() => HumicTransactionDetails(
                                           transactionId: '${data.id}',
                                           eventName: data.activityName,
-                                          date: formatDate(data.createdAt),
+                                          date: formatDate(data.date),
                                           type: formatRupiah(data.amount),
                                           tax: formatRupiah(data.taxAmount),
                                           transactionTypeName:
@@ -180,7 +180,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  formatDate(data.createdAt),
+                                                  formatDate(data.date),
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: const TextStyle(

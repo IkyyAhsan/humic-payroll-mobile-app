@@ -304,7 +304,6 @@ class PlanningAddItemScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       controller.addItem(id: id);
-                      await controller.dispose();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,

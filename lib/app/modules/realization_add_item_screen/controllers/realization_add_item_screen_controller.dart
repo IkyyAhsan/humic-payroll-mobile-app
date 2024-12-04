@@ -20,7 +20,6 @@ class RealizationAddItemScreenController extends GetxController {
   final TextEditingController nilaiPajakItem = TextEditingController();
   final TextEditingController nilaiNettoItem = TextEditingController();
   final TextEditingController kategoriItem = TextEditingController();
-
   File? documentEvidence;
   File? imageEvidence;
 

@@ -109,6 +109,7 @@ class Datum {
   String status;
   DateTime? createdAt;
   DateTime? updatedAt;
+  DateTime? date; // Mengubah type ke DateTime?
 
   Datum({
     required this.id,
@@ -122,6 +123,7 @@ class Datum {
     required this.status,
     this.createdAt,
     this.updatedAt,
+    this.date, // Menginisialisasi date
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -140,6 +142,9 @@ class Datum {
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
+        date: json["date"] != null
+            ? DateTime.parse(json["date"])
+            : DateTime.now(), // Parsing date menjadi DateTime
       );
 
   Map<String, dynamic> toJson() => {
@@ -154,6 +159,8 @@ class Datum {
         "status": status,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "date":
+            date?.toIso8601String(), // Menyerialisasi date ke string ISO 8601
       };
 }
 

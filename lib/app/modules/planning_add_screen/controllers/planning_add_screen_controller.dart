@@ -10,6 +10,7 @@ import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/w
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
 import '../../../data/models/input/planning.dart';
 import '../../../utils/constants/date_format.dart';
@@ -113,9 +114,10 @@ class PlanningAddScreenController extends GetxController {
   void checkPlanningAddItem() async {
     data.value = await PlanningServices().postPlanning(
         planning: AddPlanning(
-            title: namePlan.text,
-            startDate: selectedDate.value,
-            endDate: selectedDate2.value));
+      title: namePlan.text,
+      startDate: selectedDate.value,
+      endDate: selectedDate2.value,
+    ));
     print(data);
     // ignore: unnecessary_null_comparison
     isSuccessAddPlanning.value = data != null;
@@ -125,6 +127,7 @@ class PlanningAddScreenController extends GetxController {
                 id: data.value?.id,
               ),
           arguments: {
+            "id": data.value?.id,
             "name": namePlan.text,
             "startDate": startDate,
             "endDate": endDate,
@@ -152,7 +155,8 @@ class PlanningAddScreenController extends GetxController {
       controller.getPlanningDetailData(planningId: data.value?.id);
       print(controller.planningDetailData);
       print("id: ${data.value?.id}");
-      Get.to(const PlanningAddNextScreen(), arguments: {"id": data.value?.id});
+      Get.to(const PlanningAddNextScreen(),
+          arguments: {"id": Get.arguments['id']});
       controller.update();
 
       update();
@@ -170,34 +174,63 @@ class PlanningAddScreenController extends GetxController {
 
     if (result != null) {
       File file = File(result.files.single.path!);
+      if (!['pdf', 'xlsx']
+          .contains(result.files.single.extension?.toLowerCase())) {
+        Get.snackbar(
+          "Invalid File Format",
+          "Only PDF and XLSX file types are allowed. Please try again.",
+          icon: const Icon(Icons.error_outline,
+              color: HumiColors.humicWhiteColor),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: HumiColors.humicPrimaryColor,
+          colorText: HumiColors.humicWhiteColor,
+          margin: const EdgeInsets.all(16),
+          borderRadius: 8,
+          duration: const Duration(seconds: 3),
+        );
+        return;
+      }
       documentEvidence = file;
-      print("Document file selected: ${file.path}");
     } else {
+      // User canceled the picker
       Get.snackbar(
         "No File Selected",
         "You did not select any file. Please try again.",
+        icon: const Icon(Icons.info_outline, color: HumiColors.humicWhiteColor),
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
+        margin: const EdgeInsets.all(16),
+        borderRadius: 8,
+        duration: const Duration(seconds: 3),
       );
     }
     update();
   }
 
   // Method to pick image file
-  void addImageEvidence() async {
+  void addUploadImageEvidence() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['jpg', 'jpeg', 'png'],
-      type: FileType.custom,
+      type: FileType.image,
     );
 
     if (result != null) {
       File file = File(result.files.single.path!);
       imageEvidence = file;
-      print("Image file selected: ${file.path}");
     } else {
       Get.snackbar(
         "No File Selected",
-        "You did not select any image. Please try again.",
+        "You did not select any file. Please try again.",
+        icon: const Icon(
+          Icons.info_outline,
+          color: HumiColors.humicWhiteColor,
+        ),
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
+        margin: const EdgeInsets.all(16),
+        borderRadius: 8,
+        duration: const Duration(seconds: 3),
       );
     }
     update();

@@ -34,33 +34,6 @@ class AddExpensesScreenController extends GetxController {
     }
   }
 
-  void addUploadImageEvidence() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      imageEvidence = file;
-    } else {
-      Get.snackbar(
-        "No File Selected",
-        "You did not select any file. Please try again.",
-        icon: const Icon(
-          Icons.info_outline,
-          color: HumiColors.humicWhiteColor,
-        ),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: HumiColors.humicPrimaryColor,
-        colorText: HumiColors.humicWhiteColor,
-        margin: const EdgeInsets.all(16),
-        borderRadius: 8,
-        duration: const Duration(seconds: 3),
-      );
-    }
-    update();
-  }
-
   void addUploadDocumentEvidence() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['pdf', 'xlsx'],
@@ -92,6 +65,33 @@ class AddExpensesScreenController extends GetxController {
         "No File Selected",
         "You did not select any file. Please try again.",
         icon: const Icon(Icons.info_outline, color: HumiColors.humicWhiteColor),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: HumiColors.humicPrimaryColor,
+        colorText: HumiColors.humicWhiteColor,
+        margin: const EdgeInsets.all(16),
+        borderRadius: 8,
+        duration: const Duration(seconds: 3),
+      );
+    }
+    update();
+  }
+
+  void addUploadImageEvidence() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      imageEvidence = file;
+    } else {
+      Get.snackbar(
+        "No File Selected",
+        "You did not select any file. Please try again.",
+        icon: const Icon(
+          Icons.info_outline,
+          color: HumiColors.humicWhiteColor,
+        ),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: HumiColors.humicPrimaryColor,
         colorText: HumiColors.humicWhiteColor,

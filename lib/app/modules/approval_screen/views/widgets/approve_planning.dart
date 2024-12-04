@@ -40,40 +40,40 @@ class HumicApprovePlanningScreen extends StatelessWidget {
     }
 
     return ListView.builder(
-        primary: false,
-        shrinkWrap: true,
-        itemCount: approvalController.approvalData.data?.data?.length,
-        itemBuilder: (_, index) {
-          var data = approvalController.approvalData.data?.data?[index];
-          return Column(
-            children: [
-              HumicApprovalRowCard(
-                image: HumicImages.humicSelectedPlanningNavbar,
-                imageColor: HumiColors.humicThirdSecondaryColor,
-                dateColor: HumiColors.humicPrimaryColor,
-                label: "${data?.status}",
-                title: "${data?.title}",
-                date:
-                    "${tableDateFormat(data?.createdAt)} - ${tableDateFormat(data?.endDate)}",
-                amount: formatRupiah(
-                    int.tryParse(data?.itemSumNettoAmount ?? '0') ?? 0),
-                onTap: () => Get.to(
-                  () => const PlanningDetailScreenView(),
-                  arguments: {
-                    "id": data?.id,
-                  },
-                ),
-                onApprove: () {
-                  // print("id : ${data?.id}");
-                  approveConfirmation(id: data?.id ?? 0);
-                },
-                onDecline: () {
-                  declineConfirmation(id: data?.id ?? 0);
+      primary: false,
+      shrinkWrap: true,
+      itemCount: approvalData?.length ?? 0, // pastikan ada data
+      itemBuilder: (_, index) {
+        var data = approvalData?[index];
+        return Column(
+          children: [
+            HumicApprovalRowCard(
+              image: HumicImages.humicSelectedPlanningNavbar,
+              imageColor: HumiColors.humicThirdSecondaryColor,
+              dateColor: HumiColors.humicPrimaryColor,
+              label: "${data?.status}",
+              title: "${data?.title}",
+              date:
+                  "${tableDateFormat(data?.createdAt)} - ${tableDateFormat(data?.endDate)}",
+              amount: formatRupiah(
+                  int.tryParse(data?.itemSumNettoAmount ?? '0') ?? 0),
+              onTap: () => Get.to(
+                () => const PlanningDetailScreenView(),
+                arguments: {
+                  "id": data?.id,
                 },
               ),
-              verticalSpace(12),
-            ],
-          );
-        });
+              onApprove: () {
+                approveConfirmation(id: data?.id ?? 0);
+              },
+              onDecline: () {
+                declineConfirmation(id: data?.id ?? 0);
+              },
+            ),
+            verticalSpace(12),
+          ],
+        );
+      },
+    );
   }
 }

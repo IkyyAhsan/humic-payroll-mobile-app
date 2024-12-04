@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class AddItem {
   int planningId;
   DateTime date;
@@ -6,8 +8,8 @@ class AddItem {
   int taxAmount;
   int nettoAmount;
   String category;
-  dynamic? documentEvidence;
-  dynamic? imageEvidence;
+  File? documentEvidence;
+  File? imageEvidence;
   int isAddition;
 
   AddItem({
@@ -32,8 +34,9 @@ class AddItem {
         "tax_amount": taxAmount,
         "netto_amount": nettoAmount,
         "category": category,
-        "document_evidence": documentEvidence,
-        "image_evidence": imageEvidence,
+        "document_evidence":
+            documentEvidence != null ? documentEvidence!.path : null,
+        "image_evidence": imageEvidence != null ? imageEvidence!.path : null,
         "isAddition": isAddition,
       };
 }

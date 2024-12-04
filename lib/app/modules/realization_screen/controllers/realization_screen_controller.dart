@@ -46,7 +46,7 @@ class RealizationScreenController extends GetxController {
 
     if (realizationResponse != null) {
       realizationData.value = realizationResponse;
-      print(realizationData.value.data); // Update dengan data yang diterima
+      print(realizationData.value.data);
     } else {
       print('No data received from API');
     }

@@ -74,7 +74,7 @@ class RealizationEditItemScreenView
                   height: 56,
                   child: TextFormField(
                     readOnly: true,
-                    controller: controller.tanggalItem,
+                    controller: controller.endDate,
                     decoration: InputDecoration(
                       hintText: "DD/MM/YYYY",
                       hintStyle: const TextStyle(
@@ -312,6 +312,7 @@ class RealizationEditItemScreenView
                   onTap: controller.addUploadDocumentEvidence,
                   child: Container(
                     height: 150,
+                    padding: EdgeInsets.all(8),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -320,15 +321,37 @@ class RealizationEditItemScreenView
                     ),
                     child: controller.documentEvidence != null
                         ? controller.documentEvidence!.path.endsWith('.pdf')
-                            ? Center(
-                                child: Text(
-                                  "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Menampilkan nama file
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: HumiColors.humicBlackColor,
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Format nama file
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w900,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                    textAlign:
+                                        TextAlign.center, // Teks di tengah
                                   ),
-                                ),
+                                  SizedBox(
+                                      height:
+                                          8), // Spasi antara nama file dan teks tambahan
+                                  Text(
+                                    "File was uploaded", // Teks tambahan
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: HumiColors
+                                            .humicPrimaryColor, // Warna teks tambahan
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               )
                             : Image.file(
                                 File(controller.documentEvidence!.path),
@@ -348,6 +371,7 @@ class RealizationEditItemScreenView
                           ),
                   ),
                 ),
+
                 verticalSpace(14),
 
                 // Image Evidence
@@ -365,6 +389,7 @@ class RealizationEditItemScreenView
                 GestureDetector(
                   onTap: controller.addUploadImageEvidence,
                   child: Container(
+                    padding: const EdgeInsets.all(8),
                     height: 150,
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -378,9 +403,15 @@ class RealizationEditItemScreenView
                                 .split('.')
                                 .last
                                 .toLowerCase())
-                            ? Image.file(
-                                File(controller.imageEvidence!.path),
-                                fit: BoxFit.cover,
+                            ? Text(
+                                "Uploaded :\n\n${Get.arguments['data'].imageEvidence}",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w900,
+                                    color: HumiColors.humicBlackColor,
+                                  ),
+                                ),
                               )
                             : const Center(
                                 child: Text(
@@ -397,13 +428,15 @@ class RealizationEditItemScreenView
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image(
-                                  image: AssetImage(
-                                      HumicImages.humicUploadImageIcon)),
+                                image: AssetImage(
+                                    HumicImages.humicUploadImageIcon),
+                              ),
                               Text("Upload Image File (.png/.jpg/.jpeg)"),
                             ],
                           ),
                   ),
                 ),
+
                 verticalSpace(40),
 
                 //Button Add Item
@@ -426,14 +459,9 @@ class RealizationEditItemScreenView
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(
-                          FluentIcons.add_12_regular,
-                          color: HumiColors.humicWhiteColor,
-                          size: 20,
-                        ),
                         horizontalSpace(5),
                         Text(
-                          'Add Item',
+                          'Edit Item',
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,

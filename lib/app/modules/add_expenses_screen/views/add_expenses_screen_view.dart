@@ -196,19 +196,6 @@ class AddExpensesScreenView extends GetView<AddExpensesScreenController> {
                         verticalSpace(12),
 
                         // Document Evidence
-                        Text(
-                          "Document Evidence",
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: HumiColors.humicBlackColor,
-                            ),
-                          ),
-                        ),
-                        verticalSpace(12),
-
-                        // Document Evidence
                         GestureDetector(
                           onTap: controller.addUploadDocumentEvidence,
                           child: Container(

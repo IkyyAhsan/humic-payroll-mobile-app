@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/launch_url.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/table_date_format.dart';
+import 'package:open_filex/open_filex.dart';
 import '../controllers/realization_detail_screen_controller.dart';
 
 class RealizationDetailScreenView
@@ -46,467 +49,591 @@ class RealizationDetailScreenView
                 body: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        verticalSpace(24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              onPressed: () => Get.back(),
-                              icon: const Icon(
-                                FluentIcons.ios_arrow_ltr_24_regular,
-                                color: HumiColors.humicBlackColor,
-                              ),
-                            ),
-                            horizontalSpace(16),
-                            Text(
-                              "Realization Details",
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          verticalSpace(24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                onPressed: () => Get.back(),
+                                icon: const Icon(
+                                  FluentIcons.ios_arrow_ltr_24_regular,
                                   color: HumiColors.humicBlackColor,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        verticalSpace(48),
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Kegiatan",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: HumiColors.humicTransparencyColor,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  controller
-                                          .realizationDetailData?.data?.title ??
-                                      '',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: HumiColors.humicBlackColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            verticalSpace(24),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Start Date",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: HumiColors.humicTransparencyColor,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  formatDate(
-                                    controller
-                                        .realizationDetailData?.data?.startDate,
-                                  ),
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: HumiColors.humicBlackColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            verticalSpace(24),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "End Date",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: HumiColors.humicTransparencyColor,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  formatDate(
-                                    controller
-                                        .realizationDetailData?.data?.endDate,
-                                  ),
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: HumiColors.humicBlackColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            verticalSpace(30),
-                            Text(
-                              "Items",
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: HumiColors.humicTransparencyColor,
-                                ),
-                              ),
-                            ),
-                            verticalSpace(10),
-                            Visibility(
-                              visible: controller.realizationDetailData?.data !=
-                                  null,
-                              child: // Realization Table
-                                  SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: HumiColors.humicWhiteColor,
-                                    borderRadius: BorderRadius.circular(9),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: HumiColors.humicBlackColor
-                                            .withOpacity(0.11),
-                                        blurRadius: 10,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Table(
-                                    columnWidths: const {
-                                      0: FixedColumnWidth(100),
-                                      1: FixedColumnWidth(130),
-                                      2: FixedColumnWidth(130),
-                                      3: FixedColumnWidth(130),
-                                      4: FixedColumnWidth(130),
-                                      5: FixedColumnWidth(130),
-                                      6: FixedColumnWidth(160),
-                                      7: FixedColumnWidth(130),
-                                    },
-                                    children: [
-                                      //Header setiap Row
-                                      const TableRow(children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Tanggal",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Keterangan",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Nilai Bruto",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Nilai Pajak",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Nilai Netto",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Kategori",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Document Evidence",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Image Evidence",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors.humicBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                      ]),
-
-                                      // Row of Value
-                                      ...?controller
-                                          .realizationDetailData?.data?.item
-                                          ?.asMap()
-                                          .entries
-                                          .map(
-                                        (entry) {
-                                          var data = entry.value;
-                                          return TableRow(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  tableDateFormat(
-                                                      data.createdAt),
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  data.information ?? "",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  formatRupiah(int.parse(data
-                                                      .brutoAmount
-                                                      .toString())),
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  formatRupiah(int.parse(data
-                                                      .taxAmount
-                                                      .toString())),
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  formatRupiah(int.parse(data
-                                                      .nettoAmount
-                                                      .toString())),
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  data.category ?? "",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  data.documentEvidence ?? "",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Text(
-                                                  data.imageEvidence ?? "",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: HumiColors
-                                                        .humicBlackColor,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-
-                                      // Value Total
-                                      TableRow(
-                                        children: [
-                                          const Padding(
-                                            padding: EdgeInsets.all(8),
-                                            child: Text(
-                                              "Total",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(8),
-                                            child: Text(
-                                              "",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Text(
-                                              formatRupiah(totalBruto),
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Text(
-                                              formatRupiah(totalTax),
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Text(
-                                              formatRupiah(totalNetto),
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(8),
-                                            child: Text(
-                                              "",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(8),
-                                            child: Text(
-                                              "",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(8),
-                                            child: Text(
-                                              "",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: HumiColors
-                                                    .humicPrimaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                              horizontalSpace(16),
+                              Text(
+                                "Realization Details",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: HumiColors.humicBlackColor,
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          verticalSpace(48),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Kegiatan",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    controller.realizationDetailData?.data
+                                            ?.title ??
+                                        '',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              verticalSpace(24),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Start Date",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    formatDate(
+                                      controller.realizationDetailData?.data
+                                          ?.startDate,
+                                    ),
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              verticalSpace(24),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "End Date",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            HumiColors.humicTransparencyColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    formatDate(
+                                      controller
+                                          .realizationDetailData?.data?.endDate,
+                                    ),
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              verticalSpace(30),
+                              Text(
+                                "Items",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: HumiColors.humicTransparencyColor,
+                                  ),
+                                ),
+                              ),
+                              verticalSpace(10),
+                              Visibility(
+                                visible:
+                                    controller.realizationDetailData?.data !=
+                                        null,
+                                child: // Realization Table
+                                    SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: HumiColors.humicWhiteColor,
+                                      borderRadius: BorderRadius.circular(9),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: HumiColors.humicBlackColor
+                                              .withOpacity(0.11),
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Table(
+                                      columnWidths: const {
+                                        0: FixedColumnWidth(100),
+                                        1: FixedColumnWidth(130),
+                                        2: FixedColumnWidth(130),
+                                        3: FixedColumnWidth(130),
+                                        4: FixedColumnWidth(130),
+                                        5: FixedColumnWidth(130),
+                                        6: FixedColumnWidth(160),
+                                        7: FixedColumnWidth(160),
+                                      },
+                                      children: [
+                                        //Header setiap Row
+                                        const TableRow(children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Tanggal",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Keterangan",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Nilai Bruto",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Nilai Pajak",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Nilai Netto",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Kategori",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Document Evidence",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Image Evidence",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    HumiColors.humicBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+
+                                        // Row of Value
+                                        ...?controller
+                                            .realizationDetailData?.data?.item
+                                            ?.asMap()
+                                            .entries
+                                            .map(
+                                          (entry) {
+                                            var data = entry.value;
+                                            return TableRow(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Text(
+                                                    tableDateFormat(
+                                                        data.createdAt),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Text(
+                                                    data.information ?? "",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Text(
+                                                    formatRupiah(int.parse(data
+                                                        .brutoAmount
+                                                        .toString())),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Text(
+                                                    formatRupiah(int.parse(data
+                                                        .taxAmount
+                                                        .toString())),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Text(
+                                                    formatRupiah(int.parse(data
+                                                        .nettoAmount
+                                                        .toString())),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Text(
+                                                    data.category ?? "",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicBlackColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      if (data.documentEvidence !=
+                                                          null) {
+                                                        // Cek apakah documentEvidence adalah PDF atau jenis file lain
+                                                        if (data
+                                                            .documentEvidence!
+                                                            .endsWith('.pdf')) {
+                                                          // Jika file adalah PDF, buka menggunakan launchURL
+                                                          launchURL(
+                                                              "https://payroll.humicprototyping.com/storage/app/public/${data.documentEvidence}");
+                                                        } else {
+                                                          // Jika bukan PDF, buka menggunakan OpenFilex
+                                                          final result =
+                                                              await OpenFilex
+                                                                  .open(data
+                                                                      .documentEvidence!);
+                                                          if (result.type !=
+                                                              ResultType.done) {
+                                                            Get.snackbar(
+                                                              "Error",
+                                                              "Unable to open the file. Please ensure a viewer application is installed.",
+                                                              backgroundColor:
+                                                                  HumiColors
+                                                                      .humicPrimaryColor,
+                                                              colorText: HumiColors
+                                                                  .humicWhiteColor,
+                                                            );
+                                                            print(
+                                                                "File path: ${data.documentEvidence}");
+                                                          }
+                                                        }
+                                                      } else {
+                                                        print(
+                                                            "No document evidence found.");
+                                                      }
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(
+                                                          FluentIcons
+                                                              .document_table_24_regular,
+                                                          weight: 4,
+                                                        ),
+                                                        horizontalSpace(8),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              data.documentEvidence !=
+                                                                      null
+                                                                  ? shortenFileName(
+                                                                      data.documentEvidence ??
+                                                                          '')
+                                                                  : 'No File Attached',
+                                                              style: GoogleFonts
+                                                                  .plusJakartaSans(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: HumiColors
+                                                                      .humicBlackColor,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      if (data.imageEvidence !=
+                                                          null) {
+                                                        // Check if imageEvidence is a URL
+                                                        launchURL(
+                                                            "https://payroll.humicprototyping.com/storage/app/public/${data.imageEvidence}");
+                                                      }
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          FluentIcons
+                                                              .document_table_24_regular,
+                                                          weight: 4,
+                                                        ),
+                                                        Text(
+                                                          data.imageEvidence !=
+                                                                  null
+                                                              ? shortenFileName(
+                                                                  data.imageEvidence ??
+                                                                      '')
+                                                              : 'No File Attached',
+                                                          style: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: HumiColors
+                                                                  .humicBlackColor,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+
+                                        // Value Total
+                                        TableRow(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Text(
+                                                "Total",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Text(
+                                                "",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Text(
+                                                formatRupiah(totalBruto),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Text(
+                                                formatRupiah(totalTax),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Text(
+                                                formatRupiah(totalNetto),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Text(
+                                                "",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Text(
+                                                "",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Text(
+                                                "",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicPrimaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

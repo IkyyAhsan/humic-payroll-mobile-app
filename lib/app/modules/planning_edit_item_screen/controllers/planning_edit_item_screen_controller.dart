@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/add_item.dart';
-import 'package:humic_payroll_mobile_app/app/data/models/input/add_planning.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/planning.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/show_planning.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_add_screen/views/widgets/planning_add_next_screen.dart';
 import 'package:humic_payroll_mobile_app/app/modules/planning_detail_screen/controllers/planning_detail_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
-import 'package:humic_payroll_mobile_app/app/services/planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 import 'package:intl/intl.dart';
 
@@ -27,12 +25,11 @@ class PlanningEditItemScreenController extends GetxController {
   final data = Rxn<PlanningDetail>();
   ShowPlanning? planningDetailData;
 
-  // Add Planning
-  final TextEditingController namePlan = TextEditingController();
-  final TextEditingController startDate = TextEditingController();
+  // Edit Planning
+
   final TextEditingController endDate = TextEditingController();
 
-  // Add Item
+  // Edit Item
   final TextEditingController tanggalItem = TextEditingController();
   final TextEditingController keteranganItem = TextEditingController();
   final TextEditingController nilaiBrutoItem = TextEditingController();
@@ -63,18 +60,10 @@ class PlanningEditItemScreenController extends GetxController {
     rows.removeAt(index);
   }
 
-  void changeStartDate() async {
-    DateTime? date = await showDatePicker(
-      context: Get.context!,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(
-        2101,
-      ),
-    );
-    if (date != null) {
-      startDate.text = formatDate(date);
-    }
-    selectedDate.value = date ?? DateTime.now();
+  @override
+  void onInit() {
+    super.onInit();
+    loadEdit();
   }
 
   void changeEndDate() async {
@@ -108,41 +97,20 @@ class PlanningEditItemScreenController extends GetxController {
     }
   }
 
-  void checkPlanningAddItem() async {
-    data.value = await PlanningServices().postPlanning(
-        planning: AddPlanning(
-            title: namePlan.text,
-            startDate: selectedDate.value,
-            endDate: selectedDate2.value));
-    print(data);
-    // ignore: unnecessary_null_comparison
-    isSuccessAddPlanning.value = data != null;
-    if (isSuccessAddPlanning.value) {
-      Get.to(
-          () => PlanningAddNextScreen(
-                id: data.value?.id,
-              ),
-          arguments: {
-            "name": namePlan.text,
-            "startDate": startDate,
-            "endDate": endDate,
-          });
-    }
-  }
-
   void addItem({int? id}) async {
     bool result = await AddItemServices().addItemPlanning(
       item: AddItem(
-          planningId: id ?? data.value?.id ?? 0,
-          date: selectedDate3.value,
-          information: keteranganItem.text,
-          brutoAmount: int.parse(nilaiBrutoItem.text),
-          taxAmount: int.parse(nilaiPajakItem.text),
-          nettoAmount: int.parse(nilaiNettoItem.text),
-          category: kategoriItem.text,
-          isAddition: 0,
-          documentEvidence: documentEvidence,
-          imageEvidence: imageEvidence),
+        planningId: data.value?.id ?? 0,
+        date: selectedDate3.value,
+        information: keteranganItem.text,
+        brutoAmount: int.tryParse(nilaiBrutoItem.text) ?? 0,
+        taxAmount: int.parse(nilaiPajakItem.text),
+        nettoAmount: int.parse(nilaiNettoItem.text),
+        category: kategoriItem.text,
+        documentEvidence: documentEvidence == null ? null : documentEvidence,
+        imageEvidence: imageEvidence == null ? null : imageEvidence,
+        isAddition: 0,
+      ),
     );
     print("AddItem Result: $result"); // Debugging
     if (result) {
@@ -158,4 +126,49 @@ class PlanningEditItemScreenController extends GetxController {
       print("AddItem failed");
     }
   }
+
+  void editItemPlanning({int? id}) async {
+    bool result = await AddItemServices().editItemPlanning(
+      id: Get.arguments['data'].id,
+      item: AddItem(
+        planningId: Get.arguments['id'],
+        date: selectedDate3.value,
+        information: keteranganItem.text,
+        brutoAmount: int.tryParse(nilaiBrutoItem.text) ?? 0,
+        taxAmount: int.tryParse(nilaiPajakItem.text) ?? 0,
+        nettoAmount: int.tryParse(nilaiNettoItem.text) ?? 0,
+        category: kategoriItem.text,
+        documentEvidence: null,
+        imageEvidence: null,
+        isAddition: 0,
+      ),
+    );
+    print("Edit Item Result: $result");
+    if (result) {
+      Item item = Get.arguments['data'];
+      final controller = Get.put(PlanningDetailScreenController());
+      controller.getPlanningDetailData(planningId: item.planningId);
+
+      Get.to(const PlanningAddNextScreen(),
+          arguments: {"id": item.planningId ?? 0});
+      // controller.update();
+      dispose();
+
+      update();
+    } else {
+      print("AddItem failed");
+    }
+  }
+
+  loadEdit() {
+    Item data = Get.arguments['data'];
+    endDate.text = formatDate(data.createdAt);
+    keteranganItem.text = data.information ?? "";
+    nilaiBrutoItem.text = "${data.brutoAmount}";
+    nilaiPajakItem.text = "${data.taxAmount}";
+    nilaiNettoItem.text = "${data.nettoAmount}";
+    kategoriItem.text = data.category ?? "";
+  }
+
+  void saveChangesEditPlanningItem() async {}
 }

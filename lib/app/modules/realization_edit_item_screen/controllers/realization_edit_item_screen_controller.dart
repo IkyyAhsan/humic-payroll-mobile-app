@@ -9,6 +9,9 @@ import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/services/add_planning_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
+
+import '../../../data/models/input/show_realization.dart';
 
 class RealizationEditItemScreenController extends GetxController {
   final selectedDate = DateTime.now().obs;
@@ -20,13 +23,14 @@ class RealizationEditItemScreenController extends GetxController {
   final TextEditingController nilaiPajakItem = TextEditingController();
   final TextEditingController nilaiNettoItem = TextEditingController();
   final TextEditingController kategoriItem = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
 
   File? documentEvidence;
   File? imageEvidence;
 
   @override
   void onInit() {
-    resetForm();
+    loadEdit();
     super.onInit();
   }
 
@@ -131,9 +135,10 @@ class RealizationEditItemScreenController extends GetxController {
     print('Document Evidence: $documentEvidence');
     print('Image Evidence: $imageEvidence');
 
-    if (await AddItemServices().addItemPlanning(
+    if (await AddItemServices().editItemPlanning(
+      id: Get.arguments['data'].id,
       item: AddItem(
-        planningId: id,
+        planningId: Get.arguments['id'],
         date: selectedDate.value,
         information: keteranganItem.text,
         brutoAmount: int.parse(nilaiBrutoItem.text),
@@ -153,6 +158,29 @@ class RealizationEditItemScreenController extends GetxController {
     } else {
       print(false);
     }
+  }
+
+  loadEdit() {
+    Item data = Get.arguments['data'];
+    endDate.text = formatDate(data.createdAt);
+    keteranganItem.text = data.information ?? "";
+    nilaiBrutoItem.text = "${data.brutoAmount}";
+    nilaiPajakItem.text = "${data.taxAmount}";
+    nilaiNettoItem.text = "${data.nettoAmount}";
+    kategoriItem.text = data.category ?? "";
+
+    // Debugging log
+    print("Document Evidence Path: ${data.documentEvidence}");
+    print("Image Evidence Path: ${data.imageEvidence}");
+
+    documentEvidence = data.documentEvidence != null
+        ? File(data.documentEvidence ?? '')
+        : null;
+
+    imageEvidence =
+        data.imageEvidence != null ? File(data.imageEvidence ?? '') : null;
+
+    update();
   }
 
   void resetForm() {

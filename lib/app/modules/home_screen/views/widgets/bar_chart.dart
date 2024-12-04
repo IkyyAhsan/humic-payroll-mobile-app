@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/uil.dart';
@@ -72,7 +73,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                           controller.updateBarChartYear(newValue);
 
                           // Fetch data dengan format ISO string
-                          controller.fetchDataForYear(newValue);
+                          controller.fetchDataBarChartForYear(newValue);
                         }
                       },
                       isExpanded: true,
@@ -124,7 +125,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                   child: BarChart(
                     BarChartData(
                       alignment: BarChartAlignment.spaceBetween,
-                      maxY: 440000,
+                      maxY: 1000000,
                       barGroups: monthlyData.asMap().entries.map((entry) {
                         int index = entry.key;
                         var income = entry.value.income?.toDouble() ?? 0;

@@ -41,29 +41,34 @@ class ApprovalScreenController extends GetxController {
   void updateFinance(int id) async {
     print(await ApprovalServices()
         .updatePlanningStatusById(id: id, status: "approve"));
+    getApprovalData();
     update();
   }
 
   void deletedFinance(int id) async {
     print(await ApprovalServices()
         .updatePlanningStatusById(id: id, status: "decline"));
+    getApprovalData();
     update();
   }
 
   void updateTransaction(int id) async {
     print(
         await FinanceServices().updateStatusFinance(id: id, status: "approve"));
+    getIncomeData();
     update();
   }
 
   void deleteTransaction(int id) async {
     print(
         await FinanceServices().updateStatusFinance(id: id, status: "decline"));
+    getIncomeData();
     update();
   }
 
   void togglePlanning() {
     isPlanning = true;
+    getApprovalData();
     update();
   }
 

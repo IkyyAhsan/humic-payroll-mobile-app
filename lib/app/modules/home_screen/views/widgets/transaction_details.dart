@@ -8,7 +8,6 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/launch_url.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:open_filex/open_filex.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HumicTransactionDetails extends StatelessWidget {
   const HumicTransactionDetails({
@@ -331,6 +330,13 @@ class HumicTransactionDetails extends StatelessWidget {
                           onPressed: () {
                             controller.deleteTransaction(
                               id: int.parse(transactionId),
+                            );
+                            Get.snackbar(
+                              "Success",
+                              "Transaction has been deleted successfully.",
+                              backgroundColor: HumiColors.humicSecondaryColor,
+                              colorText: HumiColors.humicWhiteColor,
+                              snackPosition: SnackPosition.TOP,
                             );
                           },
                           style: ElevatedButton.styleFrom(

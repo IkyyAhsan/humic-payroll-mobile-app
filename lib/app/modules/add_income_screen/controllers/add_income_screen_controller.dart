@@ -7,10 +7,11 @@ import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/contr
 import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/services/approval_services.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
-import 'package:intl/intl.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/date_format.dart';
 
 class AddIncomeScreenController extends GetxController {
-  DateTime currentDate = DateTime.now();
+  final selectedDate = DateTime.now().obs;
+  final currentDate = DateTime.now().obs;
   final TextEditingController namaKegiatan = TextEditingController();
   final TextEditingController tanggalKegiatan = TextEditingController();
   final TextEditingController pemasukanKegiatan = TextEditingController();
@@ -19,18 +20,17 @@ class AddIncomeScreenController extends GetxController {
   File? imageEvidence;
   final bottomNavbarController = Get.put(BottomNavigationBarController());
 
-  void selectDate() async {
-    DateTime? selectedDate = await showDatePicker(
+  void changeStartDate() async {
+    DateTime? date = await showDatePicker(
       context: Get.context!,
-      initialDate: DateTime.now(),
       firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      lastDate: DateTime(
+        2101,
+      ),
     );
-
-    if (selectedDate != null) {
-      String formattedDate = DateFormat('dd/MM/yyyy').format(selectedDate);
-      tanggalKegiatan.text = formattedDate;
-      currentDate = selectedDate;
+    if (date != null) {
+      tanggalKegiatan.text = formatDate(date);
+      selectedDate.value = date;
     }
   }
 
@@ -106,16 +106,21 @@ class AddIncomeScreenController extends GetxController {
   void addIncome() async {
     Income income = Income(
       name: namaKegiatan.text,
-      date: currentDate,
+      date: selectedDate.value,
       amount: int.parse(pemasukanKegiatan.text),
       taxAmount: int.parse(pajakKegiatan.text),
       documentEvidence: documentEvidence,
       imageEvidence: imageEvidence,
       transactionType: "income",
     );
+    // print(income.date);
     print(await ApprovalServices().postIncomeData(income));
+    print(selectedDate.value);
+    update();
     bottomNavbarController.changeIndex(1);
     Get.to(() => const BottomNavigationBarView());
+    final navbarController = Get.put(BottomNavigationBarController());
+    navbarController.changeIndex(3);
 
     Get.snackbar(
       "Income Added",
@@ -124,5 +129,16 @@ class AddIncomeScreenController extends GetxController {
       backgroundColor: HumiColors.humicSecondaryColor,
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  @override
+  void dispose() {
+    namaKegiatan.clear();
+    tanggalKegiatan.clear();
+    pemasukanKegiatan.clear();
+    pajakKegiatan.clear();
+    documentEvidence = null;
+    imageEvidence = null;
+    super.dispose();
   }
 }

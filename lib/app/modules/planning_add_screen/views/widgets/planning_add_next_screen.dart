@@ -49,7 +49,7 @@ class PlanningAddNextScreen extends StatelessWidget {
         body: SafeArea(
           child: RefreshIndicator(
             onRefresh: () async =>
-                planningDetailController.getPlanningDetailData(),
+                planningDetailController.getPlanningDetailData(planningId: id),
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
@@ -137,9 +137,15 @@ class PlanningAddNextScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          formatDate(planningDetailController
-                                  .planningDetailData?.data?.startDate ??
-                              controller.startDate.text),
+                          formatDate(
+                            controller.startDate.text.isNotEmpty
+                                ? (planningDetailController
+                                        .planningDetailData?.data?.startDate ??
+                                    DateTime.now())
+                                : DateTime.tryParse(
+                                        controller.startDate.text) ??
+                                    DateTime.now(),
+                          ),
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -165,9 +171,15 @@ class PlanningAddNextScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          formatDate(planningDetailController
-                                  .planningDetailData?.data?.endDate ??
-                              controller.endDate.text),
+                          formatDate(
+                            // Check if planningDetailController's endDate is available
+                            planningDetailController
+                                    .planningDetailData?.data?.endDate ??
+                                // If not, fall back to the controller's endDate input text
+                                DateTime.tryParse(controller.endDate.text) ??
+                                // If both are unavailable, provide a default DateTime
+                                DateTime.now(),
+                          ),
                           style: GoogleFonts.plusJakartaSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -178,6 +190,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     verticalSpace(40),
                     Center(
                       child: Text(
@@ -399,10 +412,23 @@ class PlanningAddNextScreen extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
+                                                  print(
+                                                    planningDetailController
+                                                        .planningDetailData
+                                                        ?.data
+                                                        ?.id,
+                                                  );
                                                   Get.to(
                                                     () =>
                                                         const PlanningEditItemScreenView(),
-                                                    arguments: {'id': data.id},
+                                                    arguments: {
+                                                      'id':
+                                                          planningDetailController
+                                                              .planningDetailData
+                                                              ?.data
+                                                              ?.id,
+                                                      "data": data
+                                                    },
                                                   );
                                                 },
                                                 child: Container(
@@ -580,10 +606,12 @@ class PlanningAddNextScreen extends StatelessWidget {
                             onPressed: () {
                               print(id);
                               Get.to(
-                                () => PlanningAddItemScreen(
-                                  id: id,
-                                ),
-                              )?.then((_) {
+                                  () => PlanningAddItemScreen(
+                                        id: id,
+                                      ),
+                                  arguments: {
+                                    "id": id,
+                                  })?.then((_) {
                                 planningDetailController
                                     .getPlanningDetailData();
                                 planningDetailController.update();

@@ -29,20 +29,20 @@ class PlanningDetailScreenController extends GetxController {
     if (data) {
       Get.back();
       var controller = Get.put(PlanningScreenController());
-      controller.getPlanningData(index: controller.currentPage.value);
+      controller.getPlanningData(
+          index: controller.currentPage.value, year: 2024);
       controller.update();
     }
   }
 
   @override
-void onInit() {
-  super.onInit();
-  var id = Get.arguments?['id'];
-  if (id == null) {
-    print("Error: No planningId provided");
-  } else {
-    getPlanningDetailData(planningId: id);
+  void onInit() {
+    super.onInit();
+    var id = Get.arguments?['id'];
+    if (id == null) {
+      print("Error: No planningId provided");
+    } else {
+      getPlanningDetailData(planningId: id);
+    }
   }
-}
-
 }
