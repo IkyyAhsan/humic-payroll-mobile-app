@@ -121,7 +121,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           // Income/Expense Icon
-                                          Expanded(
+                                          Container(
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -170,10 +170,10 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                               ],
                                             ),
                                           ),
-                                          horizontalSpace(30),
+                                          horizontalSpace(40),
 
                                           // Date, Activity Name, Amount
-                                          SizedBox(
+                                          Container(
                                             width: 150,
                                             child: Column(
                                               crossAxisAlignment:

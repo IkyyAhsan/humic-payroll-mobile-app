@@ -8,6 +8,7 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/uil.dart';
+import 'package:intl/intl.dart';
 
 class HumicIncomeExpenseChart extends StatelessWidget {
   const HumicIncomeExpenseChart({super.key});
@@ -16,11 +17,9 @@ class HumicIncomeExpenseChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
     return Obx(() {
-      // Ambil data dari controller
       var monthlyData =
           controller.dashboardData.value.data?.monthlyIncomeExpenseData;
 
-      // Jika data tidak tersedia, tampilkan indikator loading// Fungsi untuk memformat nama bulan menjadi singkatan tiga huruf
       if (monthlyData == null) {
         return const Center(
             child: CircularProgressIndicator(
@@ -125,7 +124,7 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                   child: BarChart(
                     BarChartData(
                       alignment: BarChartAlignment.spaceBetween,
-                      maxY: 1000000,
+                      maxY: 10999999,
                       barGroups: monthlyData.asMap().entries.map((entry) {
                         int index = entry.key;
                         var income = entry.value.income?.toDouble() ?? 0;
@@ -134,7 +133,6 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                         return BarChartGroupData(
                           x: index,
                           barRods: [
-                            // Bar untuk income
                             BarChartRodData(
                               toY: income,
                               color: HumiColors.humicSecondaryColor,
@@ -144,7 +142,6 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                                 topRight: Radius.circular(3),
                               ),
                             ),
-                            // Bar untuk expense
                             BarChartRodData(
                               toY: expense,
                               color: HumiColors.humicPrimaryColor,
@@ -164,8 +161,11 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                             reservedSize: 90,
                             getTitlesWidget: (value, meta) {
                               if (value % 50000 == 0) {
+                                var formattedValue =
+                                    NumberFormat('#,###', 'id_ID')
+                                        .format(value.toInt());
                                 return Text(
-                                  value.toInt().toString(),
+                                  formattedValue,
                                   style: const TextStyle(
                                     color: HumiColors.humicBlackColor,
                                     fontSize: 10,
@@ -195,18 +195,16 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                           ),
                         ),
                         rightTitles: const AxisTitles(
-                          sideTitles:
-                              SideTitles(showTitles: false), // Tidak tampilkan
+                          sideTitles: SideTitles(showTitles: false),
                         ),
                         topTitles: const AxisTitles(
-                          sideTitles:
-                              SideTitles(showTitles: false), // Tidak tampilkan
+                          sideTitles: SideTitles(showTitles: false),
                         ),
                       ),
                       gridData: FlGridData(
                         show: true,
-                        drawHorizontalLine: true, // Garis horizontal
-                        horizontalInterval: 50000, // Interval garis
+                        drawHorizontalLine: true,
+                        horizontalInterval: 50000,
                         getDrawingHorizontalLine: (value) {
                           return FlLine(
                             color: Colors.grey.withOpacity(0.5),
@@ -222,12 +220,12 @@ class HumicIncomeExpenseChart extends StatelessWidget {
                         ),
                       ),
                       barTouchData: BarTouchData(
-                        enabled: true, // Aktifkan interaksi
+                        enabled: true,
                         touchTooltipData: BarTouchTooltipData(
                           getTooltipItem: (group, groupIndex, rod, rodIndex) {
                             final label = rodIndex == 0 ? "Income" : "Expense";
                             return BarTooltipItem(
-                              '$label\n${rod.toY.toInt()}',
+                              '$label\n${formatRupiah(rod.toY.toInt())}',
                               const TextStyle(
                                   color: HumiColors.humicWhiteColor),
                             );

@@ -195,7 +195,9 @@ class FilterScreenView extends GetView<FilterScreenController> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 7),
+                              vertical: 12,
+                              horizontal: 7,
+                            ),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
@@ -226,7 +228,13 @@ class FilterScreenView extends GetView<FilterScreenController> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      const Text('To', style: TextStyle(fontSize: 16)),
+                      const Text(
+                        'To',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: HumiColors.humicBlackColor,
+                        ),
+                      ),
                       const SizedBox(width: 10),
                       // End Date Picker
                       Expanded(

@@ -14,7 +14,7 @@ class HumiCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
-    final currentIndex = RxInt(0); // Track current index
+    final currentIndex = RxInt(0);
 
     return Obx(() => CarouselSlider(
           options: CarouselOptions(
@@ -22,7 +22,7 @@ class HumiCarouselSlider extends StatelessWidget {
             viewportFraction: 0.5,
             enlargeCenterPage: true,
             enableInfiniteScroll: false,
-            initialPage: 1,
+            initialPage: 0,
             onPageChanged: (index, reason) {
               currentIndex.value = index;
             },

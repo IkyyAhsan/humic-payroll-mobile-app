@@ -86,7 +86,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Income or Expenses
-                            Expanded(
+                            Container(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -126,10 +126,9 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                 ],
                               ),
                             ),
-                            horizontalSpace(20),
 
                             // Date, Activity name, Amount
-                            SizedBox(
+                            Container(
                               width: 150,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,47 +169,48 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                 ],
                               ),
                             ),
-                            horizontalSpace(18),
 
                             // Transaction Status
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 71,
-                                  height: 23.67,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3.16),
-                                    color: data.status == 'approve'
-                                        ? HumiColors.humicSecondaryColor
-                                            .withOpacity(0.12)
-                                        : data.status == 'pending'
-                                            ? HumiColors
-                                                .humicThirdSecondaryColor
-                                                .withOpacity(0.12)
-                                            : HumiColors.humicPrimaryColor
-                                                .withOpacity(0.12),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "${data.status}",
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w600,
-                                          color: data.status == 'approve'
-                                              ? HumiColors.humicSecondaryColor
-                                              : data.status == 'pending'
-                                                  ? HumiColors
-                                                      .humicThirdSecondaryColor
-                                                  : HumiColors
-                                                      .humicPrimaryColor,
+                            Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 71,
+                                    height: 23.67,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3.16),
+                                      color: data.status == 'approve'
+                                          ? HumiColors.humicSecondaryColor
+                                              .withOpacity(0.12)
+                                          : data.status == 'pending'
+                                              ? HumiColors
+                                                  .humicThirdSecondaryColor
+                                                  .withOpacity(0.12)
+                                              : HumiColors.humicPrimaryColor
+                                                  .withOpacity(0.12),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "${data.status}",
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w600,
+                                            color: data.status == 'approve'
+                                                ? HumiColors.humicSecondaryColor
+                                                : data.status == 'pending'
+                                                    ? HumiColors
+                                                        .humicThirdSecondaryColor
+                                                    : HumiColors
+                                                        .humicPrimaryColor,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),

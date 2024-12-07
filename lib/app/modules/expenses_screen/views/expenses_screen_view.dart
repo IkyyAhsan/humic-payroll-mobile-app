@@ -51,7 +51,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                             ),
                             horizontalSpace(16),
                             Text(
-                              "Expense",
+                              "Expenses",
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: const TextStyle(
                                   fontSize: 24,
@@ -166,7 +166,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                                           .spaceBetween,
                                                   children: [
                                                     // Income/Expense Icon
-                                                    Expanded(
+                                                    Container(
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -213,10 +213,10 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                                         ],
                                                       ),
                                                     ),
-                                                    horizontalSpace(30),
+                                                    horizontalSpace(50),
 
                                                     // Date, Activity Name, Amount
-                                                    SizedBox(
+                                                    Container(
                                                       width: 130,
                                                       child: Column(
                                                         crossAxisAlignment:

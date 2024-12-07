@@ -9,15 +9,12 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/uil.dart';
-import 'package:random_color/random_color.dart';
 
 class RealizationPieChart extends StatelessWidget {
   const RealizationPieChart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    RandomColor randomColor = RandomColor();
-
     final controller = Get.put(HomeScreenController());
 
     return Obx(() {

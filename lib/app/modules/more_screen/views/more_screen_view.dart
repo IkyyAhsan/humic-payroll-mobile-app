@@ -225,7 +225,7 @@ class MoreScreenView extends GetView<MoreScreenController> {
                                   ),
                                   horizontalSpace(18),
                                   Text(
-                                    "Expense",
+                                    "Expenses",
                                     style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                             fontSize: 16,
