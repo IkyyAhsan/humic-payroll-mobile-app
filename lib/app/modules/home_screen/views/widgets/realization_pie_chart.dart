@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/color_mappings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -32,11 +33,11 @@ class RealizationPieChart extends StatelessWidget {
       // Konversi data untuk digunakan pada Pie Chart
       List<Map<String, dynamic>> realizationData =
           realizationChartData.realizationData!.asMap().entries.map((entry) {
-        Color random = randomColor.randomColor();
+        Color color = ColorMapping.getColorForCategory(entry.value.name ?? '');
         return {
           'label': entry.value.name,
           'value': entry.value.value,
-          'color': random,
+          'color': color,
         };
       }).toList();
 

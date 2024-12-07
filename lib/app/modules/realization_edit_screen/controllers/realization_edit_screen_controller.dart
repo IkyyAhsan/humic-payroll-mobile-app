@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/show_realization.dart';
 import 'package:humic_payroll_mobile_app/app/services/show_realization_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import '../../../services/realization_services.dart';
 
 class RealizationEditScreenController extends GetxController {
@@ -38,8 +39,19 @@ class RealizationEditScreenController extends GetxController {
 
   void delete(int itemId) async {
     isRealization = await RealizationServices().deleteItem(itemId);
+    Get.snackbar(
+      'Success',
+      'Item has been successfully deleted',
+      backgroundColor: HumiColors.humicSecondaryColor,
+      colorText: HumiColors.humicWhiteColor,
+    );
     if (isRealization) {
       getRealizationDetailData();
+      update();
+    } else {
+      Get.snackbar('Failure', 'Failed to delete item',
+          backgroundColor: HumiColors.humicPrimaryColor,
+          colorText: HumiColors.humicWhiteColor);
     }
   }
 

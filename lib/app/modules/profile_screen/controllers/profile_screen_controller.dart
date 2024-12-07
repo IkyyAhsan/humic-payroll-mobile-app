@@ -57,8 +57,8 @@ class ProfileScreenController extends GetxController {
         await Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
       } else {
         Get.snackbar(
-          "Update Password Failed",
-          "Youve trouble with your password",
+          "Update Failed",
+          "No changes were made to your profile (name,.",
           backgroundColor: HumiColors.humicPrimaryColor,
           colorText: HumiColors.humicWhiteColor,
         );

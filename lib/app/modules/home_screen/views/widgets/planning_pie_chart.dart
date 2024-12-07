@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/color_mappings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/rupiah.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
@@ -10,31 +11,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/uil.dart';
 
 class PlanningPieChart extends StatelessWidget {
-  PlanningPieChart({super.key});
-
-  // Daftar warna yang lebih bervariasi
-  final List<Color> predefinedColors = [
-    const Color(0xFF1E88E5), // Blue
-    const Color(0xFF43A047),
-    const Color(0xFFD32F2F),
-    const Color(0xFFFB8C00),
-    const Color(0xFF8E24AA),
-    const Color(0xFF0288D1),
-    const Color(0xFF7B1FA2),
-    const Color(0xFFFBC02D),
-    const Color(0xFF0288D1),
-    const Color(0xFF009688),
-    const Color(0xFF7C4DFF),
-    const Color(0xFFAD1457),
-    const Color(0xFF9E9D24),
-    const Color(0xFF689F38),
-    const Color(0xFFB71C1C),
-    const Color(0xFF512DA8),
-    const Color(0xFF303F9F),
-    const Color(0xFF8D6E63),
-    const Color(0xFF0288D1),
-    const Color(0xFFB2FF59),
-  ];
+  const PlanningPieChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +30,7 @@ class PlanningPieChart extends StatelessWidget {
       // Konversi data untuk digunakan pada Pie Chart
       List<Map<String, dynamic>> planningData =
           pieChartData.planningData!.asMap().entries.map((entry) {
-        Color color = predefinedColors[entry.key % predefinedColors.length];
+        Color color = ColorMapping.getColorForCategory(entry.value.name ?? '');
         return {
           'label': entry.value.name,
           'value': entry.value.value,

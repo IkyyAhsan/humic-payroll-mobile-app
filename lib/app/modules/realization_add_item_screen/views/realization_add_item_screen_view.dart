@@ -324,7 +324,7 @@ class RealizationAddItemScreenView
                             ? controller.documentEvidence!.path.endsWith('.pdf')
                                 ? Center(
                                     child: Text(
-                                      "Uploaded: ${controller.documentEvidence!.path.split('/').last}",
+                                      "Uploaded: ${controller.documentEvidence!.path.split('/').last}", // Menampilkan nama file
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
