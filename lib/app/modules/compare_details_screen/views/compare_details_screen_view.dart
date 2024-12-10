@@ -28,7 +28,8 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
                   backgroundColor: HumiColors.humicBackgroundColor,
                   body: SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +46,6 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
                                         color: HumiColors.humicBlackColor,
                                       ),
                                     ),
-                                    horizontalSpace(16),
                                     Text(
                                       "Compare",
                                       style: GoogleFonts.plusJakartaSans(
@@ -57,64 +57,77 @@ class CompareDetailsScreenView extends GetView<CompareDetailsScreenController> {
                                     ),
                                   ],
                                 ),
+
                                 // Toggle Buttons for Planning and Transaction
                                 Obx(
                                   () => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      ElevatedButton(
-                                        onPressed: controller.togglePlanning,
-                                        style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          backgroundColor:
-                                              controller.isPlanning.value
-                                                  ? HumiColors.humicPrimaryColor
-                                                  : HumiColors.humicWhiteColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
+                                      Container(
+                                        width: 70,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          onPressed: controller.togglePlanning,
+                                          style: ElevatedButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            backgroundColor: controller
+                                                    .isPlanning.value
+                                                ? HumiColors.humicPrimaryColor
+                                                : HumiColors.humicWhiteColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            ),
                                           ),
-                                        ),
-                                        child: Text(
-                                          "Planning",
-                                          style: GoogleFonts.plusJakartaSans(
-                                            textStyle: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: controller.isPlanning.value
-                                                  ? HumiColors.humicWhiteColor
-                                                  : HumiColors
-                                                      .humicTransparencyColor,
+                                          child: Text(
+                                            "Planning",
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: controller
+                                                        .isPlanning.value
+                                                    ? HumiColors.humicWhiteColor
+                                                    : HumiColors
+                                                        .humicTransparencyColor,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                       horizontalSpace(5),
-                                      ElevatedButton(
-                                        onPressed: controller.toggleRealization,
-                                        style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 12),
-                                          backgroundColor:
-                                              !controller.isPlanning.value
-                                                  ? HumiColors.humicPrimaryColor
-                                                  : HumiColors.humicWhiteColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
+                                      Container(
+                                        width: 80,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          onPressed:
+                                              controller.toggleRealization,
+                                          style: ElevatedButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            backgroundColor: !controller
+                                                    .isPlanning.value
+                                                ? HumiColors.humicPrimaryColor
+                                                : HumiColors.humicWhiteColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            ),
                                           ),
-                                        ),
-                                        child: Text(
-                                          "Realization",
-                                          style: GoogleFonts.plusJakartaSans(
-                                            textStyle: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: !controller
-                                                      .isPlanning.value
-                                                  ? HumiColors.humicWhiteColor
-                                                  : HumiColors
-                                                      .humicTransparencyColor,
+                                          child: Text(
+                                            "Realization",
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: !controller
+                                                        .isPlanning.value
+                                                    ? HumiColors.humicWhiteColor
+                                                    : HumiColors
+                                                        .humicTransparencyColor,
+                                              ),
                                             ),
                                           ),
                                         ),

@@ -60,7 +60,7 @@ class HumicPlanningData extends StatelessWidget {
                             Row(
                               children: [
                                 Container(
-                                  width: 60,
+                                  width: 55,
                                   height: 25,
                                   decoration: BoxDecoration(
                                       color: (data.status == 'approve' ||
@@ -99,7 +99,7 @@ class HumicPlanningData extends StatelessWidget {
                                 ),
                                 horizontalSpace(4),
                                 Container(
-                                  width: 50,
+                                  width: 45,
                                   height: 15,
                                   decoration: BoxDecoration(
                                     color: HumiColors.humicBlackColor
@@ -120,7 +120,7 @@ class HumicPlanningData extends StatelessWidget {
                                 ),
                                 horizontalSpace(4),
                                 Container(
-                                  width: 50,
+                                  width: 45,
                                   height: 15,
                                   decoration: BoxDecoration(
                                     color: HumiColors.humicYearColor

@@ -190,36 +190,44 @@ class PlanningPieChart extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 4),
                               child: Row(
                                 children: [
-                                  Container(
-                                    width: 12,
-                                    height: 12,
-                                    color: data['color'],
+                                  // Menggunakan Flexible untuk membuat ruang lebih fleksibel
+                                  Flexible(
+                                    flex:
+                                        0, // Tidak perlu mengambil lebih banyak ruang
+                                    child: Container(
+                                      width: 12,
+                                      height: 12,
+                                      color: data['color'],
+                                    ),
                                   ),
                                   horizontalSpace(8),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${data['label']},',
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: GoogleFonts.plusJakartaSans(
-                                          textStyle: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
+                                  // Membatasi ukuran teks agar tidak overflow
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${data['label']},',
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2, // Maksimum dua baris
+                                          style: GoogleFonts.plusJakartaSans(
+                                            textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Text(
-                                        formatRupiah(data['value']),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF636363),
+                                        Text(
+                                          formatRupiah(data['value']),
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF636363),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

@@ -77,17 +77,17 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                           return ListView.builder(
                             itemCount: controller.incomeTransactions.length,
                             shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                            primary: false,
                             itemBuilder: (context, index) {
                               var data = controller.incomeTransactions[index];
                               return GestureDetector(
                                 onTap: () =>
                                     Get.to(() => HumicTransactionDetails(
                                           transactionId: '${data.id}',
-                                          eventName: data.activityName,
-                                          date: formatDate(data.date),
+                                          eventName: '${data.activityName}',
+                                          date: formatDate(data.createdAt),
                                           type: formatRupiah(data.amount),
-                                          tax: formatRupiah(data.taxAmount),
+                                          tax: '${data.taxAmount}',
                                           transactionTypeName:
                                               data.transactionType ==
                                                           'income' ||
@@ -95,16 +95,16 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                           "Income"
                                                   ? "Pemasukan"
                                                   : "Pengeluaran",
-                                          status: data.status,
+                                          status: '${data.status}',
                                           documentEvidence:
-                                              data.documentEvidence ?? 'empty',
+                                              data.documentEvidence,
                                           imageEvidence: data.imageEvidence,
                                         )),
                                 child: Column(
                                   children: [
                                     Container(
                                       width: double.infinity,
-                                      height: 105,
+                                      height: 120,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           color:
@@ -113,20 +113,19 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 24, vertical: 20),
+                                          horizontal: 16, vertical: 12),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          // Income/Expense Icon
+                                          // Income or Expenses
                                           Container(
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                verticalSpace(12),
                                                 Image(
                                                   image: AssetImage(
                                                     data.transactionType ==
@@ -138,28 +137,41 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                         : HumicImages
                                                             .humicExpensesSelectedIcon,
                                                   ),
-                                                  color: data.transactionType ==
+                                                  color: (data.transactionType ==
                                                               'income' ||
                                                           data.transactionType ==
-                                                              'Income'
+                                                              'Income')
                                                       ? HumiColors
                                                           .humicSecondaryColor
-                                                      : HumiColors
-                                                          .humicPrimaryColor,
-                                                  width: 32,
+                                                      : (data.transactionType ==
+                                                                  'expense' ||
+                                                              data.transactionType ==
+                                                                  'Expense')
+                                                          ? HumiColors
+                                                              .humicPrimaryColor
+                                                          : HumiColors
+                                                              .humicThirdSecondaryColor,
+                                                  width: 30,
                                                 ),
                                                 Text(
-                                                  data.transactionType,
+                                                  data.transactionType
+                                                              ?.toLowerCase() ==
+                                                          'income'
+                                                      ? 'Income'
+                                                      : data.transactionType
+                                                                  ?.toLowerCase() ==
+                                                              'expense'
+                                                          ? 'Expense'
+                                                          : '',
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: TextStyle(
-                                                      fontSize: 12.5,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: data.transactionType ==
-                                                                  'income' ||
-                                                              data.transactionType ==
-                                                                  'Income'
+                                                      color: data.transactionType
+                                                                  ?.toLowerCase() ==
+                                                              'income'
                                                           ? HumiColors
                                                               .humicSecondaryColor
                                                           : HumiColors
@@ -170,17 +182,18 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                               ],
                                             ),
                                           ),
-                                          horizontalSpace(40),
 
-                                          // Date, Activity Name, Amount
+                                          // Date, Activity name, Amount
                                           Container(
-                                            width: 150,
+                                            width: 140,
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  formatDate(data.date),
+                                                  formatDate(data.createdAt),
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: const TextStyle(
@@ -193,7 +206,8 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  data.activityName,
+                                                  "${data.activityName}",
+                                                  maxLines: 2,
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: const TextStyle(
@@ -206,7 +220,8 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  formatRupiah(data.amount),
+                                                  formatRupiah(
+                                                      data.amount ?? 0),
                                                   style: GoogleFonts
                                                       .plusJakartaSans(
                                                     textStyle: const TextStyle(
@@ -217,52 +232,65 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                                           .humicTransparencyColor,
                                                     ),
                                                   ),
-                                                ),
+                                                )
                                               ],
                                             ),
                                           ),
-                                          horizontalSpace(20),
 
                                           // Transaction Status
                                           Container(
-                                            width: 71,
-                                            height: 23.67,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(3.16),
-                                              color: data.status == 'approve'
-                                                  ? HumiColors
-                                                      .humicSecondaryColor
-                                                      .withOpacity(0.12)
-                                                  : data.status == 'pending'
-                                                      ? HumiColors
-                                                          .humicThirdSecondaryColor
-                                                          .withOpacity(0.12)
-                                                      : HumiColors
-                                                          .humicPrimaryColor
-                                                          .withOpacity(0.12),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                data.status,
-                                                style:
-                                                    GoogleFonts.plusJakartaSans(
-                                                  textStyle: TextStyle(
-                                                    fontSize: 11,
-                                                    fontWeight: FontWeight.w600,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 71,
+                                                  height: 23.67,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            3.16),
                                                     color: data.status ==
                                                             'approve'
                                                         ? HumiColors
                                                             .humicSecondaryColor
+                                                            .withOpacity(0.12)
                                                         : data.status ==
                                                                 'pending'
                                                             ? HumiColors
                                                                 .humicThirdSecondaryColor
+                                                                .withOpacity(
+                                                                    0.12)
                                                             : HumiColors
-                                                                .humicPrimaryColor,
+                                                                .humicPrimaryColor
+                                                                .withOpacity(
+                                                                    0.12),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      data.status,
+                                                      style: GoogleFonts
+                                                          .plusJakartaSans(
+                                                        textStyle: TextStyle(
+                                                          fontSize: 11,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: data.status ==
+                                                                  'approve'
+                                                              ? HumiColors
+                                                                  .humicSecondaryColor
+                                                              : data.status ==
+                                                                      'pending'
+                                                                  ? HumiColors
+                                                                      .humicThirdSecondaryColor
+                                                                  : HumiColors
+                                                                      .humicPrimaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -281,16 +309,13 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // Tombol "Previous"
                           IconButton(
                             onPressed: controller.currentPage.value > 1
                                 ? () {
-                                    controller.currentPage
-                                        .value--; // Kurangi halaman saat ini
-                                    controller
-                                        .getUserIncomeData(); // Panggil data untuk halaman baru
+                                    controller.currentPage.value--;
+                                    controller.getUserIncomeData();
                                   }
-                                : null, // Nonaktifkan tombol jika halaman saat ini adalah 1
+                                : null,
                             icon: const Icon(
                               FluentIcons.chevron_left_24_regular,
                               color: HumiColors.humicBlackColor,

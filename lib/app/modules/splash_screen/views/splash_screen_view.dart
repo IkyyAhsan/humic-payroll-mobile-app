@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -11,9 +12,16 @@ class SplashScreenView extends GetView<SplashScreenController> {
   const SplashScreenView({super.key});
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
     return GetBuilder<SplashScreenController>(initState: (_) {
       Timer(const Duration(seconds: 3), () {
-        Get.offAllNamed(Routes.LOGIN_SCREEN);
+        bool isLoggedIn = box.read('isLoggedIn') ?? false;
+
+        if (isLoggedIn) {
+          Get.offAllNamed(Routes.BOTTOM_NAVIGATION_BAR);
+        } else {
+          Get.offAllNamed(Routes.LOGIN_SCREEN);
+        }
       });
     }, builder: (context) {
       return Scaffold(

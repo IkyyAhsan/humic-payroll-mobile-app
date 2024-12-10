@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/login_screen/controllers/login_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/modules/login_screen/views/login_screen_view.dart';
@@ -618,6 +619,7 @@ void changePasswordSuccessfull() {
 }
 
 void logoutConfirmation() {
+  final box = GetStorage();
   print("Logout confirmation dialog should appear");
   Get.defaultDialog(
     title: '',
@@ -677,6 +679,7 @@ void logoutConfirmation() {
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
+                    box.remove('isLoggedIn');
                     Get.offAll(const LoginScreenView());
                     Get.snackbar(
                       "Logout Successful",

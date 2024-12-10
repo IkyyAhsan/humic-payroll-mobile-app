@@ -58,7 +58,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                         transactionId: '${data.id}',
                         eventName: '${data.activityName}',
                         date: formatDate(data.createdAt),
-                        type: formatRupiah(data.amount!),
+                        type: formatRupiah(data.amount ?? 0),
                         tax: '${data.taxAmount}',
                         transactionTypeName: data.transactionType == 'income' ||
                                 data.transactionType == "Income"
@@ -72,7 +72,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 100,
+                        height: 120,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: HumiColors.humicTransparencyColor,
@@ -80,7 +80,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 20),
+                            horizontal: 16, vertical: 12),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,13 +107,19 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                             ? HumiColors.humicPrimaryColor
                                             : HumiColors
                                                 .humicThirdSecondaryColor,
-                                    width: 32,
+                                    width: 30,
                                   ),
                                   Text(
-                                    "${data.transactionType}",
+                                    data.transactionType?.toLowerCase() ==
+                                            'income'
+                                        ? 'Income'
+                                        : data.transactionType?.toLowerCase() ==
+                                                'expense'
+                                            ? 'Expense'
+                                            : '',
                                     style: GoogleFonts.plusJakartaSans(
                                       textStyle: TextStyle(
-                                        fontSize: 12.5,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                         color: data.transactionType
                                                     ?.toLowerCase() ==
@@ -129,7 +135,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
 
                             // Date, Activity name, Amount
                             Container(
-                              width: 150,
+                              width: 140,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -192,7 +198,7 @@ class _HumicTransactionDataState extends State<HumicTransactionData> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "${data.status}",
+                                        data.status ?? '',
                                         style: GoogleFonts.plusJakartaSans(
                                           textStyle: TextStyle(
                                             fontSize: 11,

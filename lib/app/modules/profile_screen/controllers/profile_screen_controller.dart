@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/update_password_input.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/update_profile_input.dart';
@@ -33,6 +34,7 @@ class ProfileScreenController extends GetxController {
   bool isLoading = true;
   XFile? image;
   Rxn<XFile> selectedImage = Rxn<XFile>();
+
   void updateProf() async {
     isLoading = true;
     update();

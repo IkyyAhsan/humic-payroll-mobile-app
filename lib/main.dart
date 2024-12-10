@@ -7,11 +7,12 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() async {
   await GetStorage.init();
   await initializeDateFormatting('id_ID', null);
+
   runApp(
     GetMaterialApp(
       title: "HUMIC Payroll Mobile App",
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: Routes.SPLASH_SCREEN,
       getPages: AppPages.routes,
     ),
   );

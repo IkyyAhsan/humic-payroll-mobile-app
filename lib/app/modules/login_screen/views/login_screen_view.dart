@@ -12,10 +12,9 @@ import 'widgets/signup_button.dart';
 
 class LoginScreenView extends GetView<LoginScreenController> {
   const LoginScreenView({super.key});
-
   @override
   Widget build(BuildContext context) {
-    Get.put(LoginScreenController()); // Memastikan controller sudah dipanggil
+    Get.put(LoginScreenController());
     return Scaffold(
       backgroundColor: HumiColors.humicBackgroundColor,
       body: SafeArea(
@@ -34,10 +33,12 @@ class LoginScreenView extends GetView<LoginScreenController> {
                   verticalSpace(40),
                   Obx(() {
                     if (controller.isLoading.value) {
+                      // Menampilkan CircularProgressIndicator ketika loading
                       return const CircularProgressIndicator(
                         color: HumiColors.humicPrimaryColor,
                       );
                     } else {
+                      // Menampilkan tombol login saat tidak loading
                       return HumicButton(
                         onPressed: () {
                           if (controller.loginFormKey.currentState
@@ -50,6 +51,10 @@ class LoginScreenView extends GetView<LoginScreenController> {
                       );
                     }
                   }),
+                  // HumicButton(
+                  //   onPressed: controller.login,
+                  //   buttonTitle: HumicTexts.humicLoginButton,
+                  // ),
                   verticalSpace(50),
                   const HumicSignupButton(),
                 ],
