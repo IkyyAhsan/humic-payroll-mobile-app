@@ -12,267 +12,287 @@ import 'package:humic_payroll_mobile_app/app/utils/constants/year_format.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
 
-class HumicPlanningData extends StatelessWidget {
+class HumicPlanningData extends StatefulWidget {
   const HumicPlanningData({super.key});
+
+  @override
+  State<HumicPlanningData> createState() => _HumicPlanningDataState();
+}
+
+class _HumicPlanningDataState extends State<HumicPlanningData> {
+  int currentPage = 0;
+  final int itemsPerPage = 10;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<PlanningScreenController>();
-    return Column(
-      children: [
-        ListView.builder(
-          itemCount: controller.pageData.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            final data = controller.pageData[index];
-            return GestureDetector(
-              onTap: () => Get.to(
-                () => const PlanningDetailScreenView(),
-                arguments: {
-                  "id": data.id,
-                },
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 95,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: HumiColors.humicWhiteColor,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 16,
-                        offset: const Offset(0, 4),
-                        color: HumiColors.humicBlackColor.withOpacity(0.07),
-                      )
-                    ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 55,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                      color: (data.status == 'approve' ||
-                                              data.status == 'Approve')
-                                          ? HumiColors.humicSecondaryColor
-                                              .withOpacity(0.12)
-                                          : (data.status == 'decline' ||
-                                                  data.status == 'Decline')
-                                              ? HumiColors.humicPrimaryColor
-                                                  .withOpacity(0.12)
-                                              : HumiColors
-                                                  .humicThirdSecondaryColor
-                                                  .withOpacity(0.12),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  child: Center(
-                                    child: Text(
-                                      data.status,
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.w600,
-                                            color: (data.status == 'approve' ||
-                                                    data.status == 'Approve')
-                                                ? HumiColors.humicSecondaryColor
-                                                : (data.status == 'decline' ||
-                                                        data.status ==
-                                                            'Decline')
-                                                    ? HumiColors
-                                                        .humicPrimaryColor
-                                                    : HumiColors
-                                                        .humicThirdSecondaryColor),
+    return GetBuilder<PlanningScreenController>(builder: (_) {
+      return Column(
+        children: [
+          ListView.builder(
+            itemCount: controller.pageData.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final data = controller.pageData[index];
+              return GestureDetector(
+                onTap: () => Get.to(
+                  () => const PlanningDetailScreenView(),
+                  arguments: {
+                    "id": data.id,
+                  },
+                ),
+                child: Container(
+                  width: double.infinity,
+                  height: 95,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: HumiColors.humicWhiteColor,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
+                          color: HumiColors.humicBlackColor.withOpacity(0.07),
+                        )
+                      ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 55,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                        color: (data.status == 'approve' ||
+                                                data.status == 'Approve')
+                                            ? HumiColors.humicSecondaryColor
+                                                .withOpacity(0.12)
+                                            : (data.status == 'decline' ||
+                                                    data.status == 'Decline')
+                                                ? HumiColors.humicPrimaryColor
+                                                    .withOpacity(0.12)
+                                                : HumiColors
+                                                    .humicThirdSecondaryColor
+                                                    .withOpacity(0.12),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: Center(
+                                      child: Text(
+                                        data.status,
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w600,
+                                              color: (data.status ==
+                                                          'approve' ||
+                                                      data.status == 'Approve')
+                                                  ? HumiColors
+                                                      .humicSecondaryColor
+                                                  : (data.status == 'decline' ||
+                                                          data.status ==
+                                                              'Decline')
+                                                      ? HumiColors
+                                                          .humicPrimaryColor
+                                                      : HumiColors
+                                                          .humicThirdSecondaryColor),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                horizontalSpace(4),
-                                Container(
-                                  width: 45,
-                                  height: 15,
-                                  decoration: BoxDecoration(
-                                    color: HumiColors.humicBlackColor
-                                        .withOpacity(0.05),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '${data.itemCount} Items',
-                                      style: GoogleFonts.plusJakartaSans(
-                                          textStyle: const TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w600,
-                                              color: HumiColors
-                                                  .humicTransparencyColor)),
+                                  horizontalSpace(4),
+                                  Container(
+                                    width: 45,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                      color: HumiColors.humicBlackColor
+                                          .withOpacity(0.05),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '${data.itemCount} Items',
+                                        style: GoogleFonts.plusJakartaSans(
+                                            textStyle: const TextStyle(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w600,
+                                                color: HumiColors
+                                                    .humicTransparencyColor)),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                horizontalSpace(4),
-                                Container(
-                                  width: 45,
-                                  height: 15,
-                                  decoration: BoxDecoration(
-                                    color: HumiColors.humicYearColor
-                                        .withOpacity(0.10),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      formatYear(data.createdAt),
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: const TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w600,
-                                          color: HumiColors.humicYearColor,
+                                  horizontalSpace(4),
+                                  Container(
+                                    width: 45,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                      color: HumiColors.humicYearColor
+                                          .withOpacity(0.10),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        formatYear(data.createdAt),
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: const TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w600,
+                                            color: HumiColors.humicYearColor,
+                                          ),
                                         ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                data.title,
+                                style: GoogleFonts.plusJakartaSans(
+                                    textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: HumiColors.humicBlackColor)),
+                              ),
+                              Text(
+                                "Total Netto: ${formatRupiah(int.tryParse(data.itemSumNettoAmount ?? '0') ?? 0)}",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: HumiColors.humicPrimaryColor,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _dateBox("Start", data.startDate),
+                              horizontalSpace(5),
+                              _dateBox("End", data.endDate),
+                              if (data.status == "pending") ...[
+                                horizontalSpace(12),
+                                GestureDetector(
+                                  onTap: () {
+                                    print(
+                                        "Sending ID: ${data.id} to next screen");
+
+                                    Get.to(
+                                        () => PlanningAddNextScreen(
+                                              id: data.id,
+                                            ),
+                                        arguments: {"id": data.id});
+                                  },
+                                  child: Container(
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: HumiColors.humicPrimaryColor,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Transform.scale(
+                                      scale: 0.8,
+                                      child: const Iconify(
+                                        Bx.edit,
+                                        color: HumiColors.humicWhiteColor,
+                                        size: 24,
                                       ),
                                     ),
                                   ),
                                 ),
                               ],
-                            ),
-                            Text(
-                              data.title,
-                              style: GoogleFonts.plusJakartaSans(
-                                  textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: HumiColors.humicBlackColor)),
-                            ),
-                            Text(
-                              "Total Netto: ${formatRupiah(int.tryParse(data.itemSumNettoAmount ?? '0') ?? 0)}",
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  color: HumiColors.humicPrimaryColor,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _dateBox("Start", data.startDate),
-                            horizontalSpace(5),
-                            _dateBox("End", data.endDate),
-                            if (data.status == "pending") ...[
-                              horizontalSpace(12),
-                              GestureDetector(
-                                onTap: () {
-                                  print(
-                                      "Sending ID: ${data.id} to next screen");
-
-                                  Get.to(
-                                      () => PlanningAddNextScreen(
-                                            id: data.id,
-                                          ),
-                                      arguments: {"id": data.id});
-                                },
-                                child: Container(
-                                  width: 24,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                    color: HumiColors.humicPrimaryColor,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Transform.scale(
-                                    scale: 0.8,
-                                    child: const Iconify(
-                                      Bx.edit,
-                                      color: HumiColors.humicWhiteColor,
-                                      size: 24,
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ],
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+
+          // Pagination Controls
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: currentPage > 0
+                    ? () {
+                        setState(() {
+                          currentPage--;
+                        });
+                      }
+                    : null,
+                icon: const Icon(
+                  FluentIcons.chevron_left_24_regular,
+                  color: HumiColors
+                      .humicBlackColor, // Warna ikon chevron menjadi hitam
                 ),
               ),
-            );
-          },
-        ),
-
-        // Pagination Controls
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              onPressed: controller.currentPage.value > 1
-                  ? () {
-                      controller.decrementPagination();
-                    }
-                  : null,
-              icon: const Icon(
-                FluentIcons.chevron_left_24_regular,
-                color: HumiColors.humicBlackColor,
-              ),
-            ),
-            for (int i = 1; i <= controller.totalPages.value; i++)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.getPlanningData(
-                        index: i); // Pindah ke halaman tertentu
-                    controller.currentPage.value = i; // Atur currentPage
-                  },
-                  child: controller.currentPage.value == i
-                      ? CircleAvatar(
-                          radius: 12,
-                          backgroundColor: HumiColors.humicPrimaryColor,
-                          child: Text(
-                            '$i',
+              for (int i = 0;
+                  i < (controller.pageData.length / itemsPerPage).ceil();
+                  i++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentPage = i;
+                      });
+                    },
+                    child: currentPage == i
+                        ? CircleAvatar(
+                            radius: 12,
+                            backgroundColor: HumiColors.humicPrimaryColor,
+                            child: Text(
+                              '${i + 1}',
+                              style: const TextStyle(
+                                color: HumiColors.humicWhiteColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            '${i + 1}',
                             style: const TextStyle(
-                              color: HumiColors.humicWhiteColor,
+                              color: HumiColors.humicBlackColor,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        )
-                      : Text(
-                          '$i',
-                          style: const TextStyle(
-                            color: HumiColors.humicBlackColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                  ),
+                ),
+              IconButton(
+                onPressed: (currentPage + 1) * itemsPerPage <
+                        controller.pageData.length
+                    ? () {
+                        setState(() {
+                          currentPage++;
+                        });
+                      }
+                    : null,
+                icon: const Icon(
+                  FluentIcons.chevron_right_24_regular,
+                  color: HumiColors.humicBlackColor,
                 ),
               ),
-            IconButton(
-              onPressed:
-                  controller.currentPage.value < controller.totalPages.value
-                      ? () {
-                          controller.addPagination();
-                        }
-                      : null,
-              icon: const Icon(
-                FluentIcons.chevron_right_24_regular,
-                color: HumiColors.humicBlackColor,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+        ],
+      );
+    });
   }
 }
 

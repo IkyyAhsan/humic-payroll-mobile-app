@@ -1,11 +1,11 @@
 import 'dart:io';
 
 class UpdateProfileInput {
-  String name;
+  String? name;
   File? image;
 
   UpdateProfileInput({
-    required this.name,
-     this.image,
+    this.name,
+    this.image,
   });
 }

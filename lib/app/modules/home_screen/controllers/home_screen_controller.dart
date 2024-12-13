@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/dashboard.dart';
 import 'package:humic_payroll_mobile_app/app/data/models/input/profile.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/controllers/bottom_navigation_bar_controller.dart';
+import 'package:humic_payroll_mobile_app/app/modules/bottom_navigation_bar/views/bottom_navigation_bar_view.dart';
 import 'package:humic_payroll_mobile_app/app/services/dashboard_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/finance_services.dart';
 import 'package:humic_payroll_mobile_app/app/services/profile_services.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 
 class HomeScreenController extends GetxController {
   var dashboardData = Dashboard().obs;
@@ -22,11 +25,23 @@ class HomeScreenController extends GetxController {
 
   void deleteTransaction({int? id}) async {
     print(id);
+    isLoading.value = true;
     final data = await FinanceServices().deleteFinance(id: id);
     if (data) {
       Get.back();
       update();
       getDashboardData();
+      isLoading.value = false;
+      Get.to(BottomNavigationBarView());
+      final navbarcontroller = Get.put(BottomNavigationBarController());
+      navbarcontroller.selectedIndex(3);
+      Get.snackbar(
+        "Success",
+        "Transaction has been deleted successfully.",
+        backgroundColor: HumiColors.humicSecondaryColor,
+        colorText: HumiColors.humicWhiteColor,
+        snackPosition: SnackPosition.TOP,
+      );
       isLoading.value = false;
     }
   }

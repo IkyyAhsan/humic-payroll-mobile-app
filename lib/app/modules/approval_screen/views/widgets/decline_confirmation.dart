@@ -83,6 +83,7 @@ void declineConfirmation({int? id, Function()? onConfirm}) {
                         print("ID to be deleted: $id");
                         controller.isLoading = true;
                         controller.deletedFinance(id ?? 0);
+                        controller.updateFinance(id ?? 0);
                         Get.back();
                         print("Planning $id has been deleted");
                         Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);

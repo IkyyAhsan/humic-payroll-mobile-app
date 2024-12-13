@@ -29,21 +29,20 @@ class PlanningAddNextScreen extends StatelessWidget {
     var id = Get.arguments['id'];
     final planningDetailController = Get.put(PlanningDetailScreenController());
 
-    int totalBruto = 0;
-    int totalTax = 0;
-    int totalNetto = 0;
-
-    if (planningDetailController.planningDetailData?.data?.item != null) {
-      for (var data
-          in planningDetailController.planningDetailData!.data!.item!) {
-        totalBruto += int.tryParse(data.brutoAmount?.toString() ?? '0') ?? 0;
-        totalTax += int.tryParse(data.taxAmount?.toString() ?? '0') ?? 0;
-        totalNetto += int.tryParse(data.nettoAmount?.toString() ?? '0') ?? 0;
-      }
-    }
-
     final controller = Get.put(PlanningAddScreenController());
     return GetBuilder<PlanningDetailScreenController>(builder: (_) {
+      int totalBruto = 0;
+      int totalTax = 0;
+      int totalNetto = 0;
+
+      if (planningDetailController.planningDetailData?.data?.item != null) {
+        for (var data
+            in planningDetailController.planningDetailData!.data!.item!) {
+          totalBruto += int.parse(data.brutoAmount.toString());
+          totalTax += int.parse(data.taxAmount.toString());
+          totalNetto += int.parse(data.nettoAmount.toString());
+        }
+      }
       return Scaffold(
         backgroundColor: HumiColors.humicBackgroundColor,
         body: SafeArea(
@@ -511,7 +510,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: Text(
-                                        formatRupiah(totalBruto),
+                                        '${controller.planningDetailData?.data?.itemSumBrutoAmount ?? formatRupiah(totalBruto)}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: HumiColors.humicPrimaryColor,
@@ -521,7 +520,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: Text(
-                                        formatRupiah(totalTax),
+                                        '${controller.planningDetailData?.data?.itemSumTaxAmount ?? formatRupiah(totalTax)}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: HumiColors.humicPrimaryColor,
@@ -531,7 +530,7 @@ class PlanningAddNextScreen extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: Text(
-                                        formatRupiah(totalNetto),
+                                        '${controller.planningDetailData?.data?.itemSumNettoAmount ?? formatRupiah(totalNetto)}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: HumiColors.humicPrimaryColor,
@@ -620,7 +619,9 @@ class PlanningAddNextScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: HumiColors.humicPrimaryColor,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 10),
+                                  horizontal: 30,
+                                  vertical: 10,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 )),

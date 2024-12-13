@@ -442,7 +442,7 @@ class RealizationEditItemScreenView
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.addItem;
+                        controller.addItem();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: HumiColors.humicPrimaryColor,

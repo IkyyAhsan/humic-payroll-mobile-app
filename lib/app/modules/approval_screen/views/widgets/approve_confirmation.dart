@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/approval_screen/controllers/approval_screen_controller.dart';
+import 'package:humic_payroll_mobile_app/app/modules/planning_screen/controllers/planning_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/routes/app_pages.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
@@ -86,6 +87,9 @@ void approveConfirmation({int? id, Function()? onConfirm}) {
                           backgroundColor: HumiColors.humicSecondaryColor,
                           snackPosition: SnackPosition.TOP,
                         );
+                        final planningController =
+                            Get.put(PlanningScreenController());
+                        planningController.getPlanningData();
                       },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,

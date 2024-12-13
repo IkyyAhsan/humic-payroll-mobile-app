@@ -97,6 +97,7 @@ class HumicApproveTransactionScreen extends StatelessWidget {
                       onConfirm: () async {
                         var controller = Get.put(ApprovalScreenController());
                         controller.deleteTransaction(data?.id ?? 0);
+                        controller.updateTransaction(data?.id ?? 0);
                         Get.back();
                         Get.toNamed(Routes.BOTTOM_NAVIGATION_BAR);
                         final navbarController =

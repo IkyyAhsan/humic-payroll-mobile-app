@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/home_screen/controllers/home_screen_controller.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/launch_url.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/short_file_name.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
+import 'package:lottie/lottie.dart';
 import 'package:open_filex/open_filex.dart';
 
 class HumicTransactionDetails extends StatelessWidget {
@@ -328,15 +330,106 @@ class HumicTransactionDetails extends StatelessWidget {
                         width: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            controller.deleteTransaction(
-                              id: int.parse(transactionId),
-                            );
-                            Get.snackbar(
-                              "Success",
-                              "Transaction has been deleted successfully.",
-                              backgroundColor: HumiColors.humicSecondaryColor,
-                              colorText: HumiColors.humicWhiteColor,
-                              snackPosition: SnackPosition.TOP,
+                            Get.defaultDialog(
+                              title: '',
+                              content: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 24),
+                                width: 329,
+                                height: 419,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  color: HumiColors.humicWhiteColor,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Lottie.asset(
+                                        HumicImages.humicDeclineAnimation,
+                                        width: 280,
+                                        height: 280),
+                                    Text(
+                                      'Are you sure you want to delete this transaction?',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: HumiColors.humicBlackColor,
+                                      ),
+                                    ),
+                                    verticalSpace(40),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 100,
+                                          height: 46,
+                                          child: ElevatedButton(
+                                            onPressed: () => Get.back(),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: HumiColors
+                                                    .humicPrimaryColor,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10,
+                                                        vertical: 10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                )),
+                                            child: Text(
+                                              'Back',
+                                              style: GoogleFonts.plusJakartaSans(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: HumiColors
+                                                          .humicWhiteColor)),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 100,
+                                          height: 46,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              controller.deleteTransaction(
+                                                id: int.parse(transactionId),
+                                              );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: HumiColors
+                                                    .humicPrimaryColor,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10,
+                                                        vertical: 10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                )),
+                                            child: Text(
+                                              'Delete',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                textStyle: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: HumiColors
+                                                      .humicWhiteColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              barrierDismissible: false,
                             );
                           },
                           style: ElevatedButton.styleFrom(

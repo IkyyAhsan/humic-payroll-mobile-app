@@ -375,7 +375,7 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                         Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Text(
-                                            formatRupiah(totalBruto),
+                                            '${formatRupiah(totalBruto)}',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color:
@@ -386,7 +386,7 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                         Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Text(
-                                            formatRupiah(totalTax),
+                                            '${formatRupiah(totalTax)}',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color:
@@ -397,7 +397,7 @@ class PlanningDetailScreenView extends GetView<PlanningDetailScreenController> {
                                         Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Text(
-                                            formatRupiah(totalNetto),
+                                            '${formatRupiah(totalNetto)}',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color:

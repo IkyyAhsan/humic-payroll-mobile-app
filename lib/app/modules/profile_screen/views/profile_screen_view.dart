@@ -489,6 +489,7 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                           ),
                                           onPressed: () {
                                             controller.updateProf();
+                                            print(controller.nameController);
                                           },
                                           child: Text(
                                             'Confirm',
@@ -650,9 +651,10 @@ void logoutConfirmation() {
           verticalSpace(20),
           const SizedBox(height: 20),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                width: 140,
+                width: 110,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () => Get.back(),
@@ -675,7 +677,7 @@ void logoutConfirmation() {
               ),
               horizontalSpace(6),
               SizedBox(
-                width: 140,
+                width: 110,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
@@ -691,7 +693,7 @@ void logoutConfirmation() {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: HumiColors.humicPrimaryColor,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
+                          horizontal: 16, vertical: 10),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )),
