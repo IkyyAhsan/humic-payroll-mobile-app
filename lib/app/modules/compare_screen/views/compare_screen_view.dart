@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:humic_payroll_mobile_app/app/modules/compare_details_screen/views/compare_details_screen_view.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/colors.dart';
+import 'package:humic_payroll_mobile_app/app/utils/constants/image_strings.dart';
 import 'package:humic_payroll_mobile_app/app/utils/constants/spaces.dart';
+import 'package:lottie/lottie.dart';
 import '../controllers/compare_screen_controller.dart';
 
 class CompareScreenView extends GetView<CompareScreenController> {
@@ -55,125 +57,142 @@ class CompareScreenView extends GetView<CompareScreenController> {
                             ],
                           ),
                           verticalSpace(20),
+                          if (controller.compare?.data?.data == null ||
+                              controller.compare!.data!.data!.isEmpty)
+                            Center(
+                              child: Column(
+                                children: [
+                                  verticalSpace(150),
+                                  Lottie.asset(
+                                    HumicImages.humicDataNotFound,
+                                    height: 170,
+                                  ),
+                                ],
+                              ),
+                            )
+                          else
 
-                          // First List
-                          ...?controller.compare?.data?.data
-                              ?.map(
-                                (e) => GestureDetector(
-                                  onTap: () => Get.to(
-                                      () => const CompareDetailsScreenView(),
-                                      arguments: {
-                                        "id": e.id,
-                                      }),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        height: 120,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: HumiColors
-                                                .humicTransparencyColor,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 16, horizontal: 16),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Icon(
-                                                  FluentIcons
-                                                      .branch_compare_24_filled,
-                                                  color: HumiColors
-                                                      .humicCompareColor,
-                                                  size: 36,
-                                                ),
-                                                Text(
-                                                  "Compare",
-                                                  style: GoogleFonts
-                                                      .plusJakartaSans(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 12.5,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: HumiColors
-                                                          .humicCompareColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                            // First List
+                            ...?controller.compare?.data?.data
+                                ?.map(
+                                  (e) => GestureDetector(
+                                    onTap: () => Get.to(
+                                        () => const CompareDetailsScreenView(),
+                                        arguments: {
+                                          "id": e.id,
+                                        }),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 120,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: HumiColors
+                                                  .humicTransparencyColor,
                                             ),
-                                            horizontalSpace(30),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  "03/10/2024 - 21/11/2024",
-                                                  style: GoogleFonts
-                                                      .plusJakartaSans(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: HumiColors
-                                                          .humicPrimaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16, horizontal: 16),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  const Icon(
+                                                    FluentIcons
+                                                        .branch_compare_24_filled,
+                                                    color: HumiColors
+                                                        .humicCompareColor,
+                                                    size: 36,
+                                                  ),
+                                                  Text(
+                                                    "Compare",
+                                                    style: GoogleFonts
+                                                        .plusJakartaSans(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        fontSize: 12.5,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: HumiColors
+                                                            .humicCompareColor,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: 180,
-                                                  child: Text(
-                                                    "${e.title}",
-                                                    maxLines: 2,
+                                                ],
+                                              ),
+                                              horizontalSpace(30),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "03/10/2024 - 21/11/2024",
+                                                    style: GoogleFonts
+                                                        .plusJakartaSans(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: HumiColors
+                                                            .humicPrimaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 180,
+                                                    child: Text(
+                                                      "${e.title}",
+                                                      maxLines: 2,
+                                                      style: GoogleFonts
+                                                          .plusJakartaSans(
+                                                        textStyle:
+                                                            const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: HumiColors
+                                                              .humicBlackColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "${e.status}",
                                                     style: GoogleFonts
                                                         .plusJakartaSans(
                                                       textStyle:
                                                           const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                            FontWeight.w600,
                                                         color: HumiColors
-                                                            .humicBlackColor,
+                                                            .humicTransparencyColor,
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                Text(
-                                                  "${e.status}",
-                                                  style: GoogleFonts
-                                                      .plusJakartaSans(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: HumiColors
-                                                          .humicTransparencyColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      verticalSpace(12),
-                                    ],
+                                        verticalSpace(12),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                              .toList(),
+                                )
+                                .toList(),
                         ],
                       ),
                     ),

@@ -68,7 +68,7 @@ class IncomeScreenView extends GetView<IncomeScreenController> {
                                 verticalSpace(150),
                                 Lottie.asset(
                                   HumicImages.humicDataNotFound,
-                                  height: 230,
+                                  height: 170,
                                 ),
                               ],
                             ),

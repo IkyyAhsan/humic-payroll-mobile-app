@@ -225,57 +225,6 @@ class ProfileScreenView extends GetView<ProfileScreenController> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Change Name",
-                                            style: GoogleFonts.plusJakartaSans(
-                                              textStyle: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color:
-                                                    HumiColors.humicBlackColor,
-                                              ),
-                                            ),
-                                          ),
-                                          verticalSpace(12),
-                                          TextFormField(
-                                            validator: (value) =>
-                                                HumicValidators
-                                                    .registerNameValidate(
-                                                        value),
-                                            controller:
-                                                controller.nameController,
-                                            decoration: InputDecoration(
-                                              prefixIcon: const Icon(
-                                                  FluentIcons.person_24_filled),
-                                              hintText: "Change Name",
-                                              hintStyle:
-                                                  GoogleFonts.plusJakartaSans(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: HumiColors
-                                                      .humicTransparencyColor,
-                                                ),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              focusedBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: HumiColors
-                                                      .humicBlackColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          verticalSpace(24),
-                                          const Divider(
-                                            color: HumiColors.humicDividerColor,
-                                            thickness: 2,
-                                          ),
-                                          verticalSpace(24),
-                                          Text(
                                             "New Password",
                                             style: GoogleFonts.plusJakartaSans(
                                               textStyle: const TextStyle(

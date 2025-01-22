@@ -79,7 +79,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                       verticalSpace(150),
                                       Lottie.asset(
                                         HumicImages.humicDataNotFound,
-                                        height: 230,
+                                        height: 170,
                                       ),
                                     ],
                                   ),
@@ -105,7 +105,7 @@ class ExpensesScreenView extends GetView<ExpensesScreenController> {
                                           verticalSpace(150),
                                           Lottie.asset(
                                             HumicImages.humicDataNotFound,
-                                            height: 230,
+                                            height: 170,
                                           ),
                                         ],
                                       ),
